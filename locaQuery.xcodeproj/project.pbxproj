@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4DAA494617209864003E31BC /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DAA494517209864003E31BC /* FacebookSDK.framework */; };
+		4DAA494817209870003E31BC /* FBUserSettingsViewResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4DAA494717209870003E31BC /* FBUserSettingsViewResources.bundle */; };
+		4DAA494A1720987B003E31BC /* FacebookSDKResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4DAA49491720987B003E31BC /* FacebookSDKResources.bundle */; };
+		4DAA494C1720991C003E31BC /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DAA494B1720991C003E31BC /* AdSupport.framework */; };
+		4DAA494E17209922003E31BC /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DAA494D17209922003E31BC /* CoreLocation.framework */; };
+		4DAA49501720992E003E31BC /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DAA494F1720992E003E31BC /* Social.framework */; };
+		4DAA49521720996D003E31BC /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DAA49511720996D003E31BC /* libsqlite3.dylib */; };
 		68E129B91720958C00B57815 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 68E129B81720958C00B57815 /* UIKit.framework */; };
 		68E129BB1720958C00B57815 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 68E129BA1720958C00B57815 /* Foundation.framework */; };
 		68E129BD1720958C00B57815 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 68E129BC1720958C00B57815 /* CoreGraphics.framework */; };
@@ -21,6 +28,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4DAA494517209864003E31BC /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
+		4DAA494717209870003E31BC /* FBUserSettingsViewResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = FBUserSettingsViewResources.bundle; sourceTree = "<group>"; };
+		4DAA49491720987B003E31BC /* FacebookSDKResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = FacebookSDKResources.bundle; sourceTree = "<group>"; };
+		4DAA494B1720991C003E31BC /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
+		4DAA494D17209922003E31BC /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		4DAA494F1720992E003E31BC /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
+		4DAA49511720996D003E31BC /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		68E129B51720958C00B57815 /* locaQuery.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = locaQuery.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		68E129B81720958C00B57815 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		68E129BA1720958C00B57815 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -44,9 +58,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4DAA49521720996D003E31BC /* libsqlite3.dylib in Frameworks */,
+				4DAA49501720992E003E31BC /* Social.framework in Frameworks */,
+				4DAA494E17209922003E31BC /* CoreLocation.framework in Frameworks */,
+				4DAA494C1720991C003E31BC /* AdSupport.framework in Frameworks */,
 				68E129B91720958C00B57815 /* UIKit.framework in Frameworks */,
 				68E129BB1720958C00B57815 /* Foundation.framework in Frameworks */,
 				68E129BD1720958C00B57815 /* CoreGraphics.framework in Frameworks */,
+				4DAA494617209864003E31BC /* FacebookSDK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -56,6 +75,10 @@
 		68E129AC1720958C00B57815 = {
 			isa = PBXGroup;
 			children = (
+				4DAA49511720996D003E31BC /* libsqlite3.dylib */,
+				4DAA494F1720992E003E31BC /* Social.framework */,
+				4DAA494D17209922003E31BC /* CoreLocation.framework */,
+				4DAA494B1720991C003E31BC /* AdSupport.framework */,
 				68E129BE1720958C00B57815 /* locaQuery */,
 				68E129B71720958C00B57815 /* Frameworks */,
 				68E129B61720958C00B57815 /* Products */,
@@ -73,6 +96,9 @@
 		68E129B71720958C00B57815 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4DAA49491720987B003E31BC /* FacebookSDKResources.bundle */,
+				4DAA494717209870003E31BC /* FBUserSettingsViewResources.bundle */,
+				4DAA494517209864003E31BC /* FacebookSDK.framework */,
 				68E129B81720958C00B57815 /* UIKit.framework */,
 				68E129BA1720958C00B57815 /* Foundation.framework */,
 				68E129BC1720958C00B57815 /* CoreGraphics.framework */,
@@ -164,6 +190,8 @@
 				68E129CD1720958C00B57815 /* Default@2x.png in Resources */,
 				68E129CF1720958C00B57815 /* Default-568h@2x.png in Resources */,
 				68E129D51720958C00B57815 /* locaQueryViewController.xib in Resources */,
+				4DAA494817209870003E31BC /* FBUserSettingsViewResources.bundle in Resources */,
+				4DAA494A1720987B003E31BC /* FacebookSDKResources.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -261,6 +289,10 @@
 		68E129D91720958C00B57815 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "locaQuery/locaQuery-Prefix.pch";
 				INFOPLIST_FILE = "locaQuery/locaQuery-Info.plist";
@@ -272,6 +304,10 @@
 		68E129DA1720958C00B57815 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "locaQuery/locaQuery-Prefix.pch";
 				INFOPLIST_FILE = "locaQuery/locaQuery-Info.plist";
@@ -299,6 +335,7 @@
 				68E129DA1720958C00B57815 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
