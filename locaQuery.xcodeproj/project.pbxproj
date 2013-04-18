@@ -92,6 +92,7 @@
 		68E129B71720958C00B57815 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4DAA494D17209922003E31BC /* CoreLocation.framework */,
 				4DAA494B1720991C003E31BC /* AdSupport.framework */,
 				4DAA494F1720992E003E31BC /* Social.framework */,
 				4DAA49511720996D003E31BC /* libsqlite3.dylib */,
@@ -114,7 +115,6 @@
 				68E129D11720958C00B57815 /* locaQueryViewController.m */,
 				68E129D31720958C00B57815 /* locaQueryViewController.xib */,
 				68E129BF1720958C00B57815 /* Supporting Files */,
-				4DAA494D17209922003E31BC /* CoreLocation.framework */,
 			);
 			path = locaQuery;
 			sourceTree = "<group>";
