@@ -75,10 +75,6 @@
 		68E129AC1720958C00B57815 = {
 			isa = PBXGroup;
 			children = (
-				4DAA49511720996D003E31BC /* libsqlite3.dylib */,
-				4DAA494F1720992E003E31BC /* Social.framework */,
-				4DAA494D17209922003E31BC /* CoreLocation.framework */,
-				4DAA494B1720991C003E31BC /* AdSupport.framework */,
 				68E129BE1720958C00B57815 /* locaQuery */,
 				68E129B71720958C00B57815 /* Frameworks */,
 				68E129B61720958C00B57815 /* Products */,
@@ -96,6 +92,9 @@
 		68E129B71720958C00B57815 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4DAA494B1720991C003E31BC /* AdSupport.framework */,
+				4DAA494F1720992E003E31BC /* Social.framework */,
+				4DAA49511720996D003E31BC /* libsqlite3.dylib */,
 				4DAA49491720987B003E31BC /* FacebookSDKResources.bundle */,
 				4DAA494717209870003E31BC /* FBUserSettingsViewResources.bundle */,
 				4DAA494517209864003E31BC /* FacebookSDK.framework */,
@@ -115,6 +114,7 @@
 				68E129D11720958C00B57815 /* locaQueryViewController.m */,
 				68E129D31720958C00B57815 /* locaQueryViewController.xib */,
 				68E129BF1720958C00B57815 /* Supporting Files */,
+				4DAA494D17209922003E31BC /* CoreLocation.framework */,
 			);
 			path = locaQuery;
 			sourceTree = "<group>";
