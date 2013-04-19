@@ -11,6 +11,9 @@
 
 @implementation locaQueryViewController
 
+@synthesize userNameLabel = _userNameLabel;
+@synthesize userProfileImage = _userProfileImage;
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
@@ -35,9 +38,9 @@
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     //NSLog(@"viewWillAppear table data size: %d", [Questions count]);
-    //if (FBSession.activeSession.isOpen) {
-    //    [self populateUserDetails];
-    //}
+    if (FBSession.activeSession.isOpen) {
+        [self populateUserDetails];
+    }
 }
 
 - (void)viewDidUnload {
@@ -53,6 +56,22 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+#pragma mark - UI Behavior
+
+// Displays the user's name and profile picture so they are aware of the Facebook
+// identity they are logged in as.
+- (void)populateUserDetails {
+    if (FBSession.activeSession.isOpen) {
+        [[FBRequest requestForMe] startWithCompletionHandler:
+         ^(FBRequestConnection *connection, NSDictionary<FBGraphUser> *user, NSError *error) {
+             if (!error) {
+                 self.userNameLabel.text = user.name;
+                 self.userProfileImage.profileID = [user objectForKey:@"id"];
+             }
+         }];
+    }
 }
 
 #pragma mark - FBUserSettingsDelegate methods

@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import <FacebookSDK/FacebookSDK.h>
 @interface locaQueryViewController : UIViewController<UINavigationControllerDelegate>
+@property (weak, nonatomic) IBOutlet FBProfilePictureView *userProfileImage;
+@property (weak, nonatomic) IBOutlet UILabel *userNameLabel;
 
 @end
