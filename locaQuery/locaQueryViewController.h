@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface locaQueryViewController : UIViewController
+@interface locaQueryViewController : UIViewController<UINavigationControllerDelegate>
 
 @end

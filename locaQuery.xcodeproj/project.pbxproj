@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4D905B131721F10E00F8322B /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D905B111721F10E00F8322B /* LoginViewController.m */; };
+		4D905B141721F10E00F8322B /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4D905B121721F10E00F8322B /* LoginViewController.xib */; };
 		4DAA494617209864003E31BC /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DAA494517209864003E31BC /* FacebookSDK.framework */; };
 		4DAA494817209870003E31BC /* FBUserSettingsViewResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4DAA494717209870003E31BC /* FBUserSettingsViewResources.bundle */; };
 		4DAA494A1720987B003E31BC /* FacebookSDKResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4DAA49491720987B003E31BC /* FacebookSDKResources.bundle */; };
@@ -14,6 +16,12 @@
 		4DAA494E17209922003E31BC /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DAA494D17209922003E31BC /* CoreLocation.framework */; };
 		4DAA49501720992E003E31BC /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DAA494F1720992E003E31BC /* Social.framework */; };
 		4DAA49521720996D003E31BC /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DAA49511720996D003E31BC /* libsqlite3.dylib */; };
+		4DAA495C17209DBE003E31BC /* icon-114.png in Resources */ = {isa = PBXBuildFile; fileRef = 4DAA495917209DBE003E31BC /* icon-114.png */; };
+		4DAA495D17209DBE003E31BC /* icon-57.png in Resources */ = {isa = PBXBuildFile; fileRef = 4DAA495A17209DBE003E31BC /* icon-57.png */; };
+		4DAA495E17209DBE003E31BC /* icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = 4DAA495B17209DBE003E31BC /* icon-72.png */; };
+		4DAA496017209E0D003E31BC /* icon-57.png in Resources */ = {isa = PBXBuildFile; fileRef = 4DAA495F17209E0D003E31BC /* icon-57.png */; };
+		4DAA496217209E11003E31BC /* icon-114.png in Resources */ = {isa = PBXBuildFile; fileRef = 4DAA496117209E11003E31BC /* icon-114.png */; };
+		4DAA49641720A5FB003E31BC /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DAA49631720A5FB003E31BC /* Accounts.framework */; };
 		68E129B91720958C00B57815 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 68E129B81720958C00B57815 /* UIKit.framework */; };
 		68E129BB1720958C00B57815 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 68E129BA1720958C00B57815 /* Foundation.framework */; };
 		68E129BD1720958C00B57815 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 68E129BC1720958C00B57815 /* CoreGraphics.framework */; };
@@ -28,6 +36,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4D905B101721F10E00F8322B /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
+		4D905B111721F10E00F8322B /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
+		4D905B121721F10E00F8322B /* LoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
 		4DAA494517209864003E31BC /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
 		4DAA494717209870003E31BC /* FBUserSettingsViewResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = FBUserSettingsViewResources.bundle; sourceTree = "<group>"; };
 		4DAA49491720987B003E31BC /* FacebookSDKResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = FacebookSDKResources.bundle; sourceTree = "<group>"; };
@@ -35,6 +46,12 @@
 		4DAA494D17209922003E31BC /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		4DAA494F1720992E003E31BC /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		4DAA49511720996D003E31BC /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
+		4DAA495917209DBE003E31BC /* icon-114.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-114.png"; sourceTree = "<group>"; };
+		4DAA495A17209DBE003E31BC /* icon-57.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-57.png"; sourceTree = "<group>"; };
+		4DAA495B17209DBE003E31BC /* icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-72.png"; sourceTree = "<group>"; };
+		4DAA495F17209E0D003E31BC /* icon-57.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-57.png"; sourceTree = "<group>"; };
+		4DAA496117209E11003E31BC /* icon-114.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-114.png"; sourceTree = "<group>"; };
+		4DAA49631720A5FB003E31BC /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
 		68E129B51720958C00B57815 /* locaQuery.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = locaQuery.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		68E129B81720958C00B57815 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		68E129BA1720958C00B57815 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -58,6 +75,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4DAA49641720A5FB003E31BC /* Accounts.framework in Frameworks */,
 				4DAA49521720996D003E31BC /* libsqlite3.dylib in Frameworks */,
 				4DAA49501720992E003E31BC /* Social.framework in Frameworks */,
 				4DAA494E17209922003E31BC /* CoreLocation.framework in Frameworks */,
@@ -72,9 +90,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4DAA495817209DBE003E31BC /* images */ = {
+			isa = PBXGroup;
+			children = (
+				4DAA495917209DBE003E31BC /* icon-114.png */,
+				4DAA495A17209DBE003E31BC /* icon-57.png */,
+				4DAA495B17209DBE003E31BC /* icon-72.png */,
+			);
+			path = images;
+			sourceTree = "<group>";
+		};
 		68E129AC1720958C00B57815 = {
 			isa = PBXGroup;
 			children = (
+				4DAA496117209E11003E31BC /* icon-114.png */,
+				4DAA495F17209E0D003E31BC /* icon-57.png */,
 				68E129BE1720958C00B57815 /* locaQuery */,
 				68E129B71720958C00B57815 /* Frameworks */,
 				68E129B61720958C00B57815 /* Products */,
@@ -92,6 +122,7 @@
 		68E129B71720958C00B57815 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4DAA49631720A5FB003E31BC /* Accounts.framework */,
 				4DAA494D17209922003E31BC /* CoreLocation.framework */,
 				4DAA494B1720991C003E31BC /* AdSupport.framework */,
 				4DAA494F1720992E003E31BC /* Social.framework */,
@@ -109,6 +140,10 @@
 		68E129BE1720958C00B57815 /* locaQuery */ = {
 			isa = PBXGroup;
 			children = (
+				4D905B101721F10E00F8322B /* LoginViewController.h */,
+				4D905B111721F10E00F8322B /* LoginViewController.m */,
+				4D905B121721F10E00F8322B /* LoginViewController.xib */,
+				4DAA495817209DBE003E31BC /* images */,
 				68E129C71720958C00B57815 /* locaQueryAppDelegate.h */,
 				68E129C81720958C00B57815 /* locaQueryAppDelegate.m */,
 				68E129D01720958C00B57815 /* locaQueryViewController.h */,
@@ -192,6 +227,12 @@
 				68E129D51720958C00B57815 /* locaQueryViewController.xib in Resources */,
 				4DAA494817209870003E31BC /* FBUserSettingsViewResources.bundle in Resources */,
 				4DAA494A1720987B003E31BC /* FacebookSDKResources.bundle in Resources */,
+				4DAA495C17209DBE003E31BC /* icon-114.png in Resources */,
+				4DAA495D17209DBE003E31BC /* icon-57.png in Resources */,
+				4DAA495E17209DBE003E31BC /* icon-72.png in Resources */,
+				4DAA496017209E0D003E31BC /* icon-57.png in Resources */,
+				4DAA496217209E11003E31BC /* icon-114.png in Resources */,
+				4D905B141721F10E00F8322B /* LoginViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -205,6 +246,7 @@
 				68E129C51720958C00B57815 /* main.m in Sources */,
 				68E129C91720958C00B57815 /* locaQueryAppDelegate.m in Sources */,
 				68E129D21720958C00B57815 /* locaQueryViewController.m in Sources */,
+				4D905B131721F10E00F8322B /* LoginViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -296,6 +338,14 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "locaQuery/locaQuery-Prefix.pch";
 				INFOPLIST_FILE = "locaQuery/locaQuery-Info.plist";
+				OTHER_LDFLAGS = (
+					"-lsqlite3.0",
+					"-ObjC",
+				);
+				"OTHER_LDFLAGS[arch=*]" = (
+					"-lsqlite3.0",
+					"-ObjC",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -311,6 +361,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "locaQuery/locaQuery-Prefix.pch";
 				INFOPLIST_FILE = "locaQuery/locaQuery-Info.plist";
+				OTHER_LDFLAGS = (
+					"-lsqlite3.0",
+					"-ObjC",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
