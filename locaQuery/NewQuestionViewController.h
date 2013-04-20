@@ -10,8 +10,10 @@
 
 @interface NewQuestionViewController : UIViewController <UITextFieldDelegate>
 
-@property (retain, nonatomic) IBOutlet UITextField *questionText;
-@property (retain, nonatomic) IBOutlet UILabel *postedQuestion;
+@property (weak, nonatomic) IBOutlet UITextField *questionText;
+@property (weak, nonatomic) IBOutlet UITextField *radius;
+@property (weak, nonatomic) IBOutlet UITextField *hops;
+
 - (IBAction)postQuestion:(id)sender;
 
 @property (copy, nonatomic) NSString *question;

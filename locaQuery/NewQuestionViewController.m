@@ -22,12 +22,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    /*[GCTurnBasedMatchHelper sharedInstance].delegate = self;
-    [[GCTurnBasedMatchHelper sharedInstance] authenticateLocalUser];
-    [[GCTurnBasedMatchHelper sharedInstance]
-     findMatchWithMinPlayers:2 maxPlayers:2 viewController:self];
-    // Do any additional setup after loading the view from its nib.
-*/
+
 }
 
 - (void)didReceiveMemoryWarning
@@ -37,15 +32,10 @@
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)theTextField {
-    
-    if (theTextField == self.questionText) {
-        
+    if (theTextField == self.questionText || theTextField == self.radius || theTextField == self.hops) {
         [theTextField resignFirstResponder];
-        
     }
-    
     return YES;
-    
 }
 
 
