@@ -8,11 +8,13 @@
 
 #import "locaQueryViewController.h"
 #import <FacebookSDK/FacebookSDK.h>
+#import "NewQuestionViewController.h"
 
 @implementation locaQueryViewController
 
 @synthesize userNameLabel = _userNameLabel;
 @synthesize userProfileImage = _userProfileImage;
+NSArray *QuestionTitles;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -33,6 +35,7 @@
                                               style:UIBarButtonItemStyleBordered
                                               target:self
                                               action:@selector(logoutButtonWasPressed:)];
+    QuestionTitles = [NSArray arrayWithObjects:@"Question1", @"Question2",@"New Question",nil];
 }
 
 -(void)viewWillAppear:(BOOL)animated {
@@ -56,6 +59,27 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    NSLog(@"tableView table data size: %d", [QuestionTitles count]);
+    return [QuestionTitles count];
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+   static NSString *simpleTableIdentifier = @"SimpleTableItem";
+   UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:simpleTableIdentifier];
+ 
+   if (cell == nil) {
+   cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:simpleTableIdentifier];
+   }
+ 
+   cell.textLabel.text = [QuestionTitles objectAtIndex:indexPath.row];
+   cell.imageView.image = [UIImage imageNamed:@"icon-72.png"];
+   return cell;
+    
 }
 
 #pragma mark - UI Behavior
@@ -101,4 +125,8 @@
     [FBSession.activeSession closeAndClearTokenInformation];
 }
 
+- (IBAction)newQuestionButton:(id)sender {
+    NewQuestionViewController *newQuestionViewController = [[NewQuestionViewController alloc] initWithNibName:@"NewQuestionViewController" bundle:nil];
+    [self.navigationController pushViewController:newQuestionViewController animated:YES];
+}
 @end

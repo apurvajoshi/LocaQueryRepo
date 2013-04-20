@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4D306C9317230ACD009E92BC /* NewQuestionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D306C9117230ACD009E92BC /* NewQuestionViewController.m */; };
+		4D306C9417230ACD009E92BC /* NewQuestionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4D306C9217230ACD009E92BC /* NewQuestionViewController.xib */; };
 		4D905B131721F10E00F8322B /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D905B111721F10E00F8322B /* LoginViewController.m */; };
 		4D905B141721F10E00F8322B /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4D905B121721F10E00F8322B /* LoginViewController.xib */; };
 		4DAA494617209864003E31BC /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DAA494517209864003E31BC /* FacebookSDK.framework */; };
@@ -36,6 +38,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4D306C9017230ACD009E92BC /* NewQuestionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewQuestionViewController.h; sourceTree = "<group>"; };
+		4D306C9117230ACD009E92BC /* NewQuestionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewQuestionViewController.m; sourceTree = "<group>"; };
+		4D306C9217230ACD009E92BC /* NewQuestionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NewQuestionViewController.xib; sourceTree = "<group>"; };
 		4D905B101721F10E00F8322B /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		4D905B111721F10E00F8322B /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		4D905B121721F10E00F8322B /* LoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
@@ -140,6 +145,9 @@
 		68E129BE1720958C00B57815 /* locaQuery */ = {
 			isa = PBXGroup;
 			children = (
+				4D306C9017230ACD009E92BC /* NewQuestionViewController.h */,
+				4D306C9117230ACD009E92BC /* NewQuestionViewController.m */,
+				4D306C9217230ACD009E92BC /* NewQuestionViewController.xib */,
 				4D905B101721F10E00F8322B /* LoginViewController.h */,
 				4D905B111721F10E00F8322B /* LoginViewController.m */,
 				4D905B121721F10E00F8322B /* LoginViewController.xib */,
@@ -233,6 +241,7 @@
 				4DAA496017209E0D003E31BC /* icon-57.png in Resources */,
 				4DAA496217209E11003E31BC /* icon-114.png in Resources */,
 				4D905B141721F10E00F8322B /* LoginViewController.xib in Resources */,
+				4D306C9417230ACD009E92BC /* NewQuestionViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -247,6 +256,7 @@
 				68E129C91720958C00B57815 /* locaQueryAppDelegate.m in Sources */,
 				68E129D21720958C00B57815 /* locaQueryViewController.m in Sources */,
 				4D905B131721F10E00F8322B /* LoginViewController.m in Sources */,
+				4D306C9317230ACD009E92BC /* NewQuestionViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
