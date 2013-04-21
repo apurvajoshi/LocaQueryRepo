@@ -25,6 +25,8 @@
 		68E129CF1720958C00B57815 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 68E129CE1720958C00B57815 /* Default-568h@2x.png */; };
 		68E129D21720958C00B57815 /* locaQueryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 68E129D11720958C00B57815 /* locaQueryViewController.m */; };
 		68E129D51720958C00B57815 /* locaQueryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68E129D31720958C00B57815 /* locaQueryViewController.xib */; };
+		68E129DE1720A1DF00B57815 /* DataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 68E129DD1720A1DF00B57815 /* DataModel.m */; };
+		68E129E11720A1EF00B57815 /* Message.m in Sources */ = {isa = PBXBuildFile; fileRef = 68E129E01720A1EF00B57815 /* Message.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -51,6 +53,11 @@
 		68E129D01720958C00B57815 /* locaQueryViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = locaQueryViewController.h; sourceTree = "<group>"; };
 		68E129D11720958C00B57815 /* locaQueryViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = locaQueryViewController.m; sourceTree = "<group>"; };
 		68E129D41720958C00B57815 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/locaQueryViewController.xib; sourceTree = "<group>"; };
+		68E129DB17209DA300B57815 /* defs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = defs.h; sourceTree = "<group>"; };
+		68E129DC1720A1DF00B57815 /* DataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataModel.h; sourceTree = "<group>"; };
+		68E129DD1720A1DF00B57815 /* DataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataModel.m; sourceTree = "<group>"; };
+		68E129DF1720A1EF00B57815 /* Message.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Message.h; sourceTree = "<group>"; };
+		68E129E01720A1EF00B57815 /* Message.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Message.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,6 +116,11 @@
 		68E129BE1720958C00B57815 /* locaQuery */ = {
 			isa = PBXGroup;
 			children = (
+				68E129DF1720A1EF00B57815 /* Message.h */,
+				68E129E01720A1EF00B57815 /* Message.m */,
+				68E129DC1720A1DF00B57815 /* DataModel.h */,
+				68E129DD1720A1DF00B57815 /* DataModel.m */,
+				68E129DB17209DA300B57815 /* defs.h */,
 				68E129C71720958C00B57815 /* locaQueryAppDelegate.h */,
 				68E129C81720958C00B57815 /* locaQueryAppDelegate.m */,
 				68E129D01720958C00B57815 /* locaQueryViewController.h */,
@@ -205,6 +217,8 @@
 				68E129C51720958C00B57815 /* main.m in Sources */,
 				68E129C91720958C00B57815 /* locaQueryAppDelegate.m in Sources */,
 				68E129D21720958C00B57815 /* locaQueryViewController.m in Sources */,
+				68E129DE1720A1DF00B57815 /* DataModel.m in Sources */,
+				68E129E11720A1EF00B57815 /* Message.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
