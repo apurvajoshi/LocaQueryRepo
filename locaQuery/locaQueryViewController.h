@@ -7,7 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <FacebookSDK/FacebookSDK.h>
 
-@interface locaQueryViewController : UIViewController
+@interface locaQueryViewController : UIViewController <UINavigationControllerDelegate, UITableViewDelegate, UITableViewDataSource>
+
+@property (weak, nonatomic) IBOutlet FBProfilePictureView *userProfileImage;
+@property (weak, nonatomic) IBOutlet UILabel *userNameLabel;
+- (IBAction)newQuestionButton:(id)sender;
 
 @end

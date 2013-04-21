@@ -7,13 +7,21 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <FacebookSDK/FacebookSDK.h>
 
+@class LoginViewController;
 @class locaQueryViewController;
 
-@interface locaQueryAppDelegate : UIResponder <UIApplicationDelegate>
+@interface locaQueryAppDelegate : UIResponder <UIApplicationDelegate, UINavigationControllerDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 
-@property (strong, nonatomic) locaQueryViewController *viewController;
+@property (strong, nonatomic) UINavigationController *navigationController;
+
+@property (strong, nonatomic) locaQueryViewController *mainViewController;
+
+@property (strong, nonatomic) LoginViewController* loginViewController;
+
+@property BOOL isNavigating;
 
 @end
