@@ -63,6 +63,7 @@
     }
     else {
         NSLog(@"Should send the question now");
+        [self.navigationController popViewControllerAnimated:YES];
     }
 }
 
