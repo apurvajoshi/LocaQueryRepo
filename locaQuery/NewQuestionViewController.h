@@ -15,7 +15,6 @@
 @property (weak, nonatomic) IBOutlet UITextField *hops;
 
 - (IBAction)postQuestion:(id)sender;
-
-@property (copy, nonatomic) NSString *question;
+- (void) showAlert:(NSString*) alertMessage;
 
 @end
