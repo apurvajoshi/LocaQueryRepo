@@ -119,8 +119,9 @@ NSArray *QuestionTitles;
             for(id<FBGraphUser> user in result[@"data"]) {
                 if (user[@"installed"]) {
                 [string appendFormat:@"%@ with id %@ installed the app? %@\n", [user first_name], [user id], user[@"installed"] ? @"Yes" : @"No"];
+                    NSLog(string);
                 }
-                NSLog(string);
+                
             }
         }];
     }
