@@ -11,6 +11,26 @@
 #import "LoginViewController.h"
 #import <FacebookSDK/FacebookSDK.h>
 #import <FacebookSDK/FBSessionTokenCachingStrategy.h>
+#import "defs.h"
+#import "ASIFormDataRequest.h"
+#import "DataModel.h"
+#import "Message.h"
+
+void ShowErrorAlert(NSString* text)
+{
+	UIAlertView* alertView = [[UIAlertView alloc]
+                              initWithTitle:text
+                              message:nil
+                              delegate:nil
+                              cancelButtonTitle:NSLocalizedString(@"OK", nil)
+                              otherButtonTitles:nil];
+    
+	[alertView show];
+}
+
+@interface locaQueryAppDelegate ()
+- (void)addMessageFromRemoteNotification:(NSDictionary*)userInfo updateUI:(BOOL)updateUI;
+@end
 
 @implementation locaQueryAppDelegate
 
@@ -20,8 +40,15 @@ mainViewController = _mainViewController,
 loginViewController = _loginViewController,
 isNavigating = _isNavigating;
 
+@synthesize dataModel;
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    
+    // Create the main data model object
+	dataModel = [[DataModel alloc] init];
+	[dataModel loadMessages];
+    
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     self.mainViewController = [[locaQueryViewController alloc] initWithNibName:@"locaQueryViewController" bundle:nil];
@@ -34,8 +61,15 @@ isNavigating = _isNavigating;
     self.window.rootViewController = self.navigationController;
     
     [self.window makeKeyAndVisible];
-
     
+    // Show the login screen if the user hasn't joined a chat yet
+	if (![dataModel joinedChat])
+	{
+		self.loginViewController.dataModel = dataModel;
+        NSLog(@"coming here1");
+	}
+
+    NSLog(@"coming here2");    
     // Let the device know we want to receive push notifications
 	[[UIApplication sharedApplication] registerForRemoteNotificationTypes:
      (UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
@@ -43,9 +77,49 @@ isNavigating = _isNavigating;
     return YES;
 }
 
-- (void)application:(UIApplication*)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)deviceToken
+#pragma mark -
+#pragma mark Server Communication
+
+- (void)postUpdateRequest
 {
-	NSLog(@"My token is: %@", deviceToken);
+	NSURL* url = [NSURL URLWithString:ServerApiURL];
+	ASIFormDataRequest* request = [ASIFormDataRequest requestWithURL:url];
+	[request setPostValue:@"update" forKey:@"cmd"];
+	[request setPostValue:[dataModel udid] forKey:@"udid"];
+	[request setPostValue:[dataModel deviceToken] forKey:@"token"];
+	[request setDelegate:self];
+	[request startAsynchronous];
+}
+
+#pragma mark -
+#pragma mark Push notifications
+
+- (void)application:(UIApplication*)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)deviceToken
+{    
+    // We have received a new device token. This method is usually called right
+	// away after you've registered for push notifications, but there are no
+	// guarantees. It could take up to a few seconds and you should take this
+	// into consideration when you design your app. In our case, the user could
+	// send a "join" request to the server before we have received the device
+	// token. In that case, we silently send an "update" request to the server
+	// API once we receive the token.
+    
+	NSString* oldToken = [dataModel deviceToken];
+    
+	NSString* newToken = [deviceToken description];
+	newToken = [newToken stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"<>"]];
+	newToken = [newToken stringByReplacingOccurrencesOfString:@" " withString:@""];
+    
+	NSLog(@"My token is: %@", newToken);
+    
+	[dataModel setDeviceToken:newToken];
+    
+	// If the token changed and we already sent the "join" request, we should
+	// let the server know about the new device token.
+	if ([dataModel joinedChat] && ![newToken isEqualToString:oldToken])
+	{
+		[self postUpdateRequest];
+	}
 }
 
 - (void)application:(UIApplication*)application didFailToRegisterForRemoteNotificationsWithError:(NSError*)error

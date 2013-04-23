@@ -8,9 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import <FacebookSDK/FacebookSDK.h>
+@class DataModel;
 
 @interface LoginViewController : UIViewController<FBLoginViewDelegate>
 
 @property (unsafe_unretained, nonatomic) IBOutlet FBLoginView *FBLoginView;
+@property (nonatomic, assign) DataModel* dataModel;
+
 
 @end
