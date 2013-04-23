@@ -8,11 +8,15 @@
 
 #import <UIKit/UIKit.h>
 #import <FacebookSDK/FacebookSDK.h>
+#import "NewQuestionViewController.h"
+@class DataModel;
 
-@interface locaQueryViewController : UIViewController <UINavigationControllerDelegate, UITableViewDelegate, UITableViewDataSource>
+@interface locaQueryViewController : UIViewController <UINavigationControllerDelegate, UITableViewDelegate, UITableViewDataSource, NewQuestionDelegate>
 
 @property (weak, nonatomic) IBOutlet FBProfilePictureView *userProfileImage;
 @property (weak, nonatomic) IBOutlet UILabel *userNameLabel;
 - (IBAction)newQuestionButton:(id)sender;
+
+@property (nonatomic, assign) DataModel* dataModel;
 
 @end

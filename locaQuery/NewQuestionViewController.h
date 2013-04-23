@@ -7,15 +7,25 @@
 //
 
 #import <UIKit/UIKit.h>
+@class NewQuestionViewController;
+@class DataModel;
+@class Message;
+
+// The delegate protocol for the Compose screen
+@protocol NewQuestionDelegate <NSObject>
+- (void)didSaveMessage:(Message*)message atIndex:(int)index;
+@end
 
 @interface NewQuestionViewController : UIViewController <UITextFieldDelegate>
 
-@property (weak, nonatomic) IBOutlet UITextField *questionText;
-@property (weak, nonatomic) IBOutlet UITextField *radius;
-@property (weak, nonatomic) IBOutlet UITextField *hops;
+@property (nonatomic, retain) IBOutlet UITextField *questionText;
+@property (nonatomic, retain) IBOutlet UITextField *radius;
+@property (nonatomic, retain) IBOutlet UITextField *hops;
 
 - (IBAction)postQuestion:(id)sender;
 
 @property (copy, nonatomic) NSString *question;
+@property (nonatomic, assign) id<NewQuestionDelegate> delegate;
+@property (nonatomic, assign) DataModel* dataModel;
 
 @end

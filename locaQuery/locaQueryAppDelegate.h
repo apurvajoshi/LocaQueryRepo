@@ -11,6 +11,7 @@
 
 @class LoginViewController;
 @class locaQueryViewController;
+@class DataModel;
 
 @interface locaQueryAppDelegate : UIResponder <UIApplicationDelegate, UINavigationControllerDelegate>
 
@@ -23,5 +24,7 @@
 @property (strong, nonatomic) LoginViewController* loginViewController;
 
 @property BOOL isNavigating;
+
+@property (nonatomic, retain) DataModel* dataModel;
 
 @end

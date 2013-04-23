@@ -9,11 +9,13 @@
 #import "locaQueryViewController.h"
 #import <FacebookSDK/FacebookSDK.h>
 #import "NewQuestionViewController.h"
+#import "DataModel.h"
 
 @implementation locaQueryViewController
 
 @synthesize userNameLabel = _userNameLabel;
 @synthesize userProfileImage = _userProfileImage;
+@synthesize dataModel;
 NSArray *QuestionTitles;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
@@ -127,6 +129,8 @@ NSArray *QuestionTitles;
 
 - (IBAction)newQuestionButton:(id)sender {
     NewQuestionViewController *newQuestionViewController = [[NewQuestionViewController alloc] initWithNibName:@"NewQuestionViewController" bundle:nil];
+	newQuestionViewController.dataModel = dataModel;
+	newQuestionViewController.delegate = self;
     [self.navigationController pushViewController:newQuestionViewController animated:YES];
 }
 @end

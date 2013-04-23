@@ -9,8 +9,13 @@
 #import "LoginViewController.h"
 #import "locaQueryAppDelegate.h"
 #import "locaQueryViewController.h"
+#import "ASIFormDataRequest.h"
+#import "MBProgressHUD.h"
+#import "DataModel.h"
+#import "defs.h"
 
 @implementation LoginViewController
+@synthesize dataModel;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -41,13 +46,72 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
+
+- (void)postJoinRequest
+{
+	MBProgressHUD* hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+	hud.labelText = NSLocalizedString(@"Connecting", nil);
+    
+	NSURL* url = [NSURL URLWithString:ServerApiURL];
+	__block ASIFormDataRequest* request = [ASIFormDataRequest requestWithURL:url];
+	[request setDelegate:self];
+	[request setPostValue:@"join" forKey:@"cmd"];
+    //  SET THE FACEBOOK ID
+	//[request setPostValue:[dataModel udid] forKey:@"udid"];
+    NSLog(@"udid = : %@", [dataModel udid]);
+    [request setPostValue:@"6086c03fa36abbe36db20718b1da75326eb4b10d" forKey:@"udid"];
+	[request setPostValue:[dataModel deviceToken] forKey:@"token"];
+    NSLog(@"device token = : %@", [dataModel deviceToken]);
+    //[request setPostValue:@"46c3392f1c30fd568df5ea9a63a35f25c2fdc0a3bc6677cbfbc15dc942356ef7" forKey:@"token"];
+    // GET THE NAME FROM FACEBOOK
+	//[request setPostValue:[dataModel nickname] forKey:@"name"];
+    [request setPostValue:@"NewCode2" forKey:@"name"];
+    // SET SOME RANDOM CODE
+	//[request setPostValue:[dataModel secretCode] forKey:@"code"];
+    [request setPostValue:@"New Code2" forKey:@"code"];
+    
+	[request setCompletionBlock:^
+     {
+         if ([self isViewLoaded])
+         {
+             [MBProgressHUD hideHUDForView:self.view animated:YES];
+             
+             NSLog(@"headers response: %@", [request responseHeaders]);
+             
+             if ([request responseStatusCode] != 200)
+             {
+                 ShowErrorAlert(NSLocalizedString(@"There was an error communicating with the server", nil));
+             }
+             else
+             {
+                  NSLog(@"Got response from server");
+                  [self.dataModel setJoinedChat:YES];
+                 
+                 // Upon login, transition to the main UI by pushing it onto the navigation stack.
+                 locaQueryAppDelegate *appDelegate = (locaQueryAppDelegate *)[UIApplication sharedApplication].delegate;
+                 appDelegate.mainViewController.dataModel = dataModel;
+                 [self.navigationController pushViewController:((UIViewController *)appDelegate.mainViewController) animated:YES];
+             }
+         }
+     }];
+    
+	[request setFailedBlock:^
+     {
+         if ([self isViewLoaded])
+         {
+             [MBProgressHUD hideHUDForView:self.view animated:YES];
+             //ShowErrorAlert([[request error] localizedDescription]);
+         }
+     }];
+    
+	[request startAsynchronous];
+}
+
 #pragma mark - FBLoginView delegate
 
 - (void)loginViewShowingLoggedInUser:(FBLoginView *)loginView {
     NSLog(@"login successful should navigate to main screen");
-    // Upon login, transition to the main UI by pushing it onto the navigation stack.
-    locaQueryAppDelegate *appDelegate = (locaQueryAppDelegate *)[UIApplication sharedApplication].delegate;
-    [self.navigationController pushViewController:((UIViewController *)appDelegate.mainViewController) animated:YES];
+    [self postJoinRequest];
 }
 
 - (void)loginView:(FBLoginView *)loginView
