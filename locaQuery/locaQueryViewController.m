@@ -10,6 +10,7 @@
 #import <FacebookSDK/FacebookSDK.h>
 #import "NewQuestionViewController.h"
 #import "DataModel.h"
+#import "QuestionThreadViewController.h"
 
 @implementation locaQueryViewController
 
@@ -81,6 +82,19 @@ NSArray *QuestionTitles;
    cell.textLabel.text = [QuestionTitles objectAtIndex:indexPath.row];
    cell.imageView.image = [UIImage imageNamed:@"icon-72.png"];
    return cell;
+    
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    
+    QuestionThreadViewController *questionThreadViewController = [[QuestionThreadViewController alloc] initWithNibName:@"QuestionThreadViewController" bundle:nil];
+    // ...
+    // Pass the selected object to the new view controller.
+
+    [[tableView cellForRowAtIndexPath:indexPath] setSelected:NO animated:YES];
+    [self.navigationController pushViewController:questionThreadViewController animated:YES];
+
     
 }
 
