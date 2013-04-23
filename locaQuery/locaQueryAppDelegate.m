@@ -42,6 +42,7 @@ isNavigating = _isNavigating;
 
 @synthesize dataModel;
 
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     
@@ -69,13 +70,27 @@ isNavigating = _isNavigating;
         NSLog(@"coming here1");
 	}
 
-    NSLog(@"coming here2");    
+    NSLog(@"coming here2");
+    
     // Let the device know we want to receive push notifications
 	[[UIApplication sharedApplication] registerForRemoteNotificationTypes:
      (UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
     
+    
+    if (launchOptions != nil)
+	{
+		NSDictionary* dictionary = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
+		if (dictionary != nil)
+		{
+			NSLog(@"Launched from push notification: %@", dictionary);
+			[self addMessageFromRemoteNotification:dictionary updateUI:NO];
+		}
+	}
+    
     return YES;
 }
+
+
 
 #pragma mark -
 #pragma mark Server Communication
@@ -126,6 +141,33 @@ isNavigating = _isNavigating;
 {
 	NSLog(@"Failed to get token, error: %@", error);
 }
+
+- (void)application:(UIApplication*)application didReceiveRemoteNotification:(NSDictionary*)userInfo
+{
+	NSLog(@"Received notification: %@", userInfo);
+	[self addMessageFromRemoteNotification:userInfo updateUI:YES];
+}
+
+- (void)addMessageFromRemoteNotification:(NSDictionary*)userInfo updateUI:(BOOL)updateUI
+{
+    NSLog(@"Message Received");
+	Message* message = [[Message alloc] init];
+	message.date = [NSDate date];
+    
+	NSString* alertValue = [[userInfo valueForKey:@"aps"] valueForKey:@"alert"];
+    
+	NSMutableArray* parts = [NSMutableArray arrayWithArray:[alertValue componentsSeparatedByString:@": "]];
+	message.senderName = [parts objectAtIndex:0];
+	[parts removeObjectAtIndex:0];
+	message.text = [parts componentsJoinedByString:@": "];
+    
+	int index = [dataModel addMessage:message];
+    
+    //if (updateUI)
+    //[self.NewQuestionViewController didSaveMessage:message atIndex:index];
+    
+}
+
 
 - (void)applicationWillResignActive:(UIApplication *)application
 {
