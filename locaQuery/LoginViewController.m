@@ -56,19 +56,21 @@
 	__block ASIFormDataRequest* request = [ASIFormDataRequest requestWithURL:url];
 	[request setDelegate:self];
 	[request setPostValue:@"join" forKey:@"cmd"];
+    
     //  SET THE FACEBOOK ID
-	//[request setPostValue:[dataModel udid] forKey:@"udid"];
+	[request setPostValue:[dataModel udid] forKey:@"udid"];
     NSLog(@"udid = : %@", [dataModel udid]);
-    [request setPostValue:@"6086c03fa36abbe36db20718b1da75326eb4b10d" forKey:@"udid"];
+    
 	[request setPostValue:[dataModel deviceToken] forKey:@"token"];
     NSLog(@"device token = : %@", [dataModel deviceToken]);
-    //[request setPostValue:@"46c3392f1c30fd568df5ea9a63a35f25c2fdc0a3bc6677cbfbc15dc942356ef7" forKey:@"token"];
+    
     // GET THE NAME FROM FACEBOOK
 	//[request setPostValue:[dataModel nickname] forKey:@"name"];
-    [request setPostValue:@"NewCode2" forKey:@"name"];
+    [request setPostValue:@"ajoshi" forKey:@"name"];
+    
     // SET SOME RANDOM CODE
 	//[request setPostValue:[dataModel secretCode] forKey:@"code"];
-    [request setPostValue:@"New Code2" forKey:@"code"];
+    [request setPostValue:@"test123" forKey:@"code"];
     
 	[request setCompletionBlock:^
      {
