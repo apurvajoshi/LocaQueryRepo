@@ -111,8 +111,8 @@
 	// Add the POST fields
 	[request setPostValue:@"message" forKey:@"cmd"];
 	[request setPostValue:[dataModel udid] forKey:@"udid"];
-    [request setPostValue:@"Hi, this is the msg from the new code" forKey:@"text"];
-	//[request setPostValue:text forKey:@"text"];
+    //[request setPostValue:@"Hi, this is the msg from the new code" forKey:@"text"];
+	[request setPostValue:text forKey:@"text"];
     
 	// This code will be executed when the HTTP request is successful
 	[request setCompletionBlock:^
