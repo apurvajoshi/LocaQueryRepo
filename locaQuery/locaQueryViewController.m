@@ -89,14 +89,42 @@ NSArray *QuestionTitles;
 // Displays the user's name and profile picture so they are aware of the Facebook
 // identity they are logged in as.
 - (void)populateUserDetails {
+    static NSString *name;
+    static NSString *fbid;
+    
     if (FBSession.activeSession.isOpen) {
         [[FBRequest requestForMe] startWithCompletionHandler:
          ^(FBRequestConnection *connection, NSDictionary<FBGraphUser> *user, NSError *error) {
              if (!error) {
+                 name = user.name;
+                 fbid = user.id;
                  self.userNameLabel.text = user.name;
                  self.userProfileImage.profileID = [user objectForKey:@"id"];
              }
          }];
+        /*[[FBRequest requestForMyFriends] startWithCompletionHandler:
+         ^(FBRequestConnection *connection, NSDictionary<FBGraphUser> *result, NSError *error) {
+             if (!error) {
+                 NSArray* friends = [result objectForKey:@"data"];
+                 for(NSDictionary<FBGraphUser>* friend in friends) {
+                     NSLog(@"%@", friend);
+                 }
+             }
+         }];*/
+        FBRequest* request = [FBRequest requestForMyFriends];
+        request.parameters[@"fields"] =
+        [NSString stringWithFormat:@"%@,installed", request.parameters[@"fields"]];
+        
+        [request startWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
+            NSMutableString* string = [[NSMutableString alloc]init];
+            
+            for(id<FBGraphUser> user in result[@"data"]) {
+                if (user[@"installed"]) {
+                [string appendFormat:@"%@ with id %@ installed the app? %@\n", [user first_name], [user id], user[@"installed"] ? @"Yes" : @"No"];
+                }
+                NSLog(string);
+            }
+        }];
     }
 }
 

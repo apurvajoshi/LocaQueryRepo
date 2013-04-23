@@ -21,7 +21,6 @@
 
 @synthesize delegate, questionText, dataModel;
 
-
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -151,7 +150,43 @@
 
 
 - (IBAction)postQuestion:(id)sender {
-    [self postMessageRequest];
+    
+    NSString *question = self.questionText.text;
+    int radiusmiles;
+    int nofhops;
+    NSScanner *parser1 = [NSScanner scannerWithString:self.radius.text];
+    NSScanner *parser2 = [NSScanner scannerWithString:self.hops.text];
+    if (![parser1 scanInt:&radiusmiles]) {
+        [[[UIAlertView alloc] initWithTitle:@"Error"
+                                    message:@"Please enter an integer number for radius"
+                                   delegate:nil
+                          cancelButtonTitle:@"OK"
+                          otherButtonTitles:nil] show];
+    }
+    else if (![parser2 scanInt:&nofhops]) {
+        [[[UIAlertView alloc] initWithTitle:@"Error"
+                                    message:@"Please enter an integer number for hops of friends"
+                                   delegate:nil
+                          cancelButtonTitle:@"OK"
+                          otherButtonTitles:nil] show];
+    }
+    else {
+        NSLog(@"Should send the question now");
+        [self.navigationController popViewControllerAnimated:YES];
+        
+        /* Sending question to the server */
+        [self postMessageRequest];
+    }
+}
+
+
+- (void) showAlert:(NSString*) alertMessage {
+    [[[UIAlertView alloc] initWithTitle:@"Error"
+                                message:alertMessage
+                               delegate:nil
+                      cancelButtonTitle:@"OK"
+                      otherButtonTitles:nil] show];
+    
 }
 
 @end

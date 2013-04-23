@@ -28,4 +28,6 @@
 @property (nonatomic, assign) id<NewQuestionDelegate> delegate;
 @property (nonatomic, assign) DataModel* dataModel;
 
+- (void) showAlert:(NSString*) alertMessage;
+
 @end
