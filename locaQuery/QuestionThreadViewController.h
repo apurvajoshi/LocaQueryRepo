@@ -10,9 +10,12 @@
 
 @class DataModel;
 
-@interface QuestionThreadViewController : UIViewController<UINavigationControllerDelegate, UITableViewDelegate, UITableViewDataSource>
+@interface QuestionThreadViewController : UIViewController<UINavigationControllerDelegate, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate>
 
 @property (nonatomic, assign) DataModel* dataModel;
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
 
+@property (weak, nonatomic) IBOutlet UITextField *replyText;
+- (IBAction)replyBtn:(id)sender;
 
 @end

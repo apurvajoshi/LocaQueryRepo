@@ -24,14 +24,10 @@
 		4DAA496017209E0D003E31BC /* icon-57.png in Resources */ = {isa = PBXBuildFile; fileRef = 4DAA495F17209E0D003E31BC /* icon-57.png */; };
 		4DAA496217209E11003E31BC /* icon-114.png in Resources */ = {isa = PBXBuildFile; fileRef = 4DAA496117209E11003E31BC /* icon-114.png */; };
 		4DAA49641720A5FB003E31BC /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DAA49631720A5FB003E31BC /* Accounts.framework */; };
-		4DC5E1C717272A6D00042960 /* ChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DC5E1C217272A6C00042960 /* ChatViewController.m */; };
 		4DC5E1C817272A6D00042960 /* MessageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DC5E1C417272A6C00042960 /* MessageTableViewCell.m */; };
 		4DC5E1C917272A6D00042960 /* SpeechBubbleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DC5E1C617272A6D00042960 /* SpeechBubbleView.m */; };
-		4DC5E1CB17272A8400042960 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4DC5E1CA17272A8400042960 /* MainWindow.xib */; };
 		4DC5E1CE17272AB900042960 /* BubbleLefthand.png in Resources */ = {isa = PBXBuildFile; fileRef = 4DC5E1CC17272AB900042960 /* BubbleLefthand.png */; };
 		4DC5E1CF17272AB900042960 /* BubbleRighthand.png in Resources */ = {isa = PBXBuildFile; fileRef = 4DC5E1CD17272AB900042960 /* BubbleRighthand.png */; };
-		4DC5E1D217272AEE00042960 /* ComposeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DC5E1D117272AEE00042960 /* ComposeViewController.m */; };
-		4DC5E1D417272B2200042960 /* ComposeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4DC5E1D317272B2200042960 /* ComposeViewController.xib */; };
 		4DC5E1D817272E5D00042960 /* QuestionThreadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DC5E1D617272E5C00042960 /* QuestionThreadViewController.m */; };
 		4DC5E1D917272E5D00042960 /* QuestionThreadViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4DC5E1D717272E5D00042960 /* QuestionThreadViewController.xib */; };
 		68CBA43D1724902500902812 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 68CBA43C1724902500902812 /* CFNetwork.framework */; };
@@ -83,18 +79,12 @@
 		4DAA495F17209E0D003E31BC /* icon-57.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-57.png"; sourceTree = "<group>"; };
 		4DAA496117209E11003E31BC /* icon-114.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-114.png"; sourceTree = "<group>"; };
 		4DAA49631720A5FB003E31BC /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
-		4DC5E1C117272A6C00042960 /* ChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatViewController.h; sourceTree = "<group>"; };
-		4DC5E1C217272A6C00042960 /* ChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatViewController.m; sourceTree = "<group>"; };
 		4DC5E1C317272A6C00042960 /* MessageTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageTableViewCell.h; sourceTree = "<group>"; };
 		4DC5E1C417272A6C00042960 /* MessageTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageTableViewCell.m; sourceTree = "<group>"; };
 		4DC5E1C517272A6C00042960 /* SpeechBubbleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpeechBubbleView.h; sourceTree = "<group>"; };
 		4DC5E1C617272A6D00042960 /* SpeechBubbleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpeechBubbleView.m; sourceTree = "<group>"; };
-		4DC5E1CA17272A8400042960 /* MainWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = "<group>"; };
 		4DC5E1CC17272AB900042960 /* BubbleLefthand.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = BubbleLefthand.png; path = ../BubbleLefthand.png; sourceTree = "<group>"; };
 		4DC5E1CD17272AB900042960 /* BubbleRighthand.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = BubbleRighthand.png; path = ../BubbleRighthand.png; sourceTree = "<group>"; };
-		4DC5E1D017272AEE00042960 /* ComposeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ComposeViewController.h; sourceTree = "<group>"; };
-		4DC5E1D117272AEE00042960 /* ComposeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ComposeViewController.m; sourceTree = "<group>"; };
-		4DC5E1D317272B2200042960 /* ComposeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ComposeViewController.xib; sourceTree = "<group>"; };
 		4DC5E1D517272E5C00042960 /* QuestionThreadViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuestionThreadViewController.h; sourceTree = "<group>"; };
 		4DC5E1D617272E5C00042960 /* QuestionThreadViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuestionThreadViewController.m; sourceTree = "<group>"; };
 		4DC5E1D717272E5D00042960 /* QuestionThreadViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QuestionThreadViewController.xib; sourceTree = "<group>"; };
@@ -241,12 +231,6 @@
 		68E129BE1720958C00B57815 /* locaQuery */ = {
 			isa = PBXGroup;
 			children = (
-				4DC5E1D317272B2200042960 /* ComposeViewController.xib */,
-				4DC5E1D017272AEE00042960 /* ComposeViewController.h */,
-				4DC5E1D117272AEE00042960 /* ComposeViewController.m */,
-				4DC5E1CA17272A8400042960 /* MainWindow.xib */,
-				4DC5E1C117272A6C00042960 /* ChatViewController.h */,
-				4DC5E1C217272A6C00042960 /* ChatViewController.m */,
 				4DC5E1C317272A6C00042960 /* MessageTableViewCell.h */,
 				4DC5E1C417272A6C00042960 /* MessageTableViewCell.m */,
 				4DC5E1C517272A6C00042960 /* SpeechBubbleView.h */,
@@ -392,10 +376,8 @@
 				4DAA496217209E11003E31BC /* icon-114.png in Resources */,
 				4D905B141721F10E00F8322B /* LoginViewController.xib in Resources */,
 				4D306C9417230ACD009E92BC /* NewQuestionViewController.xib in Resources */,
-				4DC5E1CB17272A8400042960 /* MainWindow.xib in Resources */,
 				4DC5E1CE17272AB900042960 /* BubbleLefthand.png in Resources */,
 				4DC5E1CF17272AB900042960 /* BubbleRighthand.png in Resources */,
-				4DC5E1D417272B2200042960 /* ComposeViewController.xib in Resources */,
 				4DC5E1D917272E5D00042960 /* QuestionThreadViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -424,10 +406,8 @@
 				68E7A4041724F1D000CFA570 /* ASIInputStream.m in Sources */,
 				68E7A4051724F1D000CFA570 /* ASINetworkQueue.m in Sources */,
 				68E7A4091724F1E400CFA570 /* Reachability.m in Sources */,
-				4DC5E1C717272A6D00042960 /* ChatViewController.m in Sources */,
 				4DC5E1C817272A6D00042960 /* MessageTableViewCell.m in Sources */,
 				4DC5E1C917272A6D00042960 /* SpeechBubbleView.m in Sources */,
-				4DC5E1D217272AEE00042960 /* ComposeViewController.m in Sources */,
 				4DC5E1D817272E5D00042960 /* QuestionThreadViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

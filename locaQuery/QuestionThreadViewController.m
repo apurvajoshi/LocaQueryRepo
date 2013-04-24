@@ -16,13 +16,13 @@
 
 @implementation QuestionThreadViewController
 
-@synthesize dataModel;
+@synthesize dataModel, tableView;
 
 - (void)scrollToNewestMessage
 {
 	// The newest message is at the bottom of the table
 	NSIndexPath* indexPath = [NSIndexPath indexPathForRow:(self.dataModel.messages.count - 1) inSection:0];
-	//[self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
+	[self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -43,7 +43,7 @@
 		label.shadowOffset = CGSizeMake(0.0f, 1.0f);
 		label.backgroundColor = [UIColor clearColor];
 		label.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
-		//self.tableView.tableFooterView = label;
+		self.tableView.tableFooterView = label;
 	}
 	else
 	{
@@ -103,6 +103,14 @@
 	}
 }
 
+- (BOOL)textFieldShouldReturn:(UITextField *)theTextField {
+    if (theTextField == self.replyText) {
+        [theTextField resignFirstResponder];
+    }
+    return YES;
+}
+
+
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -125,4 +133,6 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (IBAction)replyBtn:(id)sender {
+}
 @end
