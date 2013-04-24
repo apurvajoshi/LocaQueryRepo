@@ -70,7 +70,7 @@
     
     // SET SOME RANDOM CODE
 	//[request setPostValue:[dataModel secretCode] forKey:@"code"];
-    [request setPostValue:@"test123" forKey:@"code"];
+    [request setPostValue:@"locaquerychat" forKey:@"code"];
     
 	[request setCompletionBlock:^
      {
