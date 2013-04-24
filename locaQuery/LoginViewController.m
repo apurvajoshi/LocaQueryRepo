@@ -56,57 +56,98 @@
 	__block ASIFormDataRequest* request = [ASIFormDataRequest requestWithURL:url];
 	[request setDelegate:self];
 	[request setPostValue:@"join" forKey:@"cmd"];
-    
-    //  SET THE FACEBOOK ID
-	[request setPostValue:[dataModel udid] forKey:@"udid"];
-    NSLog(@"udid = : %@", [dataModel udid]);
-    
-	[request setPostValue:[dataModel deviceToken] forKey:@"token"];
-    NSLog(@"device token = : %@", [dataModel deviceToken]);
-    
-    // GET THE NAME FROM FACEBOOK
-	//[request setPostValue:[dataModel nickname] forKey:@"name"];
-    [request setPostValue:@"elli" forKey:@"name"];
-    
-    // SET SOME RANDOM CODE
-	//[request setPostValue:[dataModel secretCode] forKey:@"code"];
-    [request setPostValue:@"locaquerychat" forKey:@"code"];
-    
-	[request setCompletionBlock:^
-     {
-         if ([self isViewLoaded])
-         {
-             [MBProgressHUD hideHUDForView:self.view animated:YES];
-             
-             NSLog(@"headers response: %@", [request responseHeaders]);
-             
-             if ([request responseStatusCode] != 200)
-             {
-                 ShowErrorAlert(NSLocalizedString(@"There was an error communicating with the server", nil));
-             }
-             else
-             {
-                  NSLog(@"Got response from server");
-                  [self.dataModel setJoinedChat:YES];
+    static NSString *fbid;
+    static NSString *name;
+    static NSMutableArray *friends;
+    if (FBSession.activeSession.isOpen) {
+        NSLog(@"FBSession open, will now retrieve info");
+        [[FBRequest requestForMe] startWithCompletionHandler:
+         ^(FBRequestConnection *connection, NSDictionary<FBGraphUser> *user, NSError *error) {
+             if (!error) {
+                 fbid = user.id;
+                 name = user.name;
+                 NSLog(@"got fb name %@ and id %@", name, fbid);
                  
-                 // Upon login, transition to the main UI by pushing it onto the navigation stack.
-                 locaQueryAppDelegate *appDelegate = (locaQueryAppDelegate *)[UIApplication sharedApplication].delegate;
-                 appDelegate.mainViewController.dataModel = dataModel;
-                 [self.navigationController pushViewController:((UIViewController *)appDelegate.mainViewController) animated:YES];
+                 [request setPostValue:[dataModel udid] forKey:@"udid"];
+
+                 //  SET THE FACEBOOK ID
+                 [dataModel setFbid:fbid];
+                 [request setPostValue:[dataModel fbid] forKey:@"fbid"];
+                 NSLog(@"fbid = : %@", [dataModel fbid]);
+                 // GET THE NAME FROM FACEBOOK
+                 [dataModel setNickname:name];
+                 [request setPostValue:[dataModel nickname] forKey:@"name"];
+                 NSLog(@"nickname = : %@", [dataModel nickname]);
+                 
+                 
+                 [request setPostValue:[dataModel deviceToken] forKey:@"token"];
+                 NSLog(@"device token = : %@", [dataModel deviceToken]);
+                 
+                 
+                 // SET SOME RANDOM CODE
+                 //[request setPostValue:[dataModel secretCode] forKey:@"code"];
+                 [request setPostValue:@"locaquerychat" forKey:@"code"];
+                 
+                 [request setCompletionBlock:^
+                  {
+                      if ([self isViewLoaded])
+                      {
+                          [MBProgressHUD hideHUDForView:self.view animated:YES];
+                          
+                          NSLog(@"headers response: %@", [request responseHeaders]);
+                          
+                          if ([request responseStatusCode] != 200)
+                          {
+                              ShowErrorAlert(NSLocalizedString(@"There was an error communicating with the server", nil));
+                          }
+                          else
+                          {
+                              NSLog(@"Got response from server");
+                              [self.dataModel setJoinedChat:YES];
+                              
+                              // Upon login, transition to the main UI by pushing it onto the navigation stack.
+                              locaQueryAppDelegate *appDelegate = (locaQueryAppDelegate *)[UIApplication sharedApplication].delegate;
+                              appDelegate.mainViewController.dataModel = dataModel;
+                              [self.navigationController pushViewController:((UIViewController *)appDelegate.mainViewController) animated:YES];
+                          }
+                      }
+                  }];
+                 
+                 [request setFailedBlock:^
+                  {
+                      if ([self isViewLoaded])
+                      {
+                          [MBProgressHUD hideHUDForView:self.view animated:YES];
+                          //ShowErrorAlert([[request error] localizedDescription]);
+                      }
+                  }];
+                 
+                 [request startAsynchronous];
+
              }
-         }
-     }];
-    
-	[request setFailedBlock:^
-     {
-         if ([self isViewLoaded])
-         {
-             [MBProgressHUD hideHUDForView:self.view animated:YES];
-             //ShowErrorAlert([[request error] localizedDescription]);
-         }
-     }];
-    
-	[request startAsynchronous];
+         }];
+        
+        FBRequest* fbrequest = [FBRequest requestForMyFriends];
+        fbrequest.parameters[@"fields"] =
+        [NSString stringWithFormat:@"%@,installed", fbrequest.parameters[@"fields"]];
+        
+        [fbrequest startWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
+            
+            for(id<FBGraphUser> user in result[@"data"]) {
+                if (user[@"installed"]) {
+                    NSLog(@"%@ with id %@ installed the app? %@\n", [user first_name], [user id], user[@"installed"] ? @"Yes" : @"No");
+                    if (![friends containsObject:[user id]]) {
+                        [friends addObject:[user id]];
+                        NSLog(@"adding user id %@", [user id]);
+                    }
+                    //send another request with user's friends
+                }
+                
+            }
+        }];
+ 
+	
+    }
 }
 
 #pragma mark - FBLoginView delegate

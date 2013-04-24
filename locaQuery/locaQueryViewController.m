@@ -38,7 +38,7 @@ NSArray *QuestionTitles;
                                               style:UIBarButtonItemStyleBordered
                                               target:self
                                               action:@selector(logoutButtonWasPressed:)];
-    QuestionTitles = [NSArray arrayWithObjects:@"Question1", @"Question2",@"New Question",nil];
+    QuestionTitles = [NSArray arrayWithObjects:@"Question1", @"Question2",@"Question3",nil];
 }
 
 -(void)viewWillAppear:(BOOL)animated {

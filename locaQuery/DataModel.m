@@ -7,6 +7,8 @@ static NSString* const NicknameKey = @"Nickname";
 static NSString* const SecretCodeKey = @"SecretCode";
 static NSString* const JoinedChatKey = @"JoinedChat";
 static NSString* const DeviceTokenKey = @"DeviceToken";
+static NSString* const Udid = @"Udid";
+static NSString* const Fbid = @"Fbid";
 
 @implementation DataModel
 @synthesize messages;
@@ -99,6 +101,16 @@ static NSString* const DeviceTokenKey = @"DeviceToken";
 - (void)setJoinedChat:(BOOL)value
 {
 	[[NSUserDefaults standardUserDefaults] setBool:value forKey:JoinedChatKey];
+}
+
+- (NSString*)fbid
+{
+	return [[NSUserDefaults standardUserDefaults] stringForKey:Fbid];
+}
+
+- (void)setFbid:(NSString*)string
+{
+	[[NSUserDefaults standardUserDefaults] setObject:string forKey:Fbid];
 }
 
 - (NSString*)udid

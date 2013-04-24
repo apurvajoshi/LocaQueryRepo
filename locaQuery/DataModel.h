@@ -29,6 +29,11 @@
 - (NSString*)secretCode;
 - (void)setSecretCode:(NSString*)string;
 
+// Get and set the Facebook id that the user is loggedin with.
+- (NSString*)fbid;
+- (void)setFbid:(NSString*)string;
+
+
 // Determines whether the user has successfully joined a chat.
 - (BOOL)joinedChat;
 - (void)setJoinedChat:(BOOL)value;
