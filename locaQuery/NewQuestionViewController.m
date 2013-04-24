@@ -79,7 +79,7 @@
 	message.senderName = nil;
 	message.date = [NSDate date];
 	message.text = text;
-    
+    //message.threadId = [dataModel newThread];
 	// Add the Message to the data model's list of messages
 	int index = [dataModel addMessage:message];
     

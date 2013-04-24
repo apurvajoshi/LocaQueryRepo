@@ -33,7 +33,6 @@
 - (NSString*)fbid;
 - (void)setFbid:(NSString*)string;
 
-
 // Determines whether the user has successfully joined a chat.
 - (BOOL)joinedChat;
 - (void)setJoinedChat:(BOOL)value;

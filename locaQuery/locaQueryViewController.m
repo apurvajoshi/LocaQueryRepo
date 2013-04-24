@@ -93,6 +93,7 @@ NSArray *QuestionTitles;
     // Pass the selected object to the new view controller.
 
     [[tableView cellForRowAtIndexPath:indexPath] setSelected:NO animated:YES];
+    questionThreadViewController.dataModel = dataModel;
     [self.navigationController pushViewController:questionThreadViewController animated:YES];
 
     
