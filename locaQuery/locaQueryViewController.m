@@ -38,7 +38,7 @@ NSArray *QuestionTitles;
                                               style:UIBarButtonItemStyleBordered
                                               target:self
                                               action:@selector(logoutButtonWasPressed:)];
-    QuestionTitles = [NSArray arrayWithObjects:@"Question1", @"Question2",@"New Question",nil];
+    QuestionTitles = [NSArray arrayWithObjects:@"Question1", @"Question2",@"Question3",nil];
 }
 
 -(void)viewWillAppear:(BOOL)animated {
@@ -93,6 +93,7 @@ NSArray *QuestionTitles;
     // Pass the selected object to the new view controller.
 
     [[tableView cellForRowAtIndexPath:indexPath] setSelected:NO animated:YES];
+    questionThreadViewController.dataModel = dataModel;
     [self.navigationController pushViewController:questionThreadViewController animated:YES];
 
     

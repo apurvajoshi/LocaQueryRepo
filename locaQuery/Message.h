@@ -13,6 +13,9 @@
 // The text of the message
 @property (nonatomic, copy) NSString* text;
 
+// The thread id the message belongs to
+@property (nonatomic, copy) NSString* threadId;
+
 // This doesn't really belong in the data model, but we use it to cache the
 // size of the speech bubble for this message.
 @property (nonatomic, assign) CGSize bubbleSize;
