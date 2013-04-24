@@ -13,6 +13,7 @@
 #import "SpeechBubbleView.h"
 #import "ASIFormDataRequest.h"
 #import "MBProgressHUD.h"
+#import "defs.h"
 
 @implementation QuestionThreadViewController
 
@@ -97,8 +98,8 @@
 	// add a new row to the table view with a nice animation.
 	if ([self isViewLoaded])
 	{
-		//self.tableView.tableFooterView = nil;
-		//[self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:index inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
+		self.tableView.tableFooterView = nil;
+		[self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:index inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
 		[self scrollToNewestMessage];
 	}
 }
@@ -110,7 +111,69 @@
     return YES;
 }
 
+- (void)userDidCompose:(NSString*)text
+{
+	// Create a new Message object
+	Message* message = [[Message alloc] init];
+	message.senderName = nil;
+	message.date = [NSDate date];
+	message.text = text;
+    
+	// Add the Message to the data model's list of messages
+	int index = [dataModel addMessage:message];
+    
+	// Add a row for the Message to ChatViewController's table view.
+	// Of course, ComposeViewController doesn't really know that the
+	// delegate is the ChatViewController.
+	[self didSaveMessage:message atIndex:index];
+}
 
+- (void)postMessageRequest
+{
+	[self.replyText resignFirstResponder];
+    
+	MBProgressHUD* hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+	hud.labelText = NSLocalizedString(@"Sending", nil);
+    
+	NSString* text = self.replyText.text;
+    
+	NSURL* url = [NSURL URLWithString:ServerApiURL];
+	__block ASIFormDataRequest* request = [ASIFormDataRequest requestWithURL:url];
+	[request setDelegate:self];
+    
+	[request setPostValue:@"message" forKey:@"cmd"];
+	[request setPostValue:[dataModel udid] forKey:@"udid"];
+    NSLog(@"udid = : %@", [dataModel udid]);
+	[request setPostValue:text forKey:@"text"];
+    
+	[request setCompletionBlock:^
+     {
+         if ([self isViewLoaded])
+         {
+             [MBProgressHUD hideHUDForView:self.view animated:YES];
+             NSLog(@"headers response: %@", [request responseHeaders]);
+             if ([request responseStatusCode] != 200)
+             {
+                 ShowErrorAlert(NSLocalizedString(@"Could not send the message to the server", nil));
+             }
+             else
+             {
+                 [self userDidCompose:text];
+             }
+         }
+     }];
+    
+	[request setFailedBlock:^
+     {
+         if ([self isViewLoaded])
+         {
+             [MBProgressHUD hideHUDForView:self.view animated:YES];
+             ShowErrorAlert([[request error] localizedDescription]);
+         }
+     }];
+    
+	[request startAsynchronous];
+}
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -134,5 +197,8 @@
 }
 
 - (IBAction)replyBtn:(id)sender {
+    NSString* text = self.replyText.text;
+    //[self userDidCompose:text];
+    [self postMessageRequest];
 }
 @end
