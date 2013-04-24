@@ -10,6 +10,7 @@
 #import <FacebookSDK/FacebookSDK.h>
 #import "NewQuestionViewController.h"
 #import "DataModel.h"
+#import "QuestionThreadViewController.h"
 
 @implementation locaQueryViewController
 
@@ -84,6 +85,19 @@ NSArray *QuestionTitles;
     
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    
+    QuestionThreadViewController *questionThreadViewController = [[QuestionThreadViewController alloc] initWithNibName:@"QuestionThreadViewController" bundle:nil];
+    // ...
+    // Pass the selected object to the new view controller.
+
+    [[tableView cellForRowAtIndexPath:indexPath] setSelected:NO animated:YES];
+    [self.navigationController pushViewController:questionThreadViewController animated:YES];
+
+    
+}
+
 #pragma mark - UI Behavior
 
 // Displays the user's name and profile picture so they are aware of the Facebook
@@ -121,8 +135,9 @@ NSArray *QuestionTitles;
             for(id<FBGraphUser> user in result[@"data"]) {
                 if (user[@"installed"]) {
                 [string appendFormat:@"%@ with id %@ installed the app? %@\n", [user first_name], [user id], user[@"installed"] ? @"Yes" : @"No"];
+                    NSLog(string);
                 }
-                NSLog(string);
+                
             }
         }];
     }

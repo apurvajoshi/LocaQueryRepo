@@ -65,7 +65,7 @@
 	// Calculate how many bytes are left
 	int remaining = MaxMessageLength - numberOfBytes;
     
-	NSLog(@"remaining byetes = %d", remaining);
+	NSLog(@"remaining bytes = %d", remaining);
 }
 
 #pragma mark -

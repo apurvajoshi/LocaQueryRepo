@@ -66,7 +66,7 @@
     
     // GET THE NAME FROM FACEBOOK
 	//[request setPostValue:[dataModel nickname] forKey:@"name"];
-    [request setPostValue:@"ajoshi" forKey:@"name"];
+    [request setPostValue:@"elli" forKey:@"name"];
     
     // SET SOME RANDOM CODE
 	//[request setPostValue:[dataModel secretCode] forKey:@"code"];
