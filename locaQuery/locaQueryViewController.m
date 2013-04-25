@@ -24,6 +24,8 @@ NSArray *QuestionTitles;
     if (self) {
         // Custom initialization
         self.navigationItem.hidesBackButton = YES;
+        QuestionTitles = dataModel.messages.allKeys;
+        
     }
     return self;
 }
@@ -38,7 +40,7 @@ NSArray *QuestionTitles;
                                               style:UIBarButtonItemStyleBordered
                                               target:self
                                               action:@selector(logoutButtonWasPressed:)];
-    QuestionTitles = [NSArray arrayWithObjects:@"Question1", @"Question2",@"Question3",nil];
+    //QuestionTitles = [NSArray arrayWithObjects:@"Question1", @"Question2",@"Question3",nil];
 }
 
 -(void)viewWillAppear:(BOOL)animated {
@@ -94,7 +96,7 @@ NSArray *QuestionTitles;
 
     [[tableView cellForRowAtIndexPath:indexPath] setSelected:NO animated:YES];
     questionThreadViewController.dataModel = dataModel;
-    questionThreadViewController.threadId = @"00";//threadId;
+    questionThreadViewController.threadId = [QuestionTitles objectAtIndex:indexPath];
     [self.navigationController pushViewController:questionThreadViewController animated:YES];
 
     

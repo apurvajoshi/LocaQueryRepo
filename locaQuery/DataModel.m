@@ -12,6 +12,7 @@ static NSString* const Fbid = @"Fbid";
 
 @implementation DataModel
 @synthesize messages;
+@synthesize questions;
 
 + (void)initialize
 {
@@ -90,10 +91,16 @@ static NSString* const Fbid = @"Fbid";
     if (msgs == nil) {
         NSMutableArray *newmsgs = [[NSMutableArray alloc] init];
         [messages setObject:newmsgs forKey:message.threadId];
+        //[questions addObject:message];
     }
     [[messages objectForKey:message.threadId] addObject:message];
     return msgs.count;
     
+}
+
+- (NSArray*) getMessagesforId:(NSString*)threadId
+{
+    return [messages objectForKey:threadId];
 }
 
 - (NSString*)nickname
