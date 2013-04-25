@@ -73,7 +73,6 @@
 
 - (void)userDidCompose:(NSString*)text :(NSString*) threadId
 {
-    NSLog(@"Coming here");
 	// Create a new Message object
 	Message* message = [[Message alloc] init];
 	message.senderName = nil;
@@ -173,10 +172,9 @@
     }
     else {
         NSLog(@"Should send the question now");
-        [self.navigationController popViewControllerAnimated:YES];
-        
         /* Sending question to the server */
         [self postMessageRequest];
+        [self.navigationController popViewControllerAnimated:YES];
     }
 }
 

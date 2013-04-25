@@ -11,6 +11,7 @@
 
 @class LoginViewController;
 @class locaQueryViewController;
+@class QuestionThreadViewController;
 @class DataModel;
 
 @interface locaQueryAppDelegate : UIResponder <UIApplicationDelegate, UINavigationControllerDelegate>
@@ -22,6 +23,8 @@
 @property (strong, nonatomic) locaQueryViewController *mainViewController;
 
 @property (strong, nonatomic) LoginViewController* loginViewController;
+
+@property (strong, nonatomic) QuestionThreadViewController* questionThreadViewController;
 
 @property BOOL isNavigating;
 
