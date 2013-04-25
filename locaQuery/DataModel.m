@@ -9,6 +9,8 @@ static NSString* const JoinedChatKey = @"JoinedChat";
 static NSString* const DeviceTokenKey = @"DeviceToken";
 static NSString* const Udid = @"Udid";
 static NSString* const Fbid = @"Fbid";
+static NSString* const Lat = @"Lat";
+static NSString* const Long = @"Long";
 
 @implementation DataModel
 @synthesize messages;
@@ -109,6 +111,31 @@ CLLocationManager *locationManager;
     locationManager.desiredAccuracy = kCLLocationAccuracyBest;
     
     [locationManager startUpdatingLocation];
+}
+
+#pragma mark - CLLocationManagerDelegate
+
+- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
+{
+    NSLog(@"didFailWithError: %@", error);
+    UIAlertView *errorAlert = [[UIAlertView alloc]
+                               initWithTitle:@"Error" message:@"Failed to Get Your Location" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    [errorAlert show];
+}
+
+- (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation
+{
+    NSLog(@"didUpdateToLocation: %@", newLocation);
+    CLLocation *currentLocation = newLocation;
+    
+    if (currentLocation != nil) {
+        NSString* latitude;
+        NSString* longitude;
+        longitude = [NSString stringWithFormat:@"%.8f", currentLocation.coordinate.longitude];
+        latitude = [NSString stringWithFormat:@"%.8f", currentLocation.coordinate.latitude];
+        NSLog(@"longitude : %@", longitude);
+        NSLog(@"latitude : %@", latitude);
+    }
 }
 
 - (void)setNickname:(NSString*)name
