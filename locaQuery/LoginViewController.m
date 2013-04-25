@@ -79,7 +79,6 @@
                  [request setPostValue:[dataModel nickname] forKey:@"name"];
                  NSLog(@"nickname = : %@", [dataModel nickname]);
                  
-                 
                  [request setPostValue:[dataModel deviceToken] forKey:@"token"];
                  NSLog(@"device token = : %@", [dataModel deviceToken]);
                  

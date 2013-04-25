@@ -26,6 +26,24 @@
 	[self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
 }
 
+#pragma mark -
+#pragma mark NewQuestionDelegate 
+- (void)didSaveMessage:(Message*)message atIndex:(int)index
+{
+	// This method is called when the user presses Save in the Compose screen,
+	// but also when a push notification is received. We remove the "There are
+	// no messages" label from the table view's footer if it is present, and
+	// add a new row to the table view with a nice animation.
+	if ([self isViewLoaded])
+	{
+		self.tableView.tableFooterView = nil;
+		[self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:index inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
+		[self scrollToNewestMessage];
+	}
+}
+
+
+
 - (void)viewWillAppear:(BOOL)animated
 {
 	[super viewWillAppear:animated];
@@ -62,6 +80,7 @@
 
 - (UITableViewCell*)tableView:(UITableView*)tableView cellForRowAtIndexPath:(NSIndexPath*)indexPath
 {
+    NSLog(@"cellForRowAtIndexPath getting called");
 	static NSString* CellIdentifier = @"MessageCellIdentifier";
     
 	MessageTableViewCell* cell = (MessageTableViewCell*)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
@@ -87,22 +106,6 @@
 	return message.bubbleSize.height + 16;
 }
 
-#pragma mark -
-#pragma mark ComposeDelegate
-
-- (void)didSaveMessage:(Message*)message atIndex:(int)index
-{
-	// This method is called when the user presses Save in the Compose screen,
-	// but also when a push notification is received. We remove the "There are
-	// no messages" label from the table view's footer if it is present, and
-	// add a new row to the table view with a nice animation.
-	if ([self isViewLoaded])
-	{
-		self.tableView.tableFooterView = nil;
-		[self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:index inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
-		[self scrollToNewestMessage];
-	}
-}
 
 - (BOOL)textFieldShouldReturn:(UITextField *)theTextField {
     if (theTextField == self.replyText) {

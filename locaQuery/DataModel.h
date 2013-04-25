@@ -1,8 +1,9 @@
 
 @class Message;
+#import <CoreLocation/CoreLocation.h>
 
 // The main data model object
-@interface DataModel : NSObject
+@interface DataModel : NSObject<CLLocationManagerDelegate>
 {
 }
 

@@ -12,7 +12,7 @@ static NSString* const Fbid = @"Fbid";
 
 @implementation DataModel
 @synthesize messages;
-
+CLLocationManager *locationManager;
 + (void)initialize
 {
 	if (self == [DataModel class])
@@ -24,6 +24,8 @@ static NSString* const Fbid = @"Fbid";
 				@"", SecretCodeKey,
 				[NSNumber numberWithInt:0], JoinedChatKey, @"0", DeviceTokenKey, nil]];
 	}
+    
+    locationManager = [[CLLocationManager alloc] init];
 }
 
 // Returns the path to the Messages.plist file in the app's Documents directory
@@ -76,6 +78,14 @@ static NSString* const Fbid = @"Fbid";
 - (NSString*)nickname
 {
 	return [[NSUserDefaults standardUserDefaults] stringForKey:NicknameKey];
+}
+
+- (NSString*)getaLocation
+{
+    locationManager.delegate = self;
+    locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+    
+    [locationManager startUpdatingLocation];
 }
 
 - (void)setNickname:(NSString*)name

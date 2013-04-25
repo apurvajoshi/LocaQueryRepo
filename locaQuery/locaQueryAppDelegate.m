@@ -9,6 +9,7 @@
 #import "locaQueryAppDelegate.h"
 #import "locaQueryViewController.h"
 #import "LoginViewController.h"
+#import "QuestionThreadViewController.h"
 #import <FacebookSDK/FacebookSDK.h>
 #import <FacebookSDK/FBSessionTokenCachingStrategy.h>
 #import "defs.h"
@@ -38,6 +39,7 @@ void ShowErrorAlert(NSString* text)
 navigationController = _navigationController,
 mainViewController = _mainViewController,
 loginViewController = _loginViewController,
+questionThreadViewController = _questionThreadViewController,
 isNavigating = _isNavigating;
 
 @synthesize dataModel;
@@ -49,7 +51,8 @@ isNavigating = _isNavigating;
     // Create the main data model object
 	dataModel = [[DataModel alloc] init];
 	[dataModel loadMessages];
-    
+
+
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     self.mainViewController = [[locaQueryViewController alloc] initWithNibName:@"locaQueryViewController" bundle:nil];
@@ -57,6 +60,7 @@ isNavigating = _isNavigating;
 
     self.loginViewController = [[LoginViewController alloc] initWithNibName:@"LoginViewController"
                                                                      bundle:nil];
+    
     self.navigationController = [[UINavigationController alloc] initWithRootViewController:self.loginViewController];
     self.navigationController.delegate = self;
     self.window.rootViewController = self.navigationController;
@@ -67,10 +71,7 @@ isNavigating = _isNavigating;
 	if (![dataModel joinedChat])
 	{
 		self.loginViewController.dataModel = dataModel;
-        NSLog(@"coming here1");
 	}
-
-    NSLog(@"coming here2");
     
     // Let the device know we want to receive push notifications
 	[[UIApplication sharedApplication] registerForRemoteNotificationTypes:
@@ -163,9 +164,17 @@ isNavigating = _isNavigating;
     
 	int index = [dataModel addMessage:message];
     
-    //if (updateUI)
-    //[self.NewQuestionViewController didSaveMessage:message atIndex:index];
-    
+    if (updateUI)
+    {
+        self.questionThreadViewController = [[QuestionThreadViewController alloc] initWithNibName:@"QuestionThreadViewController"
+                                                                                           bundle:nil];
+        self.questionThreadViewController.dataModel = dataModel;
+        NSLog(@"Coming here1");
+        [self.questionThreadViewController didSaveMessage:message atIndex:index];
+        NSLog(@"Coming here2");
+        [self.navigationController pushViewController:self.questionThreadViewController animated:YES];
+    }
+
 }
 
 
