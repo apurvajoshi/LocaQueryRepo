@@ -12,6 +12,7 @@ static NSString* const Fbid = @"Fbid";
 
 @implementation DataModel
 @synthesize messages;
+CLLocationManager *locationManager;
 @synthesize questions;
 
 + (void)initialize
