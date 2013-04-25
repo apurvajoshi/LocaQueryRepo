@@ -94,6 +94,7 @@ NSArray *QuestionTitles;
 
     [[tableView cellForRowAtIndexPath:indexPath] setSelected:NO animated:YES];
     questionThreadViewController.dataModel = dataModel;
+    questionThreadViewController.threadId = @"00";//threadId;
     [self.navigationController pushViewController:questionThreadViewController animated:YES];
 
     

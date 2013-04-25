@@ -48,12 +48,20 @@ static NSString* const Fbid = @"Fbid";
 
 		NSData* data = [[NSData alloc] initWithContentsOfFile:path];
 		NSKeyedUnarchiver* unarchiver = [[NSKeyedUnarchiver alloc] initForReadingWithData:data];
-		self.messages = [unarchiver decodeObjectForKey:@"Messages"];
+		NSMutableArray *msgsLoaded = [unarchiver decodeObjectForKey:@"Messages"];
+        for (Message *m in msgsLoaded) {
+            NSMutableArray *msgs = [messages objectForKey:m.threadId];
+            if (msgs == nil) {
+                NSMutableArray *newmsgs = [NSMutableArray arrayWithCapacity:20];
+                [messages setObject:newmsgs forKey:m.threadId];
+            }
+            [[messages objectForKey:m.threadId] addObject:m];
+        }
 		[unarchiver finishDecoding];
 	}
 	else
 	{
-		self.messages = [NSMutableArray arrayWithCapacity:20];
+		self.messages = [[NSMutableDictionary alloc] init];
 	}
 }
 
@@ -61,16 +69,31 @@ static NSString* const Fbid = @"Fbid";
 {
 	NSMutableData* data = [[NSMutableData alloc] init];
 	NSKeyedArchiver* archiver = [[NSKeyedArchiver alloc] initForWritingWithMutableData:data];
-	[archiver encodeObject:self.messages forKey:@"Messages"];
+    NSMutableArray *msgsToSave = [[NSMutableArray alloc] init];
+    for(NSMutableArray* msgs in messages) {
+        for(Message *m in msgs)
+            [msgsToSave addObject:m];
+    }
+	//[archiver encodeObject:self.messages forKey:@"Messages"];
+    [archiver encodeObject:msgsToSave forKey:@"Messages"];
 	[archiver finishEncoding];
 	[data writeToFile:[self messagesPath] atomically:YES];
 }
 
 - (int)addMessage:(Message*)message
 {
-	[self.messages addObject:message];
-	[self saveMessages];
-	return self.messages.count - 1;
+	//[self.messages addObject:message];
+	//[self saveMessages];
+	//return self.messages.count - 1;
+    
+    NSMutableArray *msgs = [messages objectForKey:message.threadId];
+    if (msgs == nil) {
+        NSMutableArray *newmsgs = [[NSMutableArray alloc] init];
+        [messages setObject:newmsgs forKey:message.threadId];
+    }
+    [[messages objectForKey:message.threadId] addObject:message];
+    return msgs.count;
+    
 }
 
 - (NSString*)nickname

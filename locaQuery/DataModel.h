@@ -8,7 +8,8 @@
 
 // The complete history of messages this user has sent and received, in
 // chronological order (oldest first).
-@property (nonatomic, retain) NSMutableArray* messages;
+@property (nonatomic, retain) NSMutableDictionary* messages;
+//@property (nonatomic, retain) NSMutableDictionary* messagesMap;
 
 // Loads the list of messages from a file.
 - (void)loadMessages;

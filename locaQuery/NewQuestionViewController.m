@@ -71,7 +71,7 @@
 #pragma mark -
 #pragma mark Server Communication
 
-- (void)userDidCompose:(NSString*)text
+- (void)userDidCompose:(NSString*)text :(NSString*) threadId
 {
     NSLog(@"Coming here");
 	// Create a new Message object
@@ -79,7 +79,7 @@
 	message.senderName = nil;
 	message.date = [NSDate date];
 	message.text = text;
-    //message.threadId = [dataModel newThread];
+    message.threadId = threadId;
 	// Add the Message to the data model's list of messages
 	int index = [dataModel addMessage:message];
     
@@ -130,7 +130,8 @@
              }
              else
              {
-                 [self userDidCompose:text];
+                 NSString* threadId = @"00";
+                 [self userDidCompose:text :threadId];
              }
          }
      }];
