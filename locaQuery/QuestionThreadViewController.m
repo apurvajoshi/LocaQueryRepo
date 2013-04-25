@@ -17,12 +17,12 @@
 
 @implementation QuestionThreadViewController
 
-@synthesize dataModel, tableView;
+@synthesize dataModel, tableView, threadId;
 
 - (void)scrollToNewestMessage
 {
 	// The newest message is at the bottom of the table
-	NSIndexPath* indexPath = [NSIndexPath indexPathForRow:(self.dataModel.messages.count - 1) inSection:0];
+	NSIndexPath* indexPath = [NSIndexPath indexPathForRow:([self.dataModel getMessagesforId:threadId].count - 1) inSection:0];
 	[self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
 }
 
@@ -48,10 +48,10 @@
 {
 	[super viewWillAppear:animated];
     
-	self.title = [dataModel secretCode];
+	self.title = threadId;
     
 	// Show a label in the table's footer if there are no messages
-	if (self.dataModel.messages.count == 0)
+	if ([self.dataModel getMessagesforId:threadId].count == 0)
 	{
 		UILabel* label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 30)];
 		label.text = NSLocalizedString(@"You have no messages", nil);
@@ -75,7 +75,7 @@
 
 - (int)tableView:(UITableView*)tableView numberOfRowsInSection:(NSInteger)section
 {
-	return self.dataModel.messages.count;
+	return [self.dataModel getMessagesforId:threadId].count;
 }
 
 - (UITableViewCell*)tableView:(UITableView*)tableView cellForRowAtIndexPath:(NSIndexPath*)indexPath
@@ -87,7 +87,7 @@
 	if (cell == nil)
 		cell = [[MessageTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     
-	Message* message = [self.dataModel.messages objectAtIndex:indexPath.row];
+	Message* message = [[self.dataModel getMessagesforId:threadId] objectAtIndex:indexPath.row];
 	[cell setMessage:message];
 	return cell;
 }
@@ -101,7 +101,7 @@
 	// We calculate the size of the speech bubble here and then cache it in the
 	// Message object, so we don't have to repeat those calculations every time
 	// we draw the cell. We add 16px for the label that sits under the bubble.
-	Message* message = [self.dataModel.messages objectAtIndex:indexPath.row];
+	Message* message = [[self.dataModel getMessagesforId:threadId] objectAtIndex:indexPath.row];
 	message.bubbleSize = [SpeechBubbleView sizeForText:message.text];
 	return message.bubbleSize.height + 16;
 }
@@ -121,6 +121,7 @@
 	message.senderName = nil;
 	message.date = [NSDate date];
 	message.text = text;
+    message.threadId = threadId;
     
 	// Add the Message to the data model's list of messages
 	int index = [dataModel addMessage:message];
@@ -200,8 +201,6 @@
 }
 
 - (IBAction)replyBtn:(id)sender {
-    NSString* text = self.replyText.text;
-    //[self userDidCompose:text];
     [self postMessageRequest];
 }
 @end

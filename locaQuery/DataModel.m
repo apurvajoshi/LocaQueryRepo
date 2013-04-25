@@ -15,6 +15,8 @@ static NSString* const Long = @"Long";
 @implementation DataModel
 @synthesize messages;
 CLLocationManager *locationManager;
+@synthesize questions;
+
 + (void)initialize
 {
 	if (self == [DataModel class])
@@ -94,10 +96,16 @@ CLLocationManager *locationManager;
     if (msgs == nil) {
         NSMutableArray *newmsgs = [[NSMutableArray alloc] init];
         [messages setObject:newmsgs forKey:message.threadId];
+        //[questions addObject:message];
     }
     [[messages objectForKey:message.threadId] addObject:message];
     return msgs.count;
     
+}
+
+- (NSArray*) getMessagesforId:(NSString*)threadId
+{
+    return [messages objectForKey:threadId];
 }
 
 - (NSString*)nickname
