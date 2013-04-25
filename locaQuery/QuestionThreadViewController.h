@@ -19,4 +19,6 @@
 @property (weak, nonatomic) IBOutlet UITextField *replyText;
 - (IBAction)replyBtn:(id)sender;
 
+@property (nonatomic, assign) NSString* threadId;
+
 @end

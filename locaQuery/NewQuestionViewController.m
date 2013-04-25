@@ -71,14 +71,14 @@
 #pragma mark -
 #pragma mark Server Communication
 
-- (void)userDidCompose:(NSString*)text
+- (void)userDidCompose:(NSString*)text :(NSString*) threadId
 {
 	// Create a new Message object
 	Message* message = [[Message alloc] init];
 	message.senderName = nil;
 	message.date = [NSDate date];
 	message.text = text;
-    //message.threadId = [dataModel newThread];
+    message.threadId = threadId;
 	// Add the Message to the data model's list of messages
 	int index = [dataModel addMessage:message];
     
@@ -129,12 +129,8 @@
              }
              else
              {
-                 
-                 /* Get the secret code / thread id in resonse from the server */
-                 
-                 /* Set the thread id for the message */
-                 
-                 [self userDidCompose:text];
+                 NSString* threadId = @"00";
+                 [self userDidCompose:text :threadId];
              }
          }
      }];
