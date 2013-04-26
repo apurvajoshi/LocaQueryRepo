@@ -3,7 +3,7 @@
 #import <CoreLocation/CoreLocation.h>
 
 // The main data model object
-@interface DataModel : NSObject<CLLocationManagerDelegate>
+@interface DataModel : NSObject
 {
 }
 

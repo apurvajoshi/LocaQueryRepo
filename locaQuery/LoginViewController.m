@@ -74,6 +74,7 @@
                  [dataModel setFbid:fbid];
                  [request setPostValue:[dataModel fbid] forKey:@"fbid"];
                  NSLog(@"fbid = : %@", [dataModel fbid]);
+                 
                  // GET THE NAME FROM FACEBOOK
                  [dataModel setNickname:name];
                  [request setPostValue:[dataModel nickname] forKey:@"name"];

@@ -9,12 +9,10 @@ static NSString* const JoinedChatKey = @"JoinedChat";
 static NSString* const DeviceTokenKey = @"DeviceToken";
 static NSString* const Udid = @"Udid";
 static NSString* const Fbid = @"Fbid";
-static NSString* const Lat = @"Lat";
-static NSString* const Long = @"Long";
 
 @implementation DataModel
+
 @synthesize messages;
-CLLocationManager *locationManager;
 @synthesize questions;
 
 + (void)initialize
@@ -29,7 +27,7 @@ CLLocationManager *locationManager;
 				[NSNumber numberWithInt:0], JoinedChatKey, @"0", DeviceTokenKey, nil]];
 	}
     
-    locationManager = [[CLLocationManager alloc] init];
+
 }
 
 // Returns the path to the Messages.plist file in the app's Documents directory
@@ -111,39 +109,6 @@ CLLocationManager *locationManager;
 - (NSString*)nickname
 {
 	return [[NSUserDefaults standardUserDefaults] stringForKey:NicknameKey];
-}
-
-- (NSString*)getaLocation
-{
-    locationManager.delegate = self;
-    locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-    
-    [locationManager startUpdatingLocation];
-}
-
-#pragma mark - CLLocationManagerDelegate
-
-- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
-{
-    NSLog(@"didFailWithError: %@", error);
-    UIAlertView *errorAlert = [[UIAlertView alloc]
-                               initWithTitle:@"Error" message:@"Failed to Get Your Location" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-    [errorAlert show];
-}
-
-- (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation
-{
-    NSLog(@"didUpdateToLocation: %@", newLocation);
-    CLLocation *currentLocation = newLocation;
-    
-    if (currentLocation != nil) {
-        NSString* latitude;
-        NSString* longitude;
-        longitude = [NSString stringWithFormat:@"%.8f", currentLocation.coordinate.longitude];
-        latitude = [NSString stringWithFormat:@"%.8f", currentLocation.coordinate.latitude];
-        NSLog(@"longitude : %@", longitude);
-        NSLog(@"latitude : %@", latitude);
-    }
 }
 
 - (void)setNickname:(NSString*)name

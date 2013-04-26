@@ -16,6 +16,7 @@
 #import "ASIFormDataRequest.h"
 #import "DataModel.h"
 #import "Message.h"
+#import "GPSlocation.h"
 
 void ShowErrorAlert(NSString* text)
 {
@@ -42,7 +43,7 @@ loginViewController = _loginViewController,
 questionThreadViewController = _questionThreadViewController,
 isNavigating = _isNavigating;
 
-@synthesize dataModel;
+@synthesize dataModel, gpsLocation;
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -52,6 +53,10 @@ isNavigating = _isNavigating;
 	dataModel = [[DataModel alloc] init];
 	[dataModel loadMessages];
 
+    NSLog(@"Before GPS location");
+    gpsLocation = [[GPSlocation alloc] init];
+    [gpsLocation initialize];
+    [gpsLocation getCurrentLocation];
 
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
