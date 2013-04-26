@@ -13,9 +13,10 @@
 #import "MBProgressHUD.h"
 #import "DataModel.h"
 #import "defs.h"
+#import "GPSlocation.h"
 
 @implementation LoginViewController
-@synthesize dataModel;
+@synthesize dataModel, gpsLocation;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -46,7 +47,6 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
-
 - (void)postJoinRequest
 {
 	MBProgressHUD* hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
@@ -74,6 +74,11 @@
                  [dataModel setFbid:fbid];
                  [request setPostValue:[dataModel fbid] forKey:@"Fid"];
                  NSLog(@"fbid = : %@", [dataModel fbid]);
+                 
+                 [gpsLocation getCurrentLocation];
+                 NSLog(@"longitude = : %@", [gpsLocation longitude]);
+                 NSLog(@"latitude = : %@", [gpsLocation latitude]);
+                 
                  // GET THE NAME FROM FACEBOOK
                  [dataModel setNickname:name];
                  [request setPostValue:[dataModel nickname] forKey:@"name"];

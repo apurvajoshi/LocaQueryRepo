@@ -11,8 +11,8 @@ static NSString* const Udid = @"Udid";
 static NSString* const Fbid = @"Fbid";
 
 @implementation DataModel
+
 @synthesize messages;
-CLLocationManager *locationManager;
 @synthesize questions;
 
 + (void)initialize
@@ -27,7 +27,7 @@ CLLocationManager *locationManager;
 				[NSNumber numberWithInt:0], JoinedChatKey, @"0", DeviceTokenKey, nil]];
 	}
     
-    locationManager = [[CLLocationManager alloc] init];
+
 }
 
 // Returns the path to the Messages.plist file in the app's Documents directory
@@ -112,14 +112,6 @@ CLLocationManager *locationManager;
 - (NSString*)nickname
 {
 	return [[NSUserDefaults standardUserDefaults] stringForKey:NicknameKey];
-}
-
-- (NSString*)getaLocation
-{
-    locationManager.delegate = self;
-    locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-    
-    [locationManager startUpdatingLocation];
 }
 
 - (void)setNickname:(NSString*)name

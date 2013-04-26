@@ -9,11 +9,12 @@
 #import <UIKit/UIKit.h>
 #import <FacebookSDK/FacebookSDK.h>
 @class DataModel;
+@class GPSlocation;
 
 @interface LoginViewController : UIViewController<FBLoginViewDelegate>
 
 @property (unsafe_unretained, nonatomic) IBOutlet FBLoginView *FBLoginView;
 @property (nonatomic, assign) DataModel* dataModel;
-
+@property (nonatomic, assign) GPSlocation* gpsLocation;
 
 @end

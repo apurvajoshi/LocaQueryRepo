@@ -34,6 +34,7 @@
 		68CBA43F1724904300902812 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 68CBA43E1724904300902812 /* SystemConfiguration.framework */; };
 		68CBA4411724907300902812 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 68CBA4401724907300902812 /* MobileCoreServices.framework */; };
 		68CBA443172490AF00902812 /* libz.1.2.5.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 68CBA442172490AF00902812 /* libz.1.2.5.dylib */; };
+		68DC694D1729F45000B9C71C /* GPSlocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 68DC694C1729F44F00B9C71C /* GPSlocation.m */; };
 		68E129B91720958C00B57815 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 68E129B81720958C00B57815 /* UIKit.framework */; };
 		68E129BB1720958C00B57815 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 68E129BA1720958C00B57815 /* Foundation.framework */; };
 		68E129BD1720958C00B57815 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 68E129BC1720958C00B57815 /* CoreGraphics.framework */; };
@@ -92,6 +93,8 @@
 		68CBA43E1724904300902812 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		68CBA4401724907300902812 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		68CBA442172490AF00902812 /* libz.1.2.5.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.2.5.dylib; path = usr/lib/libz.1.2.5.dylib; sourceTree = SDKROOT; };
+		68DC694B1729F44F00B9C71C /* GPSlocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPSlocation.h; sourceTree = "<group>"; };
+		68DC694C1729F44F00B9C71C /* GPSlocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPSlocation.m; sourceTree = "<group>"; };
 		68E129B51720958C00B57815 /* locaQuery.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = locaQuery.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		68E129B81720958C00B57815 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		68E129BA1720958C00B57815 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -254,6 +257,8 @@
 				4DC5E1D517272E5C00042960 /* QuestionThreadViewController.h */,
 				4DC5E1D617272E5C00042960 /* QuestionThreadViewController.m */,
 				4DC5E1D717272E5D00042960 /* QuestionThreadViewController.xib */,
+				68DC694B1729F44F00B9C71C /* GPSlocation.h */,
+				68DC694C1729F44F00B9C71C /* GPSlocation.m */,
 				4DAA495817209DBE003E31BC /* images */,
 				68E129BF1720958C00B57815 /* Supporting Files */,
 			);
@@ -409,6 +414,7 @@
 				4DC5E1C817272A6D00042960 /* MessageTableViewCell.m in Sources */,
 				4DC5E1C917272A6D00042960 /* SpeechBubbleView.m in Sources */,
 				4DC5E1D817272E5D00042960 /* QuestionThreadViewController.m in Sources */,
+				68DC694D1729F45000B9C71C /* GPSlocation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

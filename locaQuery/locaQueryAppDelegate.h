@@ -13,6 +13,7 @@
 @class locaQueryViewController;
 @class QuestionThreadViewController;
 @class DataModel;
+@class GPSlocation;
 
 @interface locaQueryAppDelegate : UIResponder <UIApplicationDelegate, UINavigationControllerDelegate>
 
@@ -29,5 +30,7 @@
 @property BOOL isNavigating;
 
 @property (nonatomic, retain) DataModel* dataModel;
+
+@property (nonatomic, retain) GPSlocation* gpsLocation;
 
 @end

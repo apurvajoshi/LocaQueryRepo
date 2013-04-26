@@ -16,6 +16,7 @@
 #import "ASIFormDataRequest.h"
 #import "DataModel.h"
 #import "Message.h"
+#import "GPSlocation.h"
 
 void ShowErrorAlert(NSString* text)
 {
@@ -42,7 +43,7 @@ loginViewController = _loginViewController,
 questionThreadViewController = _questionThreadViewController,
 isNavigating = _isNavigating;
 
-@synthesize dataModel;
+@synthesize dataModel, gpsLocation;
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -52,6 +53,9 @@ isNavigating = _isNavigating;
 	dataModel = [[DataModel alloc] init];
 	[dataModel loadMessages];
 
+    gpsLocation = [[GPSlocation alloc] init];
+    [gpsLocation initialize];
+    [gpsLocation getCurrentLocation];
 
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
@@ -71,6 +75,7 @@ isNavigating = _isNavigating;
 	if (![dataModel joinedChat])
 	{
 		self.loginViewController.dataModel = dataModel;
+        self.loginViewController.gpsLocation = gpsLocation;
 	}
     
     // Let the device know we want to receive push notifications
@@ -172,9 +177,7 @@ isNavigating = _isNavigating;
                                                                                            bundle:nil];
         self.questionThreadViewController.dataModel = dataModel;
         self.questionThreadViewController.threadId = threadId;
-        NSLog(@"Coming here1");
         [self.questionThreadViewController didSaveMessage:message atIndex:index];
-        NSLog(@"Coming here2");
         [self.navigationController pushViewController:self.questionThreadViewController animated:YES];
     }
 
