@@ -10,6 +10,7 @@
 #import <FacebookSDK/FacebookSDK.h>
 #import "NewQuestionViewController.h"
 #import "DataModel.h"
+#import "Message.h"
 #import "QuestionThreadViewController.h"
 
 @implementation locaQueryViewController
@@ -18,14 +19,12 @@
 @synthesize userProfileImage = _userProfileImage;
 @synthesize dataModel;
 @synthesize questionsTableView;
-NSMutableArray *QuestionTitles;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
         self.navigationItem.hidesBackButton = YES;
-        QuestionTitles = dataModel.messages.allKeys;
         
     }
     return self;
@@ -47,7 +46,6 @@ NSMutableArray *QuestionTitles;
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     NSLog(@"viewWillAppear and reload view");
-    QuestionTitles = dataModel.messages.allKeys;
     [self.questionsTableView reloadData];
     if (FBSession.activeSession.isOpen) {
         [self populateUserDetails];
@@ -72,8 +70,8 @@ NSMutableArray *QuestionTitles;
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    NSLog(@"tableView table data size: %d", [QuestionTitles count]);
-    return [QuestionTitles count];
+    NSLog(@"tableView table data size: %d", [dataModel.getQuestions count]);
+    return [dataModel.getQuestions count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -85,7 +83,8 @@ NSMutableArray *QuestionTitles;
    cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:simpleTableIdentifier];
    }
  
-   cell.textLabel.text = [QuestionTitles objectAtIndex:indexPath.row];
+   Message *question = [dataModel.getQuestions objectAtIndex:indexPath.row];
+   cell.textLabel.text = question.text;
    cell.imageView.image = [UIImage imageNamed:@"icon-72.png"];
    return cell;
     
@@ -100,7 +99,8 @@ NSMutableArray *QuestionTitles;
 
     [[tableView cellForRowAtIndexPath:indexPath] setSelected:NO animated:YES];
     questionThreadViewController.dataModel = dataModel;
-    questionThreadViewController.threadId = [QuestionTitles objectAtIndex:indexPath.row];
+    Message *question = [dataModel.getQuestions objectAtIndex:indexPath.row];
+    questionThreadViewController.threadId = question.threadId;
     [self.navigationController pushViewController:questionThreadViewController animated:YES];
 
     
