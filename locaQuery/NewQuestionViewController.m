@@ -112,10 +112,13 @@ KBKeyboardHandler *keyboard;
 	[request setDelegate:self];
     
 	// Add the POST fields
-	[request setPostValue:@"message" forKey:@"cmd"];
+	[request setPostValue:@"query" forKey:@"cmd"];
 	[request setPostValue:[dataModel udid] forKey:@"udid"];
+    [request setPostValue:[dataModel fbid] forKey:@"Fid"];
     //[request setPostValue:@"Hi, this is the msg from the new code" forKey:@"text"];
 	[request setPostValue:text forKey:@"text"];
+    [request setPostValue:self.radius.text forKey:@"radius"];
+    [request setPostValue:self.hops.text forKey:@"hops"];
     
 	// This code will be executed when the HTTP request is successful
 	[request setCompletionBlock:^
@@ -133,6 +136,9 @@ KBKeyboardHandler *keyboard;
              }
              else
              {
+                 NSData *data = [request responseData];
+                 NSLog(@"response data: %@", data);
+                 NSLog(@"ThreadId message %@", [[request responseHeaders] objectForKey:@"ThreadId"]);
                  NSString* threadId = @"00";
                  [self userDidCompose:text :threadId];
                  [self.navigationController popViewControllerAnimated:YES];

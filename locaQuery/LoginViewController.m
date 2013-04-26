@@ -110,6 +110,11 @@
                           {
                               NSLog(@"Got response from server");
                               if (ourserver) {
+                                  NSLog(@"201 server data: %@", [request responseData]);
+                                  NSString *responseString = [request responseString];
+                                  NSLog(@"201 ResponseString:%@",responseString);
+                                  NSLog(@"Status message %@", [[request responseHeaders] objectForKey:@"Status"]);
+                                  NSLog(@"ThreadId message %@", [[request responseHeaders] objectForKey:@"ThreadId"]);
                               [self.dataModel setJoinedChat:YES];
                               FBRequest* fbrequest = [FBRequest requestForMyFriends];
                               fbrequest.parameters[@"fields"] =
