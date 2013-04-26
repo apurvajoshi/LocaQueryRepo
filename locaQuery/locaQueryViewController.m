@@ -17,6 +17,7 @@
 @synthesize userNameLabel = _userNameLabel;
 @synthesize userProfileImage = _userProfileImage;
 @synthesize dataModel;
+@synthesize questionsTableView;
 NSArray *QuestionTitles;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
@@ -45,10 +46,13 @@ NSArray *QuestionTitles;
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    //NSLog(@"viewWillAppear table data size: %d", [Questions count]);
+    NSLog(@"viewWillAppear and reload view");
+    QuestionTitles = dataModel.messages.allKeys;
+    [self.questionsTableView reloadData];
     if (FBSession.activeSession.isOpen) {
         [self populateUserDetails];
     }
+    
 }
 
 - (void)viewDidUnload {
@@ -96,7 +100,7 @@ NSArray *QuestionTitles;
 
     [[tableView cellForRowAtIndexPath:indexPath] setSelected:NO animated:YES];
     questionThreadViewController.dataModel = dataModel;
-    questionThreadViewController.threadId = [QuestionTitles objectAtIndex:indexPath];
+    questionThreadViewController.threadId = [QuestionTitles objectAtIndex:indexPath.row];
     [self.navigationController pushViewController:questionThreadViewController animated:YES];
 
     
@@ -129,7 +133,7 @@ NSArray *QuestionTitles;
                  }
              }
          }];*/
-        FBRequest* request = [FBRequest requestForMyFriends];
+        /*FBRequest* request = [FBRequest requestForMyFriends];
         request.parameters[@"fields"] =
         [NSString stringWithFormat:@"%@,installed", request.parameters[@"fields"]];
         
@@ -143,7 +147,7 @@ NSArray *QuestionTitles;
                 }
                 
             }
-        }];
+        }];*/
     }
 }
 

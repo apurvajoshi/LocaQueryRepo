@@ -166,7 +166,9 @@ isNavigating = _isNavigating;
 	message.senderName = [parts objectAtIndex:0];
 	[parts removeObjectAtIndex:0];
 	message.text = [parts componentsJoinedByString:@": "];
-    
+    //get threadId from message when server is ready
+    NSString* threadId = @"00";
+    message.threadId = threadId;
 	int index = [dataModel addMessage:message];
     
     if (updateUI)
@@ -174,6 +176,7 @@ isNavigating = _isNavigating;
         self.questionThreadViewController = [[QuestionThreadViewController alloc] initWithNibName:@"QuestionThreadViewController"
                                                                                            bundle:nil];
         self.questionThreadViewController.dataModel = dataModel;
+        self.questionThreadViewController.threadId = threadId;
         NSLog(@"Coming here1");
         [self.questionThreadViewController didSaveMessage:message atIndex:index];
         NSLog(@"Coming here2");

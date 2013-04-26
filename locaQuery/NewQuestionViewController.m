@@ -81,7 +81,7 @@
     message.threadId = threadId;
 	// Add the Message to the data model's list of messages
 	int index = [dataModel addMessage:message];
-    
+    NSLog(@"Added message and got back index %d", index);
 	// Add a row for the Message to ChatViewController's table view.
 	// Of course, ComposeViewController doesn't really know that the
 	// delegate is the ChatViewController.
@@ -131,6 +131,7 @@
              {
                  NSString* threadId = @"00";
                  [self userDidCompose:text :threadId];
+                 [self.navigationController popViewControllerAnimated:YES];
              }
          }
      }];
@@ -174,7 +175,7 @@
         NSLog(@"Should send the question now");
         /* Sending question to the server */
         [self postMessageRequest];
-        [self.navigationController popViewControllerAnimated:YES];
+        
     }
 }
 

@@ -125,6 +125,7 @@
     
 	// Add the Message to the data model's list of messages
 	int index = [dataModel addMessage:message];
+    NSLog(@"put message at index %d", index);
     
 	// Add a row for the Message to ChatViewController's table view.
 	// Of course, ComposeViewController doesn't really know that the
