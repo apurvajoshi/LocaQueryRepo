@@ -87,8 +87,8 @@
                  [request setPostValue:[dataModel deviceToken] forKey:@"token"];
                  NSLog(@"device token = : %@", [dataModel deviceToken]);
                  
-                 [request setPostValue:@"10.01" forKey:@"GPS_lat"];
-                 [request setPostValue:@"10.01" forKey:@"GPS_long"];
+                 [request setPostValue:[gpsLocation latitude] forKey:@"GPS_lat"];
+                 [request setPostValue:[gpsLocation longitude] forKey:@"GPS_long"];
                  
                  // SET SOME RANDOM CODE
                  //[request setPostValue:[dataModel secretCode] forKey:@"code"];
