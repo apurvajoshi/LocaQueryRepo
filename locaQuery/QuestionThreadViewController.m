@@ -23,8 +23,12 @@ KBKeyboardHandler *keyboard;
 
 - (void)scrollToNewestMessage
 {
+    NSLog(@"ScrollToNewestMessage");
+    NSLog(@"dataModel messages count: %d", [self.dataModel getMessagesforId:threadId].count);
+    NSLog(@"tableview count %d", [tableView numberOfRowsInSection:0]);
 	// The newest message is at the bottom of the table
 	NSIndexPath* indexPath = [NSIndexPath indexPathForRow:([self.dataModel getMessagesforId:threadId].count - 1) inSection:0];
+    
 	[self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
 }
 
@@ -50,7 +54,8 @@ KBKeyboardHandler *keyboard;
 {
 	[super viewWillAppear:animated];
     
-	self.title = threadId;
+    Message* message = [[self.dataModel getMessagesforId:threadId] objectAtIndex:0];
+	self.title = message.text;
     
 	// Show a label in the table's footer if there are no messages
 	if ([self.dataModel getMessagesforId:threadId].count == 0)
@@ -204,6 +209,8 @@ KBKeyboardHandler *keyboard;
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        self.tableView.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleHeight ;
+        self.tableView.frame = [[UIScreen mainScreen] bounds];
     }
     return self;
 }
@@ -211,6 +218,7 @@ KBKeyboardHandler *keyboard;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
     keyboard = [[KBKeyboardHandler alloc] init];
     keyboard.delegate = self;
 }

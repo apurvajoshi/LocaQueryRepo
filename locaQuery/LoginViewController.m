@@ -68,7 +68,7 @@
                  name = user.name;
                  NSLog(@"got fb name %@ and id %@", name, fbid);
                  
-                 //[request setPostValue:[dataModel udid] forKey:@"udid"];
+                 [request setPostValue:[dataModel udid] forKey:@"udid"];
 
                  //  SET THE FACEBOOK ID
                  [dataModel setFbid:fbid];
@@ -91,8 +91,8 @@
                  [request setPostValue:[gpsLocation longitude] forKey:@"GPS_long"];
                  
                  // SET SOME RANDOM CODE
-                 //[request setPostValue:[dataModel secretCode] forKey:@"code"];
-                 //[request setPostValue:@"locaquerychat" forKey:@"code"];
+                 [request setPostValue:[dataModel secretCode] forKey:@"code"];
+                 [request setPostValue:@"locaquerychat" forKey:@"code"];
                  
                  [request setCompletionBlock:^
                   {
@@ -109,6 +109,7 @@
                           else
                           {
                               NSLog(@"Got response from server");
+                              if (ourserver) {
                               [self.dataModel setJoinedChat:YES];
                               FBRequest* fbrequest = [FBRequest requestForMyFriends];
                               fbrequest.parameters[@"fields"] =
@@ -117,21 +118,27 @@
                               //[request setDelegate:self];
                               [request setPostValue:@"friends" forKey:@"cmd"];
                               [fbrequest startWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
-                                  
+                                  NSMutableString *s = [[NSMutableString alloc] init];
                                   for(id<FBGraphUser> user in result[@"data"]) {
                                       if (user[@"installed"]) {
                                           //NSLog(@"%@ with id %@ installed the app? %@\n", [user first_name], [user id], user[@"installed"] ? @"Yes" : @"No");
                                           if (![friends containsObject:[user id]]) {
                                               [friends addObject:[user id]];
+                                              [s appendString:[user id]];
+                                              [s appendString:@","];
                                               NSLog(@"adding user id %@", [user id]);
                                           }
                                       }
                                   }
+                                  NSString *s1 = [s substringToIndex:[s length] - 1];
+                                  NSLog(@"friends string is");
+                                  NSLog(s1);
                                           [request setPostValue:[dataModel fbid] forKey:@"Fid"];
                                           NSLog(@"sending friedns fbid = : %@", [dataModel fbid]);
-                                          for(NSString* s in friends)
-                                              NSLog(@"friend:%@", s);
-                                          [request setPostValue:friends forKey:@"frnds"];
+                                          //for(NSString* s in friends)
+                                           //   NSLog(@"friend:%@", s);
+                                          //[request setPostValue:friends forKey:@"frnds"];
+                                          [request setPostValue:s1 forKey:@"frnds"];
                                           //send another request with user's friends
                                           [request setCompletionBlock:^
                                            {
@@ -170,15 +177,23 @@
                                           
                                           [request startAsynchronous];
                                           
-                                          
-                                      
-                                      
+                              
+                              
+                                  
                                   
                               }];
-
+                              }
+                              else {
                               
+                              // Upon login, transition to the main UI by pushing it onto the navigation stack.
+                              locaQueryAppDelegate *appDelegate = (locaQueryAppDelegate *)[UIApplication sharedApplication].delegate;
+                              appDelegate.mainViewController.dataModel = dataModel;
+                              [self.navigationController pushViewController:((UIViewController *)appDelegate.mainViewController) animated:YES];
+                              
+                              }
                           }
                       }
+                              
                   }];
                  
                  [request setFailedBlock:^
