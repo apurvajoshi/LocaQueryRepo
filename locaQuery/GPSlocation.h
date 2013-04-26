@@ -13,5 +13,7 @@
 
 - (void)getCurrentLocation;
 - (void)initialize;
+- (NSString*)latitude;
+- (NSString*)longitude;
 
 @end

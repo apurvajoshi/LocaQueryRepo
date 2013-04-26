@@ -53,7 +53,6 @@ isNavigating = _isNavigating;
 	dataModel = [[DataModel alloc] init];
 	[dataModel loadMessages];
 
-    NSLog(@"Before GPS location");
     gpsLocation = [[GPSlocation alloc] init];
     [gpsLocation initialize];
     [gpsLocation getCurrentLocation];
@@ -76,6 +75,7 @@ isNavigating = _isNavigating;
 	if (![dataModel joinedChat])
 	{
 		self.loginViewController.dataModel = dataModel;
+        self.loginViewController.gpsLocation = gpsLocation;
 	}
     
     // Let the device know we want to receive push notifications
@@ -177,9 +177,7 @@ isNavigating = _isNavigating;
                                                                                            bundle:nil];
         self.questionThreadViewController.dataModel = dataModel;
         self.questionThreadViewController.threadId = threadId;
-        NSLog(@"Coming here1");
         [self.questionThreadViewController didSaveMessage:message atIndex:index];
-        NSLog(@"Coming here2");
         [self.navigationController pushViewController:self.questionThreadViewController animated:YES];
     }
 

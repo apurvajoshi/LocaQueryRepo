@@ -12,6 +12,9 @@
     CLLocationManager *locationManager;
 }
 
+NSString* latitude;
+NSString* longitude;
+
 - (void)initialize
 {
     // Do any additional setup after loading the view, typically from a nib.
@@ -24,6 +27,16 @@
     locationManager.delegate = self;
     locationManager.desiredAccuracy = kCLLocationAccuracyBest;
     [locationManager startUpdatingLocation];
+}
+
+- (NSString*)latitude
+{
+	return latitude;
+}
+
+- (NSString*)longitude
+{
+	return longitude;
 }
 
 #pragma mark - CLLocationManagerDelegate
@@ -44,6 +57,8 @@
     if (currentLocation != nil) {
         NSLog(@"longitude  :%@",[NSString stringWithFormat:@"%.8f", currentLocation.coordinate.longitude]);
         NSLog(@"latitude : %@", [NSString stringWithFormat:@"%.8f", currentLocation.coordinate.latitude]);
+        latitude = [NSString stringWithFormat:@"%.8f", currentLocation.coordinate.longitude];
+        longitude = [NSString stringWithFormat:@"%.8f", currentLocation.coordinate.latitude];
     }
     
     // Stop Location Manager
