@@ -14,10 +14,12 @@
 #import "ASIFormDataRequest.h"
 #import "MBProgressHUD.h"
 #import "defs.h"
+#import "KBKeyboardHandler.h"
 
 @implementation QuestionThreadViewController
 
 @synthesize dataModel, tableView, threadId;
+KBKeyboardHandler *keyboard;
 
 - (void)scrollToNewestMessage
 {
@@ -180,6 +182,23 @@
 	[request startAsynchronous];
 }
 
+- (void)keyboardSizeChanged:(CGSize)delta
+{
+    // Resize / reposition your views here. All actions performed here
+    // will appear animated.
+    // delta is the difference between the previous size of the keyboard
+    // and the new one.
+    // For instance when the keyboard is shown,
+    // delta may has width=768, height=264,
+    // when the keyboard is hidden: width=-768, height=-264.
+    // Use keyboard.frame.size to get the real keyboard size.
+    
+    // Sample:
+    CGRect frame = self.view.frame;
+    frame.size.height -= delta.height;
+    self.view.frame = frame;
+}
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -192,7 +211,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
+    keyboard = [[KBKeyboardHandler alloc] init];
+    keyboard.delegate = self;
 }
 
 - (void)didReceiveMemoryWarning

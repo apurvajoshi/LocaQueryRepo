@@ -12,6 +12,7 @@
 #import "Message.h"
 #import "MBProgressHUD.h"
 #import "defs.h"
+#import "KBKeyboardHandler.h"
 
 @interface NewQuestionViewController ()
 - (void)updateBytesRemaining:(NSString*)text;
@@ -20,6 +21,7 @@
 @implementation NewQuestionViewController
 
 @synthesize delegate, questionText, dataModel;
+KBKeyboardHandler *keyboard;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -34,6 +36,8 @@
 {
     [super viewDidLoad];
     [self updateBytesRemaining:@""];
+    keyboard = [[KBKeyboardHandler alloc] init];
+    keyboard.delegate = self;
 
 }
 
@@ -177,6 +181,23 @@
         [self postMessageRequest];
         
     }
+}
+
+- (void)keyboardSizeChanged:(CGSize)delta
+{
+    // Resize / reposition your views here. All actions performed here
+    // will appear animated.
+    // delta is the difference between the previous size of the keyboard
+    // and the new one.
+    // For instance when the keyboard is shown,
+    // delta may has width=768, height=264,
+    // when the keyboard is hidden: width=-768, height=-264.
+    // Use keyboard.frame.size to get the real keyboard size.
+    
+    // Sample:
+    CGRect frame = self.view.frame;
+    frame.size.height -= delta.height;
+    self.view.frame = frame;
 }
 
 
