@@ -58,7 +58,7 @@
 	[request setPostValue:@"join" forKey:@"cmd"];
     static NSString *fbid;
     static NSString *name;
-    static NSMutableArray *friends;
+    NSMutableArray *friends = [[NSMutableArray alloc] init];
     if (FBSession.activeSession.isOpen) {
         NSLog(@"FBSession open, will now retrieve info");
         [[FBRequest requestForMe] startWithCompletionHandler:
@@ -68,11 +68,11 @@
                  name = user.name;
                  NSLog(@"got fb name %@ and id %@", name, fbid);
                  
-                 [request setPostValue:[dataModel udid] forKey:@"udid"];
+                 //[request setPostValue:[dataModel udid] forKey:@"udid"];
 
                  //  SET THE FACEBOOK ID
                  [dataModel setFbid:fbid];
-                 [request setPostValue:[dataModel fbid] forKey:@"fbid"];
+                 [request setPostValue:[dataModel fbid] forKey:@"Fid"];
                  NSLog(@"fbid = : %@", [dataModel fbid]);
                  // GET THE NAME FROM FACEBOOK
                  [dataModel setNickname:name];
@@ -82,10 +82,12 @@
                  [request setPostValue:[dataModel deviceToken] forKey:@"token"];
                  NSLog(@"device token = : %@", [dataModel deviceToken]);
                  
+                 [request setPostValue:@"10.01" forKey:@"GPS_lat"];
+                 [request setPostValue:@"10.01" forKey:@"GPS_long"];
                  
                  // SET SOME RANDOM CODE
                  //[request setPostValue:[dataModel secretCode] forKey:@"code"];
-                 [request setPostValue:@"locaquerychat" forKey:@"code"];
+                 //[request setPostValue:@"locaquerychat" forKey:@"code"];
                  
                  [request setCompletionBlock:^
                   {
@@ -103,11 +105,73 @@
                           {
                               NSLog(@"Got response from server");
                               [self.dataModel setJoinedChat:YES];
+                              FBRequest* fbrequest = [FBRequest requestForMyFriends];
+                              fbrequest.parameters[@"fields"] =
+                              [NSString stringWithFormat:@"%@,installed", fbrequest.parameters[@"fields"]];
+                              request = [ASIFormDataRequest requestWithURL:url];
+                              //[request setDelegate:self];
+                              [request setPostValue:@"friends" forKey:@"cmd"];
+                              [fbrequest startWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
+                                  
+                                  for(id<FBGraphUser> user in result[@"data"]) {
+                                      if (user[@"installed"]) {
+                                          //NSLog(@"%@ with id %@ installed the app? %@\n", [user first_name], [user id], user[@"installed"] ? @"Yes" : @"No");
+                                          if (![friends containsObject:[user id]]) {
+                                              [friends addObject:[user id]];
+                                              NSLog(@"adding user id %@", [user id]);
+                                          }
+                                      }
+                                  }
+                                          [request setPostValue:[dataModel fbid] forKey:@"Fid"];
+                                          NSLog(@"sending friedns fbid = : %@", [dataModel fbid]);
+                                          for(NSString* s in friends)
+                                              NSLog(@"friend:%@", s);
+                                          [request setPostValue:friends forKey:@"frnds"];
+                                          //send another request with user's friends
+                                          [request setCompletionBlock:^
+                                           {
+                                               if ([self isViewLoaded])
+                                               {
+                                                   [MBProgressHUD hideHUDForView:self.view animated:YES];
+                                                   
+                                                   NSLog(@"headers response: %@", [request responseHeaders]);
+                                                   
+                                                   if ([request responseStatusCode] != 200)
+                                                   {
+                                                       ShowErrorAlert(NSLocalizedString(@"There was an error communicating with the server", nil));
+                                                   }
+                                                   else
+                                                   {
+                                                       NSLog(@"Got response for friends from server");
+                                                       [self.dataModel setJoinedChat:YES];
+                                                       
+                                                       // Upon login, transition to the main UI by pushing it onto the navigation stack.
+                                                       locaQueryAppDelegate *appDelegate = (locaQueryAppDelegate *)[UIApplication sharedApplication].delegate;
+                                                       appDelegate.mainViewController.dataModel = dataModel;
+                                                       [self.navigationController pushViewController:((UIViewController *)appDelegate.mainViewController) animated:YES];
+                                                       
+                                                   }
+                                               }
+                                           }];
+                                          
+                                          [request setFailedBlock:^
+                                           {
+                                               if ([self isViewLoaded])
+                                               {
+                                                   [MBProgressHUD hideHUDForView:self.view animated:YES];
+                                                   //ShowErrorAlert([[request error] localizedDescription]);
+                                               }
+                                           }];
+                                          
+                                          [request startAsynchronous];
+                                          
+                                          
+                                      
+                                      
+                                  
+                              }];
+
                               
-                              // Upon login, transition to the main UI by pushing it onto the navigation stack.
-                              locaQueryAppDelegate *appDelegate = (locaQueryAppDelegate *)[UIApplication sharedApplication].delegate;
-                              appDelegate.mainViewController.dataModel = dataModel;
-                              [self.navigationController pushViewController:((UIViewController *)appDelegate.mainViewController) animated:YES];
                           }
                       }
                   }];
@@ -126,67 +190,7 @@
              }
          }];
         
-        FBRequest* fbrequest = [FBRequest requestForMyFriends];
-        fbrequest.parameters[@"fields"] =
-        [NSString stringWithFormat:@"%@,installed", fbrequest.parameters[@"fields"]];
-        __block ASIFormDataRequest* request2 = [ASIFormDataRequest requestWithURL:url];
-        [request2 setDelegate:self];
-        [request2 setPostValue:@"friends" forKey:@"cmd"];
-        [fbrequest startWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
-            
-            for(id<FBGraphUser> user in result[@"data"]) {
-                if (user[@"installed"]) {
-                    //NSLog(@"%@ with id %@ installed the app? %@\n", [user first_name], [user id], user[@"installed"] ? @"Yes" : @"No");
-                    if (![friends containsObject:[user id]]) {
-                        [friends addObject:[user id]];
-                        NSLog(@"adding user id %@", [user id]);
-                    }
-                    [request2 setPostValue:[dataModel fbid] forKey:@"fbid"];
-                    NSLog(@"sending friedns fbid = : %@", [dataModel fbid]);
-                    [request2 setPostValue:friends forKey:@"frnds"];
-                    //send another request with user's friends
-                    [request2 setCompletionBlock:^
-                     {
-                         if ([self isViewLoaded])
-                         {
-                             [MBProgressHUD hideHUDForView:self.view animated:YES];
-                             
-                             NSLog(@"headers response: %@", [request2 responseHeaders]);
-                             
-                             if ([request2 responseStatusCode] != 200)
-                             {
-                                 ShowErrorAlert(NSLocalizedString(@"There was an error communicating with the server", nil));
-                             }
-                             else
-                             {
-                                 NSLog(@"Got response from server");
-                                 [self.dataModel setJoinedChat:YES];
-                                 
-                                 // Upon login, transition to the main UI by pushing it onto the navigation stack.
-                                 locaQueryAppDelegate *appDelegate = (locaQueryAppDelegate *)[UIApplication sharedApplication].delegate;
-                                 appDelegate.mainViewController.dataModel = dataModel;
-                                 [self.navigationController pushViewController:((UIViewController *)appDelegate.mainViewController) animated:YES];
-                             }
-                         }
-                     }];
-                    
-                    [request2 setFailedBlock:^
-                     {
-                         if ([self isViewLoaded])
-                         {
-                             [MBProgressHUD hideHUDForView:self.view animated:YES];
-                             //ShowErrorAlert([[request error] localizedDescription]);
-                         }
-                     }];
-                    
-                    [request2 startAsynchronous];
-                    
-
-                }
-                
-            }
-        }];
- 
+         
 	
     }
 }

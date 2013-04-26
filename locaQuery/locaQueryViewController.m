@@ -18,7 +18,7 @@
 @synthesize userProfileImage = _userProfileImage;
 @synthesize dataModel;
 @synthesize questionsTableView;
-NSArray *QuestionTitles;
+NSMutableArray *QuestionTitles;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
