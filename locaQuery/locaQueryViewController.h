@@ -18,5 +18,7 @@
 - (IBAction)newQuestionButton:(id)sender;
 
 @property (nonatomic, assign) DataModel* dataModel;
+@property (weak, nonatomic) IBOutlet UITableView *questionsTableView;
+
 
 @end

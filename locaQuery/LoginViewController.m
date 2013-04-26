@@ -129,17 +129,59 @@
         FBRequest* fbrequest = [FBRequest requestForMyFriends];
         fbrequest.parameters[@"fields"] =
         [NSString stringWithFormat:@"%@,installed", fbrequest.parameters[@"fields"]];
-        
+        __block ASIFormDataRequest* request2 = [ASIFormDataRequest requestWithURL:url];
+        [request2 setDelegate:self];
+        [request2 setPostValue:@"friends" forKey:@"cmd"];
         [fbrequest startWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
             
             for(id<FBGraphUser> user in result[@"data"]) {
                 if (user[@"installed"]) {
-                    NSLog(@"%@ with id %@ installed the app? %@\n", [user first_name], [user id], user[@"installed"] ? @"Yes" : @"No");
+                    //NSLog(@"%@ with id %@ installed the app? %@\n", [user first_name], [user id], user[@"installed"] ? @"Yes" : @"No");
                     if (![friends containsObject:[user id]]) {
                         [friends addObject:[user id]];
                         NSLog(@"adding user id %@", [user id]);
                     }
+                    [request2 setPostValue:[dataModel fbid] forKey:@"fbid"];
+                    NSLog(@"sending friedns fbid = : %@", [dataModel fbid]);
+                    [request2 setPostValue:friends forKey:@"frnds"];
                     //send another request with user's friends
+                    [request2 setCompletionBlock:^
+                     {
+                         if ([self isViewLoaded])
+                         {
+                             [MBProgressHUD hideHUDForView:self.view animated:YES];
+                             
+                             NSLog(@"headers response: %@", [request2 responseHeaders]);
+                             
+                             if ([request2 responseStatusCode] != 200)
+                             {
+                                 ShowErrorAlert(NSLocalizedString(@"There was an error communicating with the server", nil));
+                             }
+                             else
+                             {
+                                 NSLog(@"Got response from server");
+                                 [self.dataModel setJoinedChat:YES];
+                                 
+                                 // Upon login, transition to the main UI by pushing it onto the navigation stack.
+                                 locaQueryAppDelegate *appDelegate = (locaQueryAppDelegate *)[UIApplication sharedApplication].delegate;
+                                 appDelegate.mainViewController.dataModel = dataModel;
+                                 [self.navigationController pushViewController:((UIViewController *)appDelegate.mainViewController) animated:YES];
+                             }
+                         }
+                     }];
+                    
+                    [request2 setFailedBlock:^
+                     {
+                         if ([self isViewLoaded])
+                         {
+                             [MBProgressHUD hideHUDForView:self.view animated:YES];
+                             //ShowErrorAlert([[request error] localizedDescription]);
+                         }
+                     }];
+                    
+                    [request2 startAsynchronous];
+                    
+
                 }
                 
             }

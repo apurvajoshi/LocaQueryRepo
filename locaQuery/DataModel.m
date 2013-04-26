@@ -92,12 +92,15 @@ CLLocationManager *locationManager;
     
     NSMutableArray *msgs = [messages objectForKey:message.threadId];
     if (msgs == nil) {
+        NSLog(@"Creating a new entry for threadId %@", message.threadId);
         NSMutableArray *newmsgs = [[NSMutableArray alloc] init];
         [messages setObject:newmsgs forKey:message.threadId];
         //[questions addObject:message];
     }
     [[messages objectForKey:message.threadId] addObject:message];
-    return msgs.count;
+    msgs = [messages objectForKey:message.threadId];
+    NSLog(@"New threadId count is %d", msgs.count);
+    return msgs.count - 1;
     
 }
 
