@@ -138,10 +138,15 @@ KBKeyboardHandler *keyboard;
              {
                  NSData *data = [request responseData];
                  NSLog(@"response data: %@", data);
-                 NSLog(@"ThreadId message %@", [[request responseHeaders] objectForKey:@"ThreadId"]);
-                 NSString* threadId = @"00";
-                 [self userDidCompose:text :threadId];
-                 [self.navigationController popViewControllerAnimated:YES];
+                 NSString* threadId = [[request responseHeaders] objectForKey:@"ThreadId"];
+                 if (threadId != nil) {
+                     NSLog(@"ThreadId message %@", threadId);
+                    [self userDidCompose:text :threadId];
+                    [self.navigationController popViewControllerAnimated:YES];
+                 }
+                 else {
+                     [self showAlert:@"No friend found nearby. Please increase the radius or the hops of friends and resend your question."];
+                 }
              }
          }
      }];
