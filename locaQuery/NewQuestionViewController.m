@@ -12,6 +12,9 @@
 #import "Message.h"
 #import "MBProgressHUD.h"
 #import "defs.h"
+#import "locaQueryAppDelegate.h"
+#import "GPSlocation.h"
+
 
 @interface NewQuestionViewController ()
 - (void)updateBytesRemaining:(NSString*)text;
@@ -112,6 +115,14 @@
 	[request setPostValue:[dataModel udid] forKey:@"udid"];
     //[request setPostValue:@"Hi, this is the msg from the new code" forKey:@"text"];
 	[request setPostValue:text forKey:@"text"];
+    
+    locaQueryAppDelegate *appDelegate = (locaQueryAppDelegate *)[UIApplication sharedApplication].delegate;
+    
+    NSLog(@"longitude = : %@",[appDelegate.gpsLocation longitude]);
+    NSLog(@"latitude = : %@", [appDelegate.gpsLocation latitude]);
+    [request setPostValue:[appDelegate.gpsLocation longitude] forKey:@"GPS_lat"];
+	[request setPostValue:[appDelegate.gpsLocation latitude] forKey:@"GPS_long"];
+
     
 	// This code will be executed when the HTTP request is successful
 	[request setCompletionBlock:^
