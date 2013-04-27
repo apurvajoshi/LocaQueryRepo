@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "KBKeyboardHandlerDelegate.h"
 @class NewQuestionViewController;
 @class DataModel;
 @class Message;
@@ -16,7 +17,7 @@
 - (void)didSaveMessage:(Message*)message atIndex:(int)index;
 @end
 
-@interface NewQuestionViewController : UIViewController <UITextFieldDelegate>
+@interface NewQuestionViewController : UIViewController <UITextFieldDelegate, KBKeyboardHandlerDelegate>
 
 @property (nonatomic, retain) IBOutlet UITextField *questionText;
 @property (nonatomic, retain) IBOutlet UITextField *radius;

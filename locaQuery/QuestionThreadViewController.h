@@ -8,10 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "NewQuestionViewController.h"
+#import "KBKeyboardHandlerDelegate.h"
 
 @class DataModel;
 
-@interface QuestionThreadViewController : UIViewController<UINavigationControllerDelegate, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, NewQuestionDelegate>
+@interface QuestionThreadViewController : UIViewController<UINavigationControllerDelegate, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, NewQuestionDelegate, KBKeyboardHandlerDelegate>
 
 @property (nonatomic, assign) DataModel* dataModel;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;

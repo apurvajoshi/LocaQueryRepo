@@ -14,15 +14,21 @@
 #import "ASIFormDataRequest.h"
 #import "MBProgressHUD.h"
 #import "defs.h"
+#import "KBKeyboardHandler.h"
 
 @implementation QuestionThreadViewController
 
 @synthesize dataModel, tableView, threadId;
+KBKeyboardHandler *keyboard;
 
 - (void)scrollToNewestMessage
 {
+    NSLog(@"ScrollToNewestMessage");
+    NSLog(@"dataModel messages count: %d", [self.dataModel getMessagesforId:threadId].count);
+    NSLog(@"tableview count %d", [tableView numberOfRowsInSection:0]);
 	// The newest message is at the bottom of the table
 	NSIndexPath* indexPath = [NSIndexPath indexPathForRow:([self.dataModel getMessagesforId:threadId].count - 1) inSection:0];
+    
 	[self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
 }
 
@@ -48,7 +54,8 @@
 {
 	[super viewWillAppear:animated];
     
-	self.title = threadId;
+    Message* message = [[self.dataModel getMessagesforId:threadId] objectAtIndex:0];
+	self.title = message.text;
     
 	// Show a label in the table's footer if there are no messages
 	if ([self.dataModel getMessagesforId:threadId].count == 0)
@@ -180,11 +187,30 @@
 	[request startAsynchronous];
 }
 
+- (void)keyboardSizeChanged:(CGSize)delta
+{
+    // Resize / reposition your views here. All actions performed here
+    // will appear animated.
+    // delta is the difference between the previous size of the keyboard
+    // and the new one.
+    // For instance when the keyboard is shown,
+    // delta may has width=768, height=264,
+    // when the keyboard is hidden: width=-768, height=-264.
+    // Use keyboard.frame.size to get the real keyboard size.
+    
+    // Sample:
+    CGRect frame = self.view.frame;
+    frame.size.height -= delta.height;
+    self.view.frame = frame;
+}
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        self.tableView.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleHeight ;
+        self.tableView.frame = [[UIScreen mainScreen] bounds];
     }
     return self;
 }
@@ -192,7 +218,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
+    
+    keyboard = [[KBKeyboardHandler alloc] init];
+    keyboard.delegate = self;
 }
 
 - (void)didReceiveMemoryWarning

@@ -10,7 +10,7 @@
 // The complete history of messages this user has sent and received, in
 // chronological order (oldest first).
 @property (nonatomic, retain) NSMutableDictionary* messages;
-@property (nonatomic, retain) NSMutableArray* questions;
+//@property (nonatomic, retain) NSMutableArray* questions;
 
 // Loads the list of messages from a file.
 - (void)loadMessages;
@@ -23,6 +23,7 @@
 // messages.
 - (int)addMessage:(Message*)message;
 - (NSArray*) getMessagesforId:(NSString*)threadId;
+- (NSArray*) getQuestions;
 
 // Get and set the user's nickname.
 - (NSString*)nickname;

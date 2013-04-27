@@ -14,7 +14,7 @@
 #import "defs.h"
 #import "locaQueryAppDelegate.h"
 #import "GPSlocation.h"
-
+#import "KBKeyboardHandler.h"
 
 @interface NewQuestionViewController ()
 - (void)updateBytesRemaining:(NSString*)text;
@@ -23,6 +23,7 @@
 @implementation NewQuestionViewController
 
 @synthesize delegate, questionText, dataModel;
+KBKeyboardHandler *keyboard;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -37,6 +38,8 @@
 {
     [super viewDidLoad];
     [self updateBytesRemaining:@""];
+    keyboard = [[KBKeyboardHandler alloc] init];
+    keyboard.delegate = self;
 
 }
 
@@ -111,10 +114,13 @@
 	[request setDelegate:self];
     
 	// Add the POST fields
-	[request setPostValue:@"message" forKey:@"cmd"];
+	[request setPostValue:@"query" forKey:@"cmd"];
 	[request setPostValue:[dataModel udid] forKey:@"udid"];
+    [request setPostValue:[dataModel fbid] forKey:@"Fid"];
     //[request setPostValue:@"Hi, this is the msg from the new code" forKey:@"text"];
 	[request setPostValue:text forKey:@"text"];
+    [request setPostValue:self.radius.text forKey:@"radius"];
+    [request setPostValue:self.hops.text forKey:@"hops"];
     
     locaQueryAppDelegate *appDelegate = (locaQueryAppDelegate *)[UIApplication sharedApplication].delegate;
     
@@ -140,6 +146,9 @@
              }
              else
              {
+                 NSData *data = [request responseData];
+                 NSLog(@"response data: %@", data);
+                 NSLog(@"ThreadId message %@", [[request responseHeaders] objectForKey:@"ThreadId"]);
                  NSString* threadId = @"00";
                  [self userDidCompose:text :threadId];
                  [self.navigationController popViewControllerAnimated:YES];
@@ -188,6 +197,23 @@
         [self postMessageRequest];
         
     }
+}
+
+- (void)keyboardSizeChanged:(CGSize)delta
+{
+    // Resize / reposition your views here. All actions performed here
+    // will appear animated.
+    // delta is the difference between the previous size of the keyboard
+    // and the new one.
+    // For instance when the keyboard is shown,
+    // delta may has width=768, height=264,
+    // when the keyboard is hidden: width=-768, height=-264.
+    // Use keyboard.frame.size to get the real keyboard size.
+    
+    // Sample:
+    CGRect frame = self.view.frame;
+    frame.size.height -= delta.height;
+    self.view.frame = frame;
 }
 
 
