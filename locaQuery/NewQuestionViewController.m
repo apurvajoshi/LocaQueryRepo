@@ -12,6 +12,8 @@
 #import "Message.h"
 #import "MBProgressHUD.h"
 #import "defs.h"
+#import "locaQueryAppDelegate.h"
+#import "GPSlocation.h"
 #import "KBKeyboardHandler.h"
 
 @interface NewQuestionViewController ()
@@ -119,6 +121,14 @@ KBKeyboardHandler *keyboard;
 	[request setPostValue:text forKey:@"text"];
     [request setPostValue:self.radius.text forKey:@"radius"];
     [request setPostValue:self.hops.text forKey:@"hops"];
+    
+    locaQueryAppDelegate *appDelegate = (locaQueryAppDelegate *)[UIApplication sharedApplication].delegate;
+    
+    NSLog(@"longitude = : %@",[appDelegate.gpsLocation longitude]);
+    NSLog(@"latitude = : %@", [appDelegate.gpsLocation latitude]);
+    [request setPostValue:[appDelegate.gpsLocation longitude] forKey:@"GPS_lat"];
+	[request setPostValue:[appDelegate.gpsLocation latitude] forKey:@"GPS_long"];
+
     
 	// This code will be executed when the HTTP request is successful
 	[request setCompletionBlock:^

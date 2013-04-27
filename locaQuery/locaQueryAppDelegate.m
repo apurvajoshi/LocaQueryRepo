@@ -43,8 +43,7 @@ loginViewController = _loginViewController,
 questionThreadViewController = _questionThreadViewController,
 isNavigating = _isNavigating;
 
-@synthesize dataModel, gpsLocation;
-
+@synthesize dataModel, gpsLocation, theTimer;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -54,9 +53,9 @@ isNavigating = _isNavigating;
 	[dataModel loadMessages];
 
     gpsLocation = [[GPSlocation alloc] init];
-    [gpsLocation initialize];
-    [gpsLocation getCurrentLocation];
-
+    self.gpsLocation.dataModel = dataModel;
+    [gpsLocation startStandardUpdates];
+    
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     self.mainViewController = [[locaQueryViewController alloc] initWithNibName:@"locaQueryViewController" bundle:nil];
@@ -95,8 +94,6 @@ isNavigating = _isNavigating;
     
     return YES;
 }
-
-
 
 #pragma mark -
 #pragma mark Server Communication
@@ -194,6 +191,38 @@ isNavigating = _isNavigating;
 {
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+      NSLog(@"Going into background mode");
+//    
+//    //As we are going into the background, I want to start a background task to clean up the disk caches
+//    if ([[UIDevice currentDevice] respondsToSelector:@selector(isMultitaskingSupported)]) { //Check if our iOS version supports multitasking I.E iOS 4
+//        NSLog(@"Going into 1");
+//        if ([[UIDevice currentDevice] isMultitaskingSupported]) { //Check if device supports mulitasking
+//            UIApplication *application = [UIApplication sharedApplication]; //Get the shared application instance
+//            NSLog(@"Going into 2");
+//            __block UIBackgroundTaskIdentifier background_task; //Create a task object
+//            
+//            background_task = [application beginBackgroundTaskWithExpirationHandler: ^{
+//                NSLog(@"Going into 3");
+//                [application endBackgroundTask:background_task]; //Tell the system that we are done with the tasks
+//                background_task = UIBackgroundTaskInvalid; //Set the task to be invalid
+//                //System will be shutting down the app at any point in time now
+//            }];
+//            
+//            //Background tasks require you to use asyncrous tasks
+//            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+//                //Perform your tasks that your application requires
+//                
+//                //I do what i need to do here.... synchronously...
+//                
+//                theTimer = [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(runTimer:) userInfo:nil repeats:YES];
+//
+//                NSLog(@"Going into 4");
+//                //[application endBackgroundTask: background_task]; //End the task so the system knows that you are done with what you need to perform
+//                //background_task = UIBackgroundTaskInvalid; //Invalidate the background_task
+//            });
+//        }
+//    }
+
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application

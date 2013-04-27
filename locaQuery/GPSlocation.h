@@ -8,12 +8,14 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
+@class DataModel;
 
 @interface GPSlocation : NSObject<CLLocationManagerDelegate>
+@property (nonatomic, assign) DataModel* dataModel;
 
-- (void)getCurrentLocation;
-- (void)initialize;
+- (void)startStandardUpdates;
 - (NSString*)latitude;
 - (NSString*)longitude;
+
 
 @end

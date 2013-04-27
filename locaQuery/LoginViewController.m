@@ -75,9 +75,12 @@
                  [request setPostValue:[dataModel fbid] forKey:@"Fid"];
                  NSLog(@"fbid = : %@", [dataModel fbid]);
                  
-                 [gpsLocation getCurrentLocation];
-                 NSLog(@"longitude = : %@", [gpsLocation longitude]);
-                 NSLog(@"latitude = : %@", [gpsLocation latitude]);
+                locaQueryAppDelegate *appDelegate = (locaQueryAppDelegate *)[UIApplication sharedApplication].delegate;
+                 
+                 NSLog(@"longitude = : %@", [appDelegate.gpsLocation longitude]);
+                 NSLog(@"latitude = : %@", [appDelegate.gpsLocation latitude]);
+                 [request setPostValue:[appDelegate.gpsLocation longitude] forKey:@"GPS_lat"];
+                 [request setPostValue:[appDelegate.gpsLocation latitude] forKey:@"GPS_long"];
                  
                  // GET THE NAME FROM FACEBOOK
                  [dataModel setNickname:name];
@@ -214,8 +217,7 @@
 
              }
          }];
-        
-         
+
 	
     }
 }

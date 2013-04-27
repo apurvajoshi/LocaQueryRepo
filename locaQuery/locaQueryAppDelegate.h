@@ -33,4 +33,6 @@
 
 @property (nonatomic, retain) GPSlocation* gpsLocation;
 
+@property (nonatomic, retain) NSTimer *theTimer;
+
 @end
