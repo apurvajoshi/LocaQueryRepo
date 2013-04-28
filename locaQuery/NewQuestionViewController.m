@@ -101,7 +101,6 @@ KBKeyboardHandler *keyboard;
 {
 	// Hide the keyboard
 	[questionText resignFirstResponder];
-    
 	// Show an activity spinner that blocks the whole screen
 	MBProgressHUD* hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
 	hud.labelText = NSLocalizedString(@"Sending", @"");
@@ -112,6 +111,7 @@ KBKeyboardHandler *keyboard;
 	NSURL* url = [NSURL URLWithString:ServerApiURL];
 	__block ASIFormDataRequest* request = [ASIFormDataRequest requestWithURL:url];
 	[request setDelegate:self];
+    [request setNumberOfTimesToRetryOnTimeout:1];
     
 	// Add the POST fields
 	[request setPostValue:@"query" forKey:@"cmd"];
@@ -119,15 +119,18 @@ KBKeyboardHandler *keyboard;
     [request setPostValue:[dataModel fbid] forKey:@"Fid"];
     //[request setPostValue:@"Hi, this is the msg from the new code" forKey:@"text"];
 	[request setPostValue:text forKey:@"text"];
-    [request setPostValue:self.radius.text forKey:@"radius"];
-    [request setPostValue:self.hops.text forKey:@"hops"];
+    //NSMutableString* radiusstr = self.radius.text;
+    //[radiusstr appendString:@".0"];
+    //NSLog(@"sending radius %@", radiusstr);
+    [request setPostValue:self.radius.text forKey:@"Radius"];
+    [request setPostValue:self.hops.text forKey:@"Hops"];
     
     locaQueryAppDelegate *appDelegate = (locaQueryAppDelegate *)[UIApplication sharedApplication].delegate;
     
     NSLog(@"longitude = : %@",[appDelegate.gpsLocation longitude]);
     NSLog(@"latitude = : %@", [appDelegate.gpsLocation latitude]);
-    [request setPostValue:[appDelegate.gpsLocation longitude] forKey:@"GPS_lat"];
-	[request setPostValue:[appDelegate.gpsLocation latitude] forKey:@"GPS_long"];
+    [request setPostValue:[appDelegate.gpsLocation longitude] forKey:@"GPS_long"];
+	[request setPostValue:[appDelegate.gpsLocation latitude] forKey:@"GPS_lat"];
 
     
 	// This code will be executed when the HTTP request is successful
@@ -146,8 +149,6 @@ KBKeyboardHandler *keyboard;
              }
              else
              {
-                 NSData *data = [request responseData];
-                 NSLog(@"response data: %@", data);
                  NSString* threadId = [[request responseHeaders] objectForKey:@"ThreadId"];
                  if (threadId != nil) {
                      NSLog(@"ThreadId message %@", threadId);
@@ -162,14 +163,10 @@ KBKeyboardHandler *keyboard;
      }];
     
 	// This code is executed when the HTTP request fails
-	[request setFailedBlock:^
-     {
-         if ([self isViewLoaded])
-         {
-             [MBProgressHUD hideHUDForView:self.view animated:YES];
-             ShowErrorAlert([[request error] localizedDescription]);
-         }
-     }];
+	[request setFailedBlock:^ {
+        //change state of server to down for the specific server we used earlier
+        [self postMessageRequest];
+    }];
     
 	[request startAsynchronous];
 }
