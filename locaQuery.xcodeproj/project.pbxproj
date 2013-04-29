@@ -11,6 +11,8 @@
 		4D306C9417230ACD009E92BC /* NewQuestionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4D306C9217230ACD009E92BC /* NewQuestionViewController.xib */; };
 		4D837AB9172AF19700764724 /* KBKeyboardHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D837AB8172AF19600764724 /* KBKeyboardHandler.m */; };
 		4D837ABD172C8D6800764724 /* Networking.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D837ABC172C8D6800764724 /* Networking.m */; };
+		4D837AC1172DB31600764724 /* QuestionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D837ABF172DB31500764724 /* QuestionCell.m */; };
+		4D837AC2172DB31600764724 /* QuestionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4D837AC0172DB31600764724 /* QuestionCell.xib */; };
 		4D905B131721F10E00F8322B /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D905B111721F10E00F8322B /* LoginViewController.m */; };
 		4D905B141721F10E00F8322B /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4D905B121721F10E00F8322B /* LoginViewController.xib */; };
 		4DAA494617209864003E31BC /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DAA494517209864003E31BC /* FacebookSDK.framework */; };
@@ -71,6 +73,9 @@
 		4D837ABA172AF1F400764724 /* KBKeyboardHandlerDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KBKeyboardHandlerDelegate.h; sourceTree = "<group>"; };
 		4D837ABB172C8D6800764724 /* Networking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Networking.h; sourceTree = "<group>"; };
 		4D837ABC172C8D6800764724 /* Networking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Networking.m; sourceTree = "<group>"; };
+		4D837ABE172DB31400764724 /* QuestionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuestionCell.h; sourceTree = "<group>"; };
+		4D837ABF172DB31500764724 /* QuestionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuestionCell.m; sourceTree = "<group>"; };
+		4D837AC0172DB31600764724 /* QuestionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QuestionCell.xib; sourceTree = "<group>"; };
 		4D905B101721F10E00F8322B /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		4D905B111721F10E00F8322B /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		4D905B121721F10E00F8322B /* LoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
@@ -241,6 +246,9 @@
 		68E129BE1720958C00B57815 /* locaQuery */ = {
 			isa = PBXGroup;
 			children = (
+				4D837ABE172DB31400764724 /* QuestionCell.h */,
+				4D837ABF172DB31500764724 /* QuestionCell.m */,
+				4D837AC0172DB31600764724 /* QuestionCell.xib */,
 				4DC5E1C317272A6C00042960 /* MessageTableViewCell.h */,
 				4DC5E1C417272A6C00042960 /* MessageTableViewCell.m */,
 				4DC5E1C517272A6C00042960 /* SpeechBubbleView.h */,
@@ -396,6 +404,7 @@
 				4DC5E1CE17272AB900042960 /* BubbleLefthand.png in Resources */,
 				4DC5E1CF17272AB900042960 /* BubbleRighthand.png in Resources */,
 				4DC5E1D917272E5D00042960 /* QuestionThreadViewController.xib in Resources */,
+				4D837AC2172DB31600764724 /* QuestionCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -429,6 +438,7 @@
 				68DC694D1729F45000B9C71C /* GPSlocation.m in Sources */,
 				4D837AB9172AF19700764724 /* KBKeyboardHandler.m in Sources */,
 				4D837ABD172C8D6800764724 /* Networking.m in Sources */,
+				4D837AC1172DB31600764724 /* QuestionCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

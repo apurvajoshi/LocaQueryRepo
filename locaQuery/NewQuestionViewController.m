@@ -85,6 +85,7 @@ KBKeyboardHandler *keyboard;
 	message.date = [NSDate date];
 	message.text = text;
     message.threadId = threadId;
+    message.senderFbid = dataModel.fbid;
 	// Add the Message to the data model's list of messages
 	int index = [dataModel addMessage:message];
     NSLog(@"Added message and got back index %d", index);
@@ -113,10 +114,17 @@ KBKeyboardHandler *keyboard;
 	[request setDelegate:self];
     [request setNumberOfTimesToRetryOnTimeout:1];
     
+
 	// Add the POST fields
-	[request setPostValue:@"query" forKey:@"cmd"];
-	[request setPostValue:[dataModel udid] forKey:@"udid"];
-    [request setPostValue:[dataModel fbid] forKey:@"Fid"];
+    if (ourserver) {
+	   [request setPostValue:@"query" forKey:@"cmd"];
+       [request setPostValue:[dataModel fbid] forKey:@"Fid"];
+	   [request setPostValue:[dataModel udid] forKey:@"udid"];
+    }
+    else {
+        [request setPostValue:[dataModel udid] forKey:@"udid"];
+        [request setPostValue:@"message" forKey:@"cmd"];
+    }
     //[request setPostValue:@"Hi, this is the msg from the new code" forKey:@"text"];
 	[request setPostValue:text forKey:@"text"];
     //NSMutableString* radiusstr = self.radius.text;
@@ -150,6 +158,7 @@ KBKeyboardHandler *keyboard;
              else
              {
                  NSString* threadId = [[request responseHeaders] objectForKey:@"ThreadId"];
+                 if (ourserver) {
                  if (threadId != nil) {
                      NSLog(@"ThreadId message %@", threadId);
                     [self userDidCompose:text :threadId];
@@ -157,6 +166,13 @@ KBKeyboardHandler *keyboard;
                  }
                  else {
                      [self showAlert:@"No friend found nearby. Please increase the radius or the hops of friends and resend your question."];
+                 }
+                 }
+                 else {
+                     threadId = @"0000";
+                     [self userDidCompose:text :threadId];
+                     [self.navigationController popViewControllerAnimated:YES];
+
                  }
              }
          }

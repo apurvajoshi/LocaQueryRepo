@@ -12,6 +12,7 @@
 #import "DataModel.h"
 #import "Message.h"
 #import "QuestionThreadViewController.h"
+#import "QuestionCell.h"
 
 @implementation locaQueryViewController
 
@@ -19,6 +20,7 @@
 @synthesize userProfileImage = _userProfileImage;
 @synthesize dataModel;
 @synthesize questionsTableView;
+@synthesize myFBid;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -74,9 +76,14 @@
     return [dataModel.getQuestions count];
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 78;
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-   static NSString *simpleTableIdentifier = @"SimpleTableItem";
+   /*static NSString *simpleTableIdentifier = @"SimpleTableItem";
    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:simpleTableIdentifier];
  
    if (cell == nil) {
@@ -86,7 +93,54 @@
    Message *question = [dataModel.getQuestions objectAtIndex:indexPath.row];
    cell.textLabel.text = question.text;
    cell.imageView.image = [UIImage imageNamed:@"icon-72.png"];
-   return cell;
+   return cell;*/
+    static NSString *simpleTableIdentifier = @"QuestionCell";
+    
+    QuestionCell *cell = (QuestionCell *)[tableView dequeueReusableCellWithIdentifier:simpleTableIdentifier];
+    
+    if (cell == nil) {
+        NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"QuestionCell" owner:self options:nil];
+        cell = [nib objectAtIndex:0];
+        //cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:simpleTableIdentifier];
+    }
+    
+    Message *question = [dataModel.getQuestions objectAtIndex:indexPath.row];
+    cell.nameLabel.text = question.text;
+    //cell.senderImage.profileID = myFBid;
+    //NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    //[dateFormatter setDateStyle:NSDateFormatterMediumStyle];
+    //cell.timeLabel.text = [dateFormatter stringFromDate:question.date];
+    cell.timeLabel.text = question.senderName;
+    if (FBSession.activeSession.isOpen) {
+         if (question.senderName == nil) {
+            [[FBRequest requestForMe] startWithCompletionHandler:
+             ^(FBRequestConnection *connection, NSDictionary<FBGraphUser> *user, NSError *error) {
+                 if (!error) {
+                     //name = user.name;
+                     //myFBid = user.id;
+                     //self.userNameLabel.text = user.name;
+                     cell.senderImage.profileID = user.id;
+                     cell.timeLabel.text = user.name;
+                 }
+             }];
+         }
+         else {
+             [[FBRequest requestForMyFriends] startWithCompletionHandler:
+              ^(FBRequestConnection *connection, NSDictionary<FBGraphUser> *result, NSError *error) {
+                  if (!error) {
+                      NSArray* friends = [result objectForKey:@"data"];
+                      for(NSDictionary<FBGraphUser>* friend in friends) {
+                          if ([friend.name isEqualToString: question.senderName]) {
+                              cell.senderImage.profileID = friend.id;
+                              break;
+                          }
+                      }
+                  }
+              }];
+         }
+    }
+    return cell;
+
     
 }
 
@@ -112,14 +166,13 @@
 // identity they are logged in as.
 - (void)populateUserDetails {
     static NSString *name;
-    static NSString *fbid;
     
     if (FBSession.activeSession.isOpen) {
         [[FBRequest requestForMe] startWithCompletionHandler:
          ^(FBRequestConnection *connection, NSDictionary<FBGraphUser> *user, NSError *error) {
              if (!error) {
                  name = user.name;
-                 fbid = user.id;
+                 myFBid = user.id;
                  self.userNameLabel.text = user.name;
                  self.userProfileImage.profileID = [user objectForKey:@"id"];
              }

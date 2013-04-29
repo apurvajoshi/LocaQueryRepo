@@ -19,6 +19,7 @@
 
 @property (nonatomic, assign) DataModel* dataModel;
 @property (weak, nonatomic) IBOutlet UITableView *questionsTableView;
+@property (weak, nonatomic) NSString* myFBid;
 
 
 @end

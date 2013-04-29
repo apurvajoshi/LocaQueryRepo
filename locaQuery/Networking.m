@@ -33,4 +33,17 @@
     return;
 }
 
+
+
+- (int) foo:(int)param1 withParam2:(int)param2
+{
+    return param1 + param2;
+}
+
+- (void) bar
+{
+    [self foo: 1 withParam2: 2];
+}
+
+
 @end
