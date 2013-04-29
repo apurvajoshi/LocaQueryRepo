@@ -126,8 +126,8 @@ KBKeyboardHandler *keyboard;
     
     NSLog(@"longitude = : %@",[appDelegate.gpsLocation longitude]);
     NSLog(@"latitude = : %@", [appDelegate.gpsLocation latitude]);
-    [request setPostValue:[appDelegate.gpsLocation longitude] forKey:@"GPS_lat"];
-	[request setPostValue:[appDelegate.gpsLocation latitude] forKey:@"GPS_long"];
+    [request setPostValue:[appDelegate.gpsLocation latitude] forKey:@"GPS_lat"];
+	[request setPostValue:[appDelegate.gpsLocation longitude] forKey:@"GPS_long"];
 
     
 	// This code will be executed when the HTTP request is successful

@@ -14,6 +14,7 @@
 #import "DataModel.h"
 #import "defs.h"
 #import "GPSlocation.h"
+#import "ReplicaManager.h"
 
 @implementation LoginViewController
 @synthesize dataModel, gpsLocation;
@@ -52,6 +53,20 @@
 	MBProgressHUD* hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
 	hud.labelText = NSLocalizedString(@"Connecting", nil);
     
+    
+    NSLog(@"Starting with minimum distance calculation");
+   
+    locaQueryAppDelegate *appDelegate = (locaQueryAppDelegate *)[UIApplication sharedApplication].delegate;
+    Replica* replica;
+    replica = [appDelegate.replicaManager getNearestReplica];
+    NSLog(@"nearest replica is : %@", replica.replicaURL);
+    
+    [appDelegate.replicaManager setReplicaDead:replica];
+    
+    replica = [appDelegate.replicaManager getNearestReplica];
+    NSLog(@"nearest replica is : %@", replica.replicaURL);
+
+    
 	NSURL* url = [NSURL URLWithString:ServerApiURL];
 	__block ASIFormDataRequest* request = [ASIFormDataRequest requestWithURL:url];
 	[request setDelegate:self];
@@ -75,12 +90,12 @@
                  [request setPostValue:[dataModel fbid] forKey:@"Fid"];
                  NSLog(@"fbid = : %@", [dataModel fbid]);
                  
-                locaQueryAppDelegate *appDelegate = (locaQueryAppDelegate *)[UIApplication sharedApplication].delegate;
+                //locaQueryAppDelegate *appDelegate = (locaQueryAppDelegate *)[UIApplication sharedApplication].delegate;
                  
                  NSLog(@"longitude = : %@", [appDelegate.gpsLocation longitude]);
                  NSLog(@"latitude = : %@", [appDelegate.gpsLocation latitude]);
-                 [request setPostValue:[appDelegate.gpsLocation longitude] forKey:@"GPS_lat"];
-                 [request setPostValue:[appDelegate.gpsLocation latitude] forKey:@"GPS_long"];
+                 [request setPostValue:[appDelegate.gpsLocation latitude] forKey:@"GPS_lat"];
+                 [request setPostValue:[appDelegate.gpsLocation longitude] forKey:@"GPS_long"];
                  
                  // GET THE NAME FROM FACEBOOK
                  [dataModel setNickname:name];
@@ -166,7 +181,7 @@
                                                        [self.dataModel setJoinedChat:YES];
                                                        
                                                        // Upon login, transition to the main UI by pushing it onto the navigation stack.
-                                                       locaQueryAppDelegate *appDelegate = (locaQueryAppDelegate *)[UIApplication sharedApplication].delegate;
+                                                       //locaQueryAppDelegate *appDelegate = (locaQueryAppDelegate *)[UIApplication sharedApplication].delegate;
                                                        appDelegate.mainViewController.dataModel = dataModel;
                                                        [self.navigationController pushViewController:((UIViewController *)appDelegate.mainViewController) animated:YES];
                                                        
@@ -194,7 +209,7 @@
                               else {
                               
                               // Upon login, transition to the main UI by pushing it onto the navigation stack.
-                              locaQueryAppDelegate *appDelegate = (locaQueryAppDelegate *)[UIApplication sharedApplication].delegate;
+                              //locaQueryAppDelegate *appDelegate = (locaQueryAppDelegate *)[UIApplication sharedApplication].delegate;
                               appDelegate.mainViewController.dataModel = dataModel;
                               [self.navigationController pushViewController:((UIViewController *)appDelegate.mainViewController) animated:YES];
                               

@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
 @class DataModel;
+@class Replica;
 
 @interface GPSlocation : NSObject<CLLocationManagerDelegate>
 @property (nonatomic, assign) DataModel* dataModel;
@@ -16,6 +17,6 @@
 - (void)startStandardUpdates;
 - (NSString*)latitude;
 - (NSString*)longitude;
-
+- (CLLocation*)getUserLocation;
 
 @end
