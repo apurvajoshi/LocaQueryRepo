@@ -14,7 +14,7 @@
 #import "DataModel.h"
 #import "defs.h"
 #import "GPSlocation.h"
-#import "Networking.h"
+#import "ReplicaManager.h"
 
 @implementation LoginViewController
 @synthesize dataModel, gpsLocation;
@@ -98,6 +98,12 @@
                  [request setPostValue:[dataModel fbid] forKey:@"Fid"];
                  NSLog(@"fbid = : %@", [dataModel fbid]);
                  
+                //locaQueryAppDelegate *appDelegate = (locaQueryAppDelegate *)[UIApplication sharedApplication].delegate;
+                 
+                 NSLog(@"longitude = : %@", [appDelegate.gpsLocation longitude]);
+                 NSLog(@"latitude = : %@", [appDelegate.gpsLocation latitude]);
+                 [request setPostValue:[appDelegate.gpsLocation latitude] forKey:@"GPS_lat"];
+                 [request setPostValue:[appDelegate.gpsLocation longitude] forKey:@"GPS_long"];
                  
                  // GET THE NAME FROM FACEBOOK
                  [dataModel setNickname:name];

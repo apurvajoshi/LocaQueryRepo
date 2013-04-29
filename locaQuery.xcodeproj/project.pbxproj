@@ -287,6 +287,8 @@
 				4D837AB7172AF19600764724 /* KBKeyboardHandler.h */,
 				4D837AB8172AF19600764724 /* KBKeyboardHandler.m */,
 				4D837ABA172AF1F400764724 /* KBKeyboardHandlerDelegate.h */,
+				684C37D1172C99BD00335C44 /* ReplicaManager.h */,
+				684C37D2172C99BD00335C44 /* ReplicaManager.m */,
 				4D837ABB172C8D6800764724 /* Networking.h */,
 				4D837ABC172C8D6800764724 /* Networking.m */,
 			);
@@ -445,6 +447,8 @@
 				4DC5E1D817272E5D00042960 /* QuestionThreadViewController.m in Sources */,
 				68DC694D1729F45000B9C71C /* GPSlocation.m in Sources */,
 				4D837AB9172AF19700764724 /* KBKeyboardHandler.m in Sources */,
+				684C37D0172C906700335C44 /* Replica.m in Sources */,
+				684C37D3172C99BD00335C44 /* ReplicaManager.m in Sources */,
 				4D837ABD172C8D6800764724 /* Networking.m in Sources */,
 				4D837AC1172DB31600764724 /* QuestionCell.m in Sources */,
 			);
