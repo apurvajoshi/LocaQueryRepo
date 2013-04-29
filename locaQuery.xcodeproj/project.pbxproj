@@ -34,6 +34,8 @@
 		4DC5E1CF17272AB900042960 /* BubbleRighthand.png in Resources */ = {isa = PBXBuildFile; fileRef = 4DC5E1CD17272AB900042960 /* BubbleRighthand.png */; };
 		4DC5E1D817272E5D00042960 /* QuestionThreadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DC5E1D617272E5C00042960 /* QuestionThreadViewController.m */; };
 		4DC5E1D917272E5D00042960 /* QuestionThreadViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4DC5E1D717272E5D00042960 /* QuestionThreadViewController.xib */; };
+		684C37D0172C906700335C44 /* Replica.m in Sources */ = {isa = PBXBuildFile; fileRef = 684C37CF172C906700335C44 /* Replica.m */; };
+		684C37D3172C99BD00335C44 /* ReplicaManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 684C37D2172C99BD00335C44 /* ReplicaManager.m */; };
 		68CBA43D1724902500902812 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 68CBA43C1724902500902812 /* CFNetwork.framework */; };
 		68CBA43F1724904300902812 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 68CBA43E1724904300902812 /* SystemConfiguration.framework */; };
 		68CBA4411724907300902812 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 68CBA4401724907300902812 /* MobileCoreServices.framework */; };
@@ -101,6 +103,10 @@
 		4DC5E1D517272E5C00042960 /* QuestionThreadViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuestionThreadViewController.h; sourceTree = "<group>"; };
 		4DC5E1D617272E5C00042960 /* QuestionThreadViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuestionThreadViewController.m; sourceTree = "<group>"; };
 		4DC5E1D717272E5D00042960 /* QuestionThreadViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QuestionThreadViewController.xib; sourceTree = "<group>"; };
+		684C37CE172C906700335C44 /* Replica.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Replica.h; sourceTree = "<group>"; };
+		684C37CF172C906700335C44 /* Replica.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Replica.m; sourceTree = "<group>"; };
+		684C37D1172C99BD00335C44 /* ReplicaManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReplicaManager.h; sourceTree = "<group>"; };
+		684C37D2172C99BD00335C44 /* ReplicaManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReplicaManager.m; sourceTree = "<group>"; };
 		68CBA43C1724902500902812 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		68CBA43E1724904300902812 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		68CBA4401724907300902812 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
@@ -257,6 +263,8 @@
 				68E129E01720A1EF00B57815 /* Message.m */,
 				68E129DC1720A1DF00B57815 /* DataModel.h */,
 				68E129DD1720A1DF00B57815 /* DataModel.m */,
+				684C37CE172C906700335C44 /* Replica.h */,
+				684C37CF172C906700335C44 /* Replica.m */,
 				68E129DB17209DA300B57815 /* defs.h */,
 				4D306C9017230ACD009E92BC /* NewQuestionViewController.h */,
 				4D306C9117230ACD009E92BC /* NewQuestionViewController.m */,

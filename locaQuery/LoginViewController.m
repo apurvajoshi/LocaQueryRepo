@@ -53,6 +53,20 @@
 	MBProgressHUD* hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
 	hud.labelText = NSLocalizedString(@"Connecting", nil);
     
+    
+    NSLog(@"Starting with minimum distance calculation");
+   
+    locaQueryAppDelegate *appDelegate = (locaQueryAppDelegate *)[UIApplication sharedApplication].delegate;
+    Replica* replica;
+    replica = [appDelegate.replicaManager getNearestReplica];
+    NSLog(@"nearest replica is : %@", replica.replicaURL);
+    
+    [appDelegate.replicaManager setReplicaDead:replica];
+    
+    replica = [appDelegate.replicaManager getNearestReplica];
+    NSLog(@"nearest replica is : %@", replica.replicaURL);
+
+    
 	NSURL* url = [NSURL URLWithString:ServerApiURL];
 	__block ASIFormDataRequest* request = [ASIFormDataRequest requestWithURL:url];
 	[request setDelegate:self];
@@ -171,7 +185,7 @@
                                                        [self.dataModel setJoinedChat:YES];
                                                        [MBProgressHUD hideHUDForView:self.view animated:YES];
                                                        // Upon login, transition to the main UI by pushing it onto the navigation stack.
-                                                       locaQueryAppDelegate *appDelegate = (locaQueryAppDelegate *)[UIApplication sharedApplication].delegate;
+                                                       //locaQueryAppDelegate *appDelegate = (locaQueryAppDelegate *)[UIApplication sharedApplication].delegate;
                                                        appDelegate.mainViewController.dataModel = dataModel;
                                                        [self.navigationController pushViewController:((UIViewController *)appDelegate.mainViewController) animated:YES];
                                                        
@@ -191,7 +205,7 @@
                               else {
                               
                               // Upon login, transition to the main UI by pushing it onto the navigation stack.
-                              locaQueryAppDelegate *appDelegate = (locaQueryAppDelegate *)[UIApplication sharedApplication].delegate;
+                              //locaQueryAppDelegate *appDelegate = (locaQueryAppDelegate *)[UIApplication sharedApplication].delegate;
                               appDelegate.mainViewController.dataModel = dataModel;
                               [self.navigationController pushViewController:((UIViewController *)appDelegate.mainViewController) animated:YES];
                               

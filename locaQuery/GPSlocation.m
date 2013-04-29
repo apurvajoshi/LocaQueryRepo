@@ -19,6 +19,7 @@
 @synthesize dataModel;
 NSString* latitude;
 NSString* longitude;
+CLLocation* userLocation;
 
 - (void)startStandardUpdates {
     NSLog(@"Get current location");
@@ -40,6 +41,12 @@ NSString* longitude;
 - (NSString*)longitude
 {
 	return longitude;
+}
+
+
+- (CLLocation*)getUserLocation;
+{
+    return userLocation;
 }
 
 #pragma mark - CLLocationManagerDelegate
@@ -65,6 +72,7 @@ NSString* longitude;
         NSLog(@"latitude %+.6f, longitude %+.6f\n",
               location.coordinate.latitude,
               location.coordinate.longitude);
+        userLocation = location;
         latitude =  [NSString stringWithFormat:@"%.6f",location.coordinate.latitude];
         longitude =  [NSString stringWithFormat:@"%.6f",location.coordinate.longitude];
         //[self postJoinRequest];

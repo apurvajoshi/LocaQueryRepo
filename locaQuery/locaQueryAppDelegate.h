@@ -14,6 +14,7 @@
 @class QuestionThreadViewController;
 @class DataModel;
 @class GPSlocation;
+@class ReplicaManager;
 
 @interface locaQueryAppDelegate : UIResponder <UIApplicationDelegate, UINavigationControllerDelegate>
 
@@ -32,6 +33,8 @@
 @property (nonatomic, retain) DataModel* dataModel;
 
 @property (nonatomic, retain) GPSlocation* gpsLocation;
+
+@property (nonatomic, retain) ReplicaManager* replicaManager;
 
 @property (nonatomic, retain) NSTimer *theTimer;
 
