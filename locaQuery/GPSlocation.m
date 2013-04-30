@@ -10,6 +10,9 @@
 #import "defs.h"
 #import "ASIFormDataRequest.h"
 #import "DataModel.h"
+#import "Replica.h"
+#import "ReplicaManager.h"
+#import "locaQueryAppDelegate.h"
 
 
 @implementation GPSlocation {
@@ -72,15 +75,20 @@ CLLocation* userLocation;
         userLocation = location;
         latitude =  [NSString stringWithFormat:@"%.6f",location.coordinate.latitude];
         longitude =  [NSString stringWithFormat:@"%.6f",location.coordinate.longitude];
-        //[self postJoinRequest];
+        if (dataModel.fbid != nil)
+          [self postJoinRequest];
     }
 }
 
 
 - (void)postJoinRequest
 {
+    
 	// Create the HTTP request object for our URL
-	NSURL* url = [NSURL URLWithString:ServerApiURL];
+    locaQueryAppDelegate *appDelegate = (locaQueryAppDelegate *)[UIApplication sharedApplication].delegate;
+    Replica* replica = [appDelegate.replicaManager getNearestReplica];
+    NSLog(@"nearest replica is : %@", replica.replicaURL);
+	NSURL* url = [NSURL URLWithString:replica.replicaURL];
 	__block ASIFormDataRequest* request = [ASIFormDataRequest requestWithURL:url];
 	[request setDelegate:self];
     
@@ -109,10 +117,13 @@ CLLocation* userLocation;
      }];
     
 	// This code is executed when the HTTP request fails
-	[request setFailedBlock:^
-     {
-         ShowErrorAlert([[request error] localizedDescription]);
-     }];
+    [request setFailedBlock:^ {
+        NSLog(@"GPS Request failed");
+        //change state of server to down for the specific server we used earlier
+        [appDelegate.replicaManager setReplicaDead:replica];
+        [self postJoinRequest];
+    }];
+    
     
 	[request startAsynchronous];
 }

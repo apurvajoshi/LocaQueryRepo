@@ -11,6 +11,7 @@
 #import "Replica.h"
 #import "locaQueryAppDelegate.h"
 #import "GPSlocation.h"
+#import "defs.h"
 
 @implementation ReplicaManager
 
@@ -27,16 +28,16 @@ NSMutableArray* replicas;
     replicas = [[NSMutableArray alloc] init];
     
     Replica *rep1 = [[Replica alloc] init];
-    [rep1 initialize:@"Replica1" :@"http://128.237.124.228:44447/api.php" :locA :true];
+    [rep1 initialize:@"Replica1" :ServerApiURL :locA :true];
     
     Replica *rep2 = [[Replica alloc] init];
-    [rep2 initialize:@"Replica2" :@"http://www.rep2.com/api.php" :locB :true];
+    [rep2 initialize:@"Replica2" :ServerApiURL :locB :true];
     
     Replica *rep3 = [[Replica alloc] init];
-    [rep3 initialize:@"Replica3" :@"http://www.rep3.com/api.php" :locC :true];
+    [rep3 initialize:@"Replica3" :ServerApiURL :locC :true];
     
     Replica *rep4 = [[Replica alloc] init];
-    [rep4 initialize:@"Replica4" :@"http://www.rep4.com/api.php" :locD :true];
+    [rep4 initialize:@"Replica4" :ServerApiURL :locD :true];
     
     [replicas addObject:rep1];
     [replicas addObject:rep2];

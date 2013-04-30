@@ -166,10 +166,12 @@ isNavigating = _isNavigating;
 	NSMutableArray* parts = [NSMutableArray arrayWithArray:[alertValue componentsSeparatedByString:@": "]];
 	message.senderName = [parts objectAtIndex:0];
 	[parts removeObjectAtIndex:0];
-	message.text = [parts componentsJoinedByString:@": "];
-    //get threadId from message when server is ready
-    NSString* threadId = @"00";
+    NSString* threadId = [parts objectAtIndex:0];
     message.threadId = threadId;
+    NSLog(@"thread id is %@", threadId);
+	[parts removeObjectAtIndex:0];
+	message.text = [parts componentsJoinedByString:@": "];
+    
 	int index = [dataModel addMessage:message];
     
     if (updateUI)
@@ -180,7 +182,13 @@ isNavigating = _isNavigating;
         self.questionThreadViewController.dataModel = dataModel;
         self.questionThreadViewController.threadId = threadId;
         [self.questionThreadViewController didSaveMessage:message atIndex:index];
+        if (self.navigationController.visibleViewController == self.questionThreadViewController) {
+            NSLog(@"Question view controller is visible");
+        }
+        else {
+            NSLog(@"Push view controller");
         [self.navigationController pushViewController:self.questionThreadViewController animated:YES];
+        }
     }
 
 }

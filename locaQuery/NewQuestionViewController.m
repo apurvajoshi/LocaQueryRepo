@@ -15,6 +15,8 @@
 #import "locaQueryAppDelegate.h"
 #import "GPSlocation.h"
 #import "KBKeyboardHandler.h"
+#import "ReplicaManager.h"
+#import "Replica.h"
 
 @interface NewQuestionViewController ()
 - (void)updateBytesRemaining:(NSString*)text;
@@ -107,9 +109,11 @@ KBKeyboardHandler *keyboard;
 	hud.labelText = NSLocalizedString(@"Sending", @"");
     
 	NSString* text = self.questionText.text;
+    locaQueryAppDelegate *appDelegate = (locaQueryAppDelegate *)[UIApplication sharedApplication].delegate;
     
-	// Create the HTTP request object for our URL
-	NSURL* url = [NSURL URLWithString:ServerApiURL];
+    Replica* replica = [appDelegate.replicaManager getNearestReplica];
+    NSLog(@"nearest replica is : %@", replica.replicaURL);
+	NSURL* url = [NSURL URLWithString:replica.replicaURL];
 	__block ASIFormDataRequest* request = [ASIFormDataRequest requestWithURL:url];
 	[request setDelegate:self];
     [request setNumberOfTimesToRetryOnTimeout:1];
@@ -133,7 +137,7 @@ KBKeyboardHandler *keyboard;
     [request setPostValue:self.radius.text forKey:@"Radius"];
     [request setPostValue:self.hops.text forKey:@"Hops"];
     
-    locaQueryAppDelegate *appDelegate = (locaQueryAppDelegate *)[UIApplication sharedApplication].delegate;
+
     
     NSLog(@"longitude = : %@",[appDelegate.gpsLocation longitude]);
     NSLog(@"latitude = : %@", [appDelegate.gpsLocation latitude]);

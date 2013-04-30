@@ -15,6 +15,9 @@
 #import "MBProgressHUD.h"
 #import "defs.h"
 #import "KBKeyboardHandler.h"
+#import "Replica.h"
+#import "ReplicaManager.h"
+#import "locaQueryAppDelegate.h"
 
 @implementation QuestionThreadViewController
 
@@ -148,14 +151,16 @@ KBKeyboardHandler *keyboard;
 	hud.labelText = NSLocalizedString(@"Sending", nil);
     
 	NSString* text = self.replyText.text;
-    
-	NSURL* url = [NSURL URLWithString:ServerApiURL];
+    locaQueryAppDelegate *appDelegate = (locaQueryAppDelegate *)[UIApplication sharedApplication].delegate;
+	Replica* replica = [appDelegate.replicaManager getNearestReplica];
+    NSLog(@"nearest replica is : %@", replica.replicaURL);
+	NSURL* url = [NSURL URLWithString:replica.replicaURL];
 	__block ASIFormDataRequest* request = [ASIFormDataRequest requestWithURL:url];
 	[request setDelegate:self];
     [request setNumberOfTimesToRetryOnTimeout:1];
-	[request setPostValue:@"message" forKey:@"cmd"];
-	[request setPostValue:[dataModel udid] forKey:@"udid"];
-    NSLog(@"udid = : %@", [dataModel udid]);
+	[request setPostValue:@"reply" forKey:@"cmd"];
+	[request setPostValue:[dataModel fbid] forKey:@"Fid"];
+    [request setPostValue:threadId forKey:@"Tid"];
 	[request setPostValue:text forKey:@"text"];
     
 	[request setCompletionBlock:^
@@ -176,8 +181,10 @@ KBKeyboardHandler *keyboard;
          }
      }];
     
-	[request setFailedBlock:^ {
+    [request setFailedBlock:^ {
+        NSLog(@"Request failed");
         //change state of server to down for the specific server we used earlier
+        [appDelegate.replicaManager setReplicaDead:replica];
         [self postMessageRequest];
     }];
     

@@ -57,17 +57,9 @@
     NSLog(@"Starting with minimum distance calculation");
    
     locaQueryAppDelegate *appDelegate = (locaQueryAppDelegate *)[UIApplication sharedApplication].delegate;
-//    Replica* replica;
-//    replica = [appDelegate.replicaManager getNearestReplica];
-//    NSLog(@"nearest replica is : %@", replica.replicaURL);
-//    
-//    [appDelegate.replicaManager setReplicaDead:replica];
-//    
-//    replica = [appDelegate.replicaManager getNearestReplica];
-//    NSLog(@"nearest replica is : %@", replica.replicaURL);
-
-    
-	NSURL* url = [NSURL URLWithString:ServerApiURL];
+    Replica* replica = [appDelegate.replicaManager getNearestReplica];
+    NSLog(@"nearest replica is : %@", replica.replicaURL);    
+	NSURL* url = [NSURL URLWithString:replica.replicaURL];
 	__block ASIFormDataRequest* request = [ASIFormDataRequest requestWithURL:url];
 	[request setDelegate:self];
     [request setNumberOfTimesToRetryOnTimeout:1];
@@ -117,12 +109,15 @@
                  [request setPostValue:[dataModel secretCode] forKey:@"code"];
                  [request setPostValue:@"locaquerychat" forKey:@"code"];
                  [request setFailedBlock:^ {
+                     NSLog(@"Request failed");
                      //change state of server to down for the specific server we used earlier
+                     [appDelegate.replicaManager setReplicaDead:replica];
                      [self postJoinRequest];
                  }];
                  
                  [request setCompletionBlock:^
                   {
+                      NSLog(@"Request succeeded");
                       if ([self isViewLoaded])
                       {
                           //[MBProgressHUD hideHUDForView:self.view animated:YES];
@@ -142,6 +137,9 @@
                               FBRequest* fbrequest = [FBRequest requestForMyFriends];
                               fbrequest.parameters[@"fields"] =
                               [NSString stringWithFormat:@"%@,installed", fbrequest.parameters[@"fields"]];
+                              Replica* replica = [appDelegate.replicaManager getNearestReplica];
+                              NSLog(@"nearest replica is : %@", replica.replicaURL);
+                              NSURL* url = [NSURL URLWithString:replica.replicaURL];
                               request = [ASIFormDataRequest requestWithURL:url];
                               //[request setDelegate:self];
                               [request setNumberOfTimesToRetryOnTimeout:1];
@@ -198,8 +196,13 @@
                                                    }
                                                }
                                            }];
-                                          
-                                          
+                                          [request setFailedBlock:^ {
+                                              NSLog(@"Request failed");
+                                              //change state of server to down for the specific server we used earlier
+                                              [appDelegate.replicaManager setReplicaDead:replica];
+                                              [self postJoinRequest];
+                                          }];
+                                  
                                           [request startAsynchronous];
                                           
                               
