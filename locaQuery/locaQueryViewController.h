@@ -10,6 +10,8 @@
 #import <FacebookSDK/FacebookSDK.h>
 #import "NewQuestionViewController.h"
 @class DataModel;
+@class NewQuestionViewController;
+@class QuestionThreadViewController;
 
 @interface locaQueryViewController : UIViewController <UINavigationControllerDelegate, UITableViewDelegate, UITableViewDataSource, NewQuestionDelegate>
 
@@ -20,6 +22,10 @@
 @property (nonatomic, assign) DataModel* dataModel;
 @property (weak, nonatomic) IBOutlet UITableView *questionsTableView;
 @property (weak, nonatomic) NSString* myFBid;
+
+@property (strong, nonatomic) NewQuestionViewController* questionViewController;
+
+@property (strong, nonatomic) QuestionThreadViewController* questionThreadViewController;
 
 
 @end

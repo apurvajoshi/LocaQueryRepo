@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import "KBKeyboardHandlerDelegate.h"
-@class NewQuestionViewController;
 @class DataModel;
 @class Message;
 

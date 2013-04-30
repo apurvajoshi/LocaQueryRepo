@@ -20,6 +20,8 @@
 @synthesize userProfileImage = _userProfileImage;
 @synthesize dataModel;
 @synthesize questionsTableView;
+@synthesize questionViewController =_questionViewController;
+@synthesize questionThreadViewController = _questionThreadViewController;
 @synthesize myFBid;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
@@ -146,16 +148,18 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    
-    QuestionThreadViewController *questionThreadViewController = [[QuestionThreadViewController alloc] initWithNibName:@"QuestionThreadViewController" bundle:nil];
+    if (nil ==  self.questionThreadViewController)
+        self.questionThreadViewController = [[QuestionThreadViewController alloc] initWithNibName:@"QuestionThreadViewController" bundle:nil];
+
+    //QuestionThreadViewController *questionThreadViewController = [[QuestionThreadViewController alloc] initWithNibName:@"QuestionThreadViewController" bundle:nil];
     // ...
     // Pass the selected object to the new view controller.
 
     [[tableView cellForRowAtIndexPath:indexPath] setSelected:NO animated:YES];
-    questionThreadViewController.dataModel = dataModel;
+    self.questionThreadViewController.dataModel = dataModel;
     Message *question = [dataModel.getQuestions objectAtIndex:indexPath.row];
-    questionThreadViewController.threadId = question.threadId;
-    [self.navigationController pushViewController:questionThreadViewController animated:YES];
+    self.questionThreadViewController.threadId = question.threadId;
+    [self.navigationController pushViewController:self.questionThreadViewController animated:YES];
 
     
 }
@@ -232,9 +236,18 @@
 }
 
 - (IBAction)newQuestionButton:(id)sender {
-    NewQuestionViewController *newQuestionViewController = [[NewQuestionViewController alloc] initWithNibName:@"NewQuestionViewController" bundle:nil];
-	newQuestionViewController.dataModel = dataModel;
-	newQuestionViewController.delegate = self;
-    [self.navigationController pushViewController:newQuestionViewController animated:YES];
+    
+    if (nil ==  self.questionViewController)
+    {
+        self.questionViewController  = [[NewQuestionViewController alloc] initWithNibName:@"NewQuestionViewController" bundle:nil];
+        self.questionViewController.dataModel = dataModel;
+        self.questionViewController.delegate = self;
+    }
+    [self.navigationController pushViewController:self.questionViewController animated:YES];
+
+    //NewQuestionViewController *newQuestionViewController = [[NewQuestionViewController alloc] initWithNibName:@"NewQuestionViewController" bundle:nil];
+	//newQuestionViewController.dataModel = dataModel;
+	//newQuestionViewController.delegate = self;
+    //[self.navigationController pushViewController:newQuestionViewController animated:YES];
 }
 @end

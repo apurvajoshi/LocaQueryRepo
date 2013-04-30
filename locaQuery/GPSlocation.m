@@ -69,9 +69,7 @@ CLLocation* userLocation;
     NSTimeInterval howRecent = [eventDate timeIntervalSinceNow];
     if (abs(howRecent) < 60.0) {
         // If the event is recent, do something with it.
-        NSLog(@"latitude %+.6f, longitude %+.6f\n",
-              location.coordinate.latitude,
-              location.coordinate.longitude);
+        //NSLog(@"latitude %+.6f, longitude %+.6f\n",location.coordinate.latitude,location.coordinate.longitude);
         userLocation = location;
         latitude =  [NSString stringWithFormat:@"%.6f",location.coordinate.latitude];
         longitude =  [NSString stringWithFormat:@"%.6f",location.coordinate.longitude];

@@ -174,7 +174,8 @@ isNavigating = _isNavigating;
     
     if (updateUI)
     {
-        self.questionThreadViewController = [[QuestionThreadViewController alloc] initWithNibName:@"QuestionThreadViewController"
+        if (nil ==  self.questionThreadViewController)
+            self.questionThreadViewController = [[QuestionThreadViewController alloc] initWithNibName:@"QuestionThreadViewController"
                                                                                            bundle:nil];
         self.questionThreadViewController.dataModel = dataModel;
         self.questionThreadViewController.threadId = threadId;
