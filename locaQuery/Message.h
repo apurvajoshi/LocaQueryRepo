@@ -7,6 +7,8 @@
 // The sender of the message. If nil, the message was sent by the user.
 @property (nonatomic, copy) NSString* senderName;
 
+@property (nonatomic, copy) NSString* senderFbid;
+
 // When the message was sent
 @property (nonatomic, copy) NSDate* date;
 

@@ -85,6 +85,7 @@ KBKeyboardHandler *keyboard;
 	message.date = [NSDate date];
 	message.text = text;
     message.threadId = threadId;
+    message.senderFbid = dataModel.fbid;
 	// Add the Message to the data model's list of messages
 	int index = [dataModel addMessage:message];
     NSLog(@"Added message and got back index %d", index);
@@ -101,7 +102,6 @@ KBKeyboardHandler *keyboard;
 {
 	// Hide the keyboard
 	[questionText resignFirstResponder];
-    
 	// Show an activity spinner that blocks the whole screen
 	MBProgressHUD* hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
 	hud.labelText = NSLocalizedString(@"Sending", @"");
@@ -112,15 +112,26 @@ KBKeyboardHandler *keyboard;
 	NSURL* url = [NSURL URLWithString:ServerApiURL];
 	__block ASIFormDataRequest* request = [ASIFormDataRequest requestWithURL:url];
 	[request setDelegate:self];
+    [request setNumberOfTimesToRetryOnTimeout:1];
     
+
 	// Add the POST fields
-	[request setPostValue:@"query" forKey:@"cmd"];
-	[request setPostValue:[dataModel udid] forKey:@"udid"];
-    [request setPostValue:[dataModel fbid] forKey:@"Fid"];
+    if (ourserver) {
+	   [request setPostValue:@"query" forKey:@"cmd"];
+       [request setPostValue:[dataModel fbid] forKey:@"Fid"];
+	   [request setPostValue:[dataModel udid] forKey:@"udid"];
+    }
+    else {
+        [request setPostValue:[dataModel udid] forKey:@"udid"];
+        [request setPostValue:@"message" forKey:@"cmd"];
+    }
     //[request setPostValue:@"Hi, this is the msg from the new code" forKey:@"text"];
 	[request setPostValue:text forKey:@"text"];
-    [request setPostValue:self.radius.text forKey:@"radius"];
-    [request setPostValue:self.hops.text forKey:@"hops"];
+    //NSMutableString* radiusstr = self.radius.text;
+    //[radiusstr appendString:@".0"];
+    //NSLog(@"sending radius %@", radiusstr);
+    [request setPostValue:self.radius.text forKey:@"Radius"];
+    [request setPostValue:self.hops.text forKey:@"Hops"];
     
     locaQueryAppDelegate *appDelegate = (locaQueryAppDelegate *)[UIApplication sharedApplication].delegate;
     
@@ -146,9 +157,8 @@ KBKeyboardHandler *keyboard;
              }
              else
              {
-                 NSData *data = [request responseData];
-                 NSLog(@"response data: %@", data);
                  NSString* threadId = [[request responseHeaders] objectForKey:@"ThreadId"];
+                 if (ourserver) {
                  if (threadId != nil) {
                      NSLog(@"ThreadId message %@", threadId);
                     [self userDidCompose:text :threadId];
@@ -157,19 +167,22 @@ KBKeyboardHandler *keyboard;
                  else {
                      [self showAlert:@"No friend found nearby. Please increase the radius or the hops of friends and resend your question."];
                  }
+                 }
+                 else {
+                     threadId = @"0000";
+                     [self userDidCompose:text :threadId];
+                     [self.navigationController popViewControllerAnimated:YES];
+
+                 }
              }
          }
      }];
     
 	// This code is executed when the HTTP request fails
-	[request setFailedBlock:^
-     {
-         if ([self isViewLoaded])
-         {
-             [MBProgressHUD hideHUDForView:self.view animated:YES];
-             ShowErrorAlert([[request error] localizedDescription]);
-         }
-     }];
+	[request setFailedBlock:^ {
+        //change state of server to down for the specific server we used earlier
+        [self postMessageRequest];
+    }];
     
 	[request startAsynchronous];
 }

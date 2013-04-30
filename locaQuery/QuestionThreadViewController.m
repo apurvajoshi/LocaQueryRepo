@@ -152,7 +152,7 @@ KBKeyboardHandler *keyboard;
 	NSURL* url = [NSURL URLWithString:ServerApiURL];
 	__block ASIFormDataRequest* request = [ASIFormDataRequest requestWithURL:url];
 	[request setDelegate:self];
-    
+    [request setNumberOfTimesToRetryOnTimeout:1];
 	[request setPostValue:@"message" forKey:@"cmd"];
 	[request setPostValue:[dataModel udid] forKey:@"udid"];
     NSLog(@"udid = : %@", [dataModel udid]);
@@ -171,18 +171,15 @@ KBKeyboardHandler *keyboard;
              else
              {
                  [self userDidCompose:text];
+                 self.replyText.text = nil;
              }
          }
      }];
     
-	[request setFailedBlock:^
-     {
-         if ([self isViewLoaded])
-         {
-             [MBProgressHUD hideHUDForView:self.view animated:YES];
-             ShowErrorAlert([[request error] localizedDescription]);
-         }
-     }];
+	[request setFailedBlock:^ {
+        //change state of server to down for the specific server we used earlier
+        [self postMessageRequest];
+    }];
     
 	[request startAsynchronous];
 }

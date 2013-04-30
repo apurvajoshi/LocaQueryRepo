@@ -70,10 +70,16 @@
 	NSURL* url = [NSURL URLWithString:ServerApiURL];
 	__block ASIFormDataRequest* request = [ASIFormDataRequest requestWithURL:url];
 	[request setDelegate:self];
+    [request setNumberOfTimesToRetryOnTimeout:1];
 	[request setPostValue:@"join" forKey:@"cmd"];
     static NSString *fbid;
     static NSString *name;
     NSMutableArray *friends = [[NSMutableArray alloc] init];
+    NSLog(@"longitude = : %@", [appDelegate.gpsLocation longitude]);
+    NSLog(@"latitude = : %@", [appDelegate.gpsLocation latitude]);
+    //NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
+    [request setPostValue:[appDelegate.gpsLocation longitude] forKey:@"GPS_long"];
+    [request setPostValue:[appDelegate.gpsLocation latitude] forKey:@"GPS_lat"];
     if (FBSession.activeSession.isOpen) {
         NSLog(@"FBSession open, will now retrieve info");
         [[FBRequest requestForMe] startWithCompletionHandler:
@@ -81,6 +87,7 @@
              if (!error) {
                  fbid = user.id;
                  name = user.name;
+             
                  NSLog(@"got fb name %@ and id %@", name, fbid);
                  
                  [request setPostValue:[dataModel udid] forKey:@"udid"];
@@ -105,12 +112,14 @@
                  [request setPostValue:[dataModel deviceToken] forKey:@"token"];
                  NSLog(@"device token = : %@", [dataModel deviceToken]);
                  
-                 [request setPostValue:[gpsLocation latitude] forKey:@"GPS_lat"];
-                 [request setPostValue:[gpsLocation longitude] forKey:@"GPS_long"];
                  
                  // SET SOME RANDOM CODE
                  [request setPostValue:[dataModel secretCode] forKey:@"code"];
                  [request setPostValue:@"locaquerychat" forKey:@"code"];
+                 [request setFailedBlock:^ {
+                     //change state of server to down for the specific server we used earlier
+                     [self postJoinRequest];
+                 }];
                  
                  [request setCompletionBlock:^
                   {
@@ -118,28 +127,29 @@
                       {
                           //[MBProgressHUD hideHUDForView:self.view animated:YES];
                           
+                          
                           NSLog(@"headers response: %@", [request responseHeaders]);
                           
                           if ([request responseStatusCode] != 200)
                           {
-                              ShowErrorAlert(NSLocalizedString(@"There was an error communicating with the server", nil));
+                              ShowErrorAlert(NSLocalizedString(@"There was an error communicating with the server, please try again", nil));
                           }
                           else
                           {
                               NSLog(@"Got response from server");
                               if (ourserver) {
-                                  NSLog(@"201 server data: %@", [request responseData]);
-                                  NSString *responseString = [request responseString];
-                                  NSLog(@"201 ResponseString:%@",responseString);
-                                  NSLog(@"Status message %@", [[request responseHeaders] objectForKey:@"Status"]);
-                                  NSLog(@"ThreadId message %@", [[request responseHeaders] objectForKey:@"ThreadId"]);
                               [self.dataModel setJoinedChat:YES];
                               FBRequest* fbrequest = [FBRequest requestForMyFriends];
                               fbrequest.parameters[@"fields"] =
                               [NSString stringWithFormat:@"%@,installed", fbrequest.parameters[@"fields"]];
                               request = [ASIFormDataRequest requestWithURL:url];
                               //[request setDelegate:self];
+                              [request setNumberOfTimesToRetryOnTimeout:1];
                               [request setPostValue:@"friends" forKey:@"cmd"];
+                              [request setFailedBlock:^ {
+                                      //change state of server to down for the specific server we used earlier
+                                      [self postJoinRequest];
+                               }];
                               [fbrequest startWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
                                   NSMutableString *s = [[NSMutableString alloc] init];
                                   for(id<FBGraphUser> user in result[@"data"]) {
@@ -179,7 +189,7 @@
                                                    {
                                                        NSLog(@"Got response for friends from server");
                                                        [self.dataModel setJoinedChat:YES];
-                                                       
+                                                       [MBProgressHUD hideHUDForView:self.view animated:YES];
                                                        // Upon login, transition to the main UI by pushing it onto the navigation stack.
                                                        //locaQueryAppDelegate *appDelegate = (locaQueryAppDelegate *)[UIApplication sharedApplication].delegate;
                                                        appDelegate.mainViewController.dataModel = dataModel;
@@ -189,14 +199,6 @@
                                                }
                                            }];
                                           
-                                          [request setFailedBlock:^
-                                           {
-                                               if ([self isViewLoaded])
-                                               {
-                                                   [MBProgressHUD hideHUDForView:self.view animated:YES];
-                                                   //ShowErrorAlert([[request error] localizedDescription]);
-                                               }
-                                           }];
                                           
                                           [request startAsynchronous];
                                           
@@ -218,16 +220,6 @@
                       }
                               
                   }];
-                 
-                 [request setFailedBlock:^
-                  {
-                      if ([self isViewLoaded])
-                      {
-                          [MBProgressHUD hideHUDForView:self.view animated:YES];
-                          //ShowErrorAlert([[request error] localizedDescription]);
-                      }
-                  }];
-                 
                  [request startAsynchronous];
 
              }
