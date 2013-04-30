@@ -57,14 +57,14 @@
     NSLog(@"Starting with minimum distance calculation");
    
     locaQueryAppDelegate *appDelegate = (locaQueryAppDelegate *)[UIApplication sharedApplication].delegate;
-    Replica* replica;
-    replica = [appDelegate.replicaManager getNearestReplica];
-    NSLog(@"nearest replica is : %@", replica.replicaURL);
-    
-    [appDelegate.replicaManager setReplicaDead:replica];
-    
-    replica = [appDelegate.replicaManager getNearestReplica];
-    NSLog(@"nearest replica is : %@", replica.replicaURL);
+//    Replica* replica;
+//    replica = [appDelegate.replicaManager getNearestReplica];
+//    NSLog(@"nearest replica is : %@", replica.replicaURL);
+//    
+//    [appDelegate.replicaManager setReplicaDead:replica];
+//    
+//    replica = [appDelegate.replicaManager getNearestReplica];
+//    NSLog(@"nearest replica is : %@", replica.replicaURL);
 
     
 	NSURL* url = [NSURL URLWithString:ServerApiURL];
@@ -116,7 +116,7 @@
                   {
                       if ([self isViewLoaded])
                       {
-                          [MBProgressHUD hideHUDForView:self.view animated:YES];
+                          //[MBProgressHUD hideHUDForView:self.view animated:YES];
                           
                           NSLog(@"headers response: %@", [request responseHeaders]);
                           
