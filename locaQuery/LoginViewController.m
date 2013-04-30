@@ -75,7 +75,6 @@
     static NSString *fbid;
     static NSString *name;
     NSMutableArray *friends = [[NSMutableArray alloc] init];
-    locaQueryAppDelegate *appDelegate = (locaQueryAppDelegate *)[UIApplication sharedApplication].delegate;
     NSLog(@"longitude = : %@", [appDelegate.gpsLocation longitude]);
     NSLog(@"latitude = : %@", [appDelegate.gpsLocation latitude]);
     //NSMutableDictionary* params = [[NSMutableDictionary alloc] init];

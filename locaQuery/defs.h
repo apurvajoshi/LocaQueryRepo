@@ -3,8 +3,8 @@
 // a push notification is limited to 256 bytes and that includes the JSON 
 // overhead and the name of the sender.
 #define MaxMessageLength 190
-//#define ServerApiURL @"http://128.237.124.228:44447/api.php"
-#define ServerApiURL @"http://scalepriv.ece.cmu.edu:44447/api.php"
+//#define ServerApiURL @"http://128.237.240.211:44447/api.php"
+#define ServerApiURL @"http://scalepriv-idp.ece.cmu.edu:44447/api.php"
 // Convenience function to show a UIAlertView
 void ShowErrorAlert(NSString* text);
-#define ourserver 0
+#define ourserver 1
