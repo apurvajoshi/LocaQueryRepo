@@ -28,7 +28,7 @@ CLLocation* userLocation;
     
     locationManager.delegate = self;
     locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-    locationManager.distanceFilter =  kCLDistanceFilterNone;
+    locationManager.distanceFilter =  10;
 
     [locationManager startUpdatingLocation];
 }
@@ -54,9 +54,8 @@ CLLocation* userLocation;
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
 {
     NSLog(@"didFailWithError: %@", error);
-    UIAlertView *errorAlert = [[UIAlertView alloc]
-                               initWithTitle:@"Error" message:@"Failed to Get Your Location" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-    [errorAlert show];
+    //UIAlertView *errorAlert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Failed to Get Your Location" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    //[errorAlert show];
 }
 
 
@@ -69,7 +68,7 @@ CLLocation* userLocation;
     NSTimeInterval howRecent = [eventDate timeIntervalSinceNow];
     if (abs(howRecent) < 60.0) {
         // If the event is recent, do something with it.
-        //NSLog(@"latitude %+.6f, longitude %+.6f\n",location.coordinate.latitude,location.coordinate.longitude);
+        NSLog(@"latitude %+.6f, longitude %+.6f\n",location.coordinate.latitude,location.coordinate.longitude);
         userLocation = location;
         latitude =  [NSString stringWithFormat:@"%.6f",location.coordinate.latitude];
         longitude =  [NSString stringWithFormat:@"%.6f",location.coordinate.longitude];
@@ -100,7 +99,7 @@ CLLocation* userLocation;
         // know. We must be prepared to handle such unexpected situations.
         if ([request responseStatusCode] != 200)
         {
-            ShowErrorAlert(NSLocalizedString(@"There was an error communicating with the server", nil));
+            ShowErrorAlert(NSLocalizedString(@"Heatbeat : There was an error communicating with the server", nil));
         }
         else
         {

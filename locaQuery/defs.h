@@ -8,4 +8,4 @@
 //#define ServerApiURL @"http://scalepriv.ece.cmu.edu:44447/api.php"
 // Convenience function to show a UIAlertView
 void ShowErrorAlert(NSString* text);
-#define ourserver 0
+#define ourserver 1
