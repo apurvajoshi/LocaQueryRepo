@@ -15,6 +15,8 @@
 #import "locaQueryAppDelegate.h"
 #import "GPSlocation.h"
 #import "KBKeyboardHandler.h"
+#import "Replica.h"
+#import "ReplicaManager.h"
 
 @interface NewQuestionViewController ()
 - (void)updateBytesRemaining:(NSString*)text;
@@ -109,7 +111,11 @@ KBKeyboardHandler *keyboard;
 	NSString* text = self.questionText.text;
     
 	// Create the HTTP request object for our URL
-	NSURL* url = [NSURL URLWithString:ServerApiURL];
+    locaQueryAppDelegate *appDelegate = (locaQueryAppDelegate *)[UIApplication sharedApplication].delegate;
+	Replica* replica = [appDelegate.replicaManager getNearestReplica];
+    NSLog(@"nearest replica is : %@", replica.replicaURL);
+    NSURL* url = (NSURL *)replica.replicaURL;
+
 	__block ASIFormDataRequest* request = [ASIFormDataRequest requestWithURL:url];
 	[request setDelegate:self];
     [request setNumberOfTimesToRetryOnTimeout:1];
@@ -132,9 +138,7 @@ KBKeyboardHandler *keyboard;
     //NSLog(@"sending radius %@", radiusstr);
     [request setPostValue:self.radius.text forKey:@"Radius"];
     [request setPostValue:self.hops.text forKey:@"Hops"];
-    
-    locaQueryAppDelegate *appDelegate = (locaQueryAppDelegate *)[UIApplication sharedApplication].delegate;
-    
+        
     NSLog(@"longitude = : %@",[appDelegate.gpsLocation longitude]);
     NSLog(@"latitude = : %@", [appDelegate.gpsLocation latitude]);
     [request setPostValue:[appDelegate.gpsLocation latitude] forKey:@"GPS_lat"];
@@ -181,6 +185,7 @@ KBKeyboardHandler *keyboard;
 	// This code is executed when the HTTP request fails
 	[request setFailedBlock:^ {
         //change state of server to down for the specific server we used earlier
+        [appDelegate.replicaManager setReplicaDead:replica];
         [self postMessageRequest];
     }];
     

@@ -7,6 +7,7 @@
 //
 
 #import "QuestionThreadViewController.h"
+#import "locaQueryAppDelegate.h"
 #import "DataModel.h"
 #import "Message.h"
 #import "MessageTableViewCell.h"
@@ -15,6 +16,8 @@
 #import "MBProgressHUD.h"
 #import "defs.h"
 #import "KBKeyboardHandler.h"
+#import "ReplicaManager.h"
+#import "Replica.h"
 
 @implementation QuestionThreadViewController
 
@@ -149,7 +152,12 @@ KBKeyboardHandler *keyboard;
     
 	NSString* text = self.replyText.text;
     
-	NSURL* url = [NSURL URLWithString:ServerApiURL];
+	locaQueryAppDelegate *appDelegate = (locaQueryAppDelegate *)[UIApplication sharedApplication].delegate;
+    
+    Replica* replica = [appDelegate.replicaManager getNearestReplica];
+    NSLog(@"nearest replica is : %@", replica.replicaURL);
+    NSURL* url = (NSURL *)replica.replicaURL;
+
 	__block ASIFormDataRequest* request = [ASIFormDataRequest requestWithURL:url];
 	[request setDelegate:self];
     [request setNumberOfTimesToRetryOnTimeout:1];
@@ -178,6 +186,7 @@ KBKeyboardHandler *keyboard;
     
 	[request setFailedBlock:^ {
         //change state of server to down for the specific server we used earlier
+        [appDelegate.replicaManager setReplicaDead:replica];
         [self postMessageRequest];
     }];
     
