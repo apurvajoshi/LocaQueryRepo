@@ -185,6 +185,7 @@ KBKeyboardHandler *keyboard;
 	// This code is executed when the HTTP request fails
 	[request setFailedBlock:^ {
         //change state of server to down for the specific server we used earlier
+        [appDelegate.replicaManager setReplicaDead:replica];
         [self postMessageRequest];
     }];
     

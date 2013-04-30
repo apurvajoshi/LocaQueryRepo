@@ -50,8 +50,8 @@
 
 - (void)postJoinRequest
 {
-	MBProgressHUD* hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-	hud.labelText = NSLocalizedString(@"Connecting", nil);
+    MBProgressHUD* hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    hud.labelText = NSLocalizedString(@"Connecting", nil);
     
     
     NSLog(@"Starting with minimum distance calculation");
@@ -63,7 +63,7 @@
 	__block ASIFormDataRequest* request = [ASIFormDataRequest requestWithURL:url];
 	[request setDelegate:self];
     [request setNumberOfTimesToRetryOnTimeout:1];
-	[request setPostValue:@"join" forKey:@"cmd"];
+    [request setPostValue:@"join" forKey:@"cmd"];
     static NSString *fbid;
     static NSString *name;
     NSMutableArray *friends = [[NSMutableArray alloc] init];
@@ -146,6 +146,7 @@
                               [request setPostValue:@"friends" forKey:@"cmd"];
                               [request setFailedBlock:^ {
                                       //change state of server to down for the specific server we used earlier
+                                      [appDelegate.replicaManager setReplicaDead:replica];
                                       [self postJoinRequest];
                                }];
                               [fbrequest startWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
@@ -228,7 +229,7 @@
              }
          }];
 
-	
+    
     }
 }
 

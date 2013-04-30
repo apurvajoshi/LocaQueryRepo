@@ -7,6 +7,7 @@
 //
 
 #import "QuestionThreadViewController.h"
+#import "locaQueryAppDelegate.h"
 #import "DataModel.h"
 #import "Message.h"
 #import "MessageTableViewCell.h"

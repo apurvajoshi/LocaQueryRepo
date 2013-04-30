@@ -91,6 +91,7 @@ CLLocation* userLocation;
 	NSURL* url = [NSURL URLWithString:replica.replicaURL];
 	__block ASIFormDataRequest* request = [ASIFormDataRequest requestWithURL:url];
 	[request setDelegate:self];
+    [request setNumberOfTimesToRetryOnTimeout:1];
     
 	// Add the POST fields
 	[request setPostValue:@"heartbeat" forKey:@"cmd"];
