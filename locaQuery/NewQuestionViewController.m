@@ -42,7 +42,7 @@ KBKeyboardHandler *keyboard;
     [self updateBytesRemaining:@""];
     keyboard = [[KBKeyboardHandler alloc] init];
     keyboard.delegate = self;
-
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -118,12 +118,12 @@ KBKeyboardHandler *keyboard;
 	[request setDelegate:self];
     [request setNumberOfTimesToRetryOnTimeout:1];
     
-
+    
 	// Add the POST fields
     if (ourserver) {
-	   [request setPostValue:@"query" forKey:@"cmd"];
-       [request setPostValue:[dataModel fbid] forKey:@"Fid"];
-	   [request setPostValue:[dataModel udid] forKey:@"udid"];
+        [request setPostValue:@"query" forKey:@"cmd"];
+        [request setPostValue:[dataModel fbid] forKey:@"Fid"];
+        [request setPostValue:[dataModel udid] forKey:@"udid"];
     }
     else {
         [request setPostValue:[dataModel udid] forKey:@"udid"];
@@ -137,13 +137,13 @@ KBKeyboardHandler *keyboard;
     [request setPostValue:self.radius.text forKey:@"Radius"];
     [request setPostValue:self.hops.text forKey:@"Hops"];
     
-
+    
     
     NSLog(@"longitude = : %@",[appDelegate.gpsLocation longitude]);
     NSLog(@"latitude = : %@", [appDelegate.gpsLocation latitude]);
     [request setPostValue:[appDelegate.gpsLocation latitude] forKey:@"GPS_lat"];
 	[request setPostValue:[appDelegate.gpsLocation longitude] forKey:@"GPS_long"];
-
+    
     
 	// This code will be executed when the HTTP request is successful
 	[request setCompletionBlock:^
@@ -163,23 +163,24 @@ KBKeyboardHandler *keyboard;
              {
                  NSString* threadId = [[request responseHeaders] objectForKey:@"ThreadId"];
                  if (ourserver) {
-                 if (threadId != nil) {
-                     NSLog(@"ThreadId message %@", threadId);
-                     self.questionText.text = @"";
-                     self.radius.text = @"";
-                     self.hops.text = @"";
-                    [self userDidCompose:text :threadId];
-                    [self.navigationController popViewControllerAnimated:YES];
-                 }
-                 else {
-                     [self showAlert:@"No friend found nearby. Please increase the radius or the hops of friends and resend your question."];
-                 }
+                     if ([threadId length] != 0) {
+                         NSLog(@"ThreadId message %@", threadId);
+                         self.questionText.text = @"";
+                         self.radius.text = @"";
+                         self.hops.text = @"";
+                         [self userDidCompose:text :threadId];
+                         [self.navigationController popViewControllerAnimated:YES];
+                     }
+                     else {
+                         NSLog(@"ThreadId message %@", threadId);
+                         [self showAlert:@"No friend found nearby. Please increase the radius or the hops of friends and resend your question."];
+                     }
                  }
                  else {
                      threadId = @"0000";
                      [self userDidCompose:text :threadId];
                      [self.navigationController popViewControllerAnimated:YES];
-
+                     
                  }
              }
          }

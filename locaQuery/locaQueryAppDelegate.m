@@ -168,20 +168,28 @@ isNavigating = _isNavigating;
 	[parts removeObjectAtIndex:0];
     NSString* threadId = [parts objectAtIndex:0];
     message.threadId = threadId;
-    NSLog(@"thread id is %@", threadId);
+    NSLog(@" new thread id is %@", threadId);
 	[parts removeObjectAtIndex:0];
 	message.text = [parts componentsJoinedByString:@": "];
     
 	int index = [dataModel addMessage:message];
     
+    NSLog(@" Coming here!!! ");
+
+    
     if (updateUI)
     {
         if (nil ==  self.questionThreadViewController)
-            self.questionThreadViewController = [[QuestionThreadViewController alloc] initWithNibName:@"QuestionThreadViewController"
-                                                                                           bundle:nil];
-        self.questionThreadViewController.dataModel = dataModel;
-        [self.questionThreadViewController setThreadId:threadId];
-        [self.questionThreadViewController didSaveMessage:message atIndex:index];
+        {
+            self.questionThreadViewController = [[QuestionThreadViewController alloc] initWithNibName:@"QuestionThreadViewController" bundle:nil];
+
+            self.questionThreadViewController.dataModel = dataModel;
+            //self.questionThreadViewController.threadId= threadId;
+            [self.questionThreadViewController setThreadId :threadId];
+            [self.questionThreadViewController didSaveMessage:message atIndex:index];
+
+        }
+                           
         /*NSArray* viewControllers = self.navigationController.viewControllers;
         for (UIViewController* c in viewControllers) {
             if ([c isMemberOfClass:[QuestionThreadViewController class]]) {
@@ -191,29 +199,40 @@ isNavigating = _isNavigating;
             
         }*/
         //[self.navigationController popToViewController:self.mainViewController animated:NO];
-        if ([self.navigationController.visibleViewController isMemberOfClass:[QuestionThreadViewController class]]) {
+        if ([self.navigationController.topViewController isMemberOfClass:[QuestionThreadViewController class]]) {
             NSLog(@"Question view controller is visible");
-            QuestionThreadViewController *visibleController = self.navigationController.visibleViewController;
+            QuestionThreadViewController *visibleController = self.navigationController.topViewController;
+            NSLog(@"Visible controller thread id is %@", visibleController.threadId);
             if (visibleController.threadId != threadId) {
                 NSLog(@"Popped the other threadid controller");
-            [self.navigationController popViewControllerAnimated:NO];
+                [self.navigationController popViewControllerAnimated:NO];
                 QuestionThreadViewController *newThreadViewController = [[QuestionThreadViewController alloc] initWithNibName:@"QuestionThreadViewController"
                                                                                                    bundle:nil];
                 newThreadViewController.dataModel = dataModel;
-                [newThreadViewController setThreadId:threadId];
+                //newThreadViewController.threadId = threadId;
+                [newThreadViewController setThreadId :threadId];
                 [newThreadViewController didSaveMessage:message atIndex:index];
                 [self.navigationController pushViewController:newThreadViewController animated:YES];
             }
             else {
                 NSLog(@"push new chat view controller");
-                [self.navigationController pushViewController:self.questionThreadViewController animated:YES];
+                visibleController.dataModel = dataModel;
+                [visibleController didSaveMessage:message atIndex:index];
+                //[self.navigationController pushViewController:self.questionThreadViewController animated:YES];
 
             }
         }
-        else
+        else {
+            NSLog(@"another controller is at the the top");
+            //[self.questionThreadViewController setThreadId :threadId];
+            self.questionThreadViewController = [[QuestionThreadViewController alloc] initWithNibName:@"QuestionThreadViewController" bundle:nil];
+            self.questionThreadViewController.dataModel = dataModel;
+            self.questionThreadViewController.threadId = threadId;
+            [self.questionThreadViewController didSaveMessage:message atIndex:index];
             [self.navigationController pushViewController:self.questionThreadViewController animated:YES];
+        }
 
-                    
+        
     }
 
 }

@@ -25,7 +25,7 @@
 @synthesize dataModel, tableView, threadId;
 KBKeyboardHandler *keyboard;
 
-- (void)scrollToNewestMessage
+/*- (void)scrollToNewestMessage
 {
     NSLog(@"ScrollToNewestMessage");
     NSLog(@"dataModel messages count: %d", [self.dataModel getMessagesforId:threadId].count);
@@ -34,7 +34,7 @@ KBKeyboardHandler *keyboard;
 	NSIndexPath* indexPath = [NSIndexPath indexPathForRow:([self.dataModel getMessagesforId:threadId].count - 1) inSection:0];
     
 	[self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
-}
+}*/
 
 #pragma mark -
 #pragma mark NewQuestionDelegate 
@@ -48,7 +48,7 @@ KBKeyboardHandler *keyboard;
 	{
 		self.tableView.tableFooterView = nil;
 		[self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:index inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
-		[self scrollToNewestMessage];
+		//[self scrollToNewestMessage];
 	}
 }
 
@@ -80,7 +80,7 @@ KBKeyboardHandler *keyboard;
 	}
 	else
 	{
-		[self scrollToNewestMessage];
+		//[self scrollToNewestMessage];
 	}
 }
 
@@ -94,7 +94,8 @@ KBKeyboardHandler *keyboard;
 
 - (UITableViewCell*)tableView:(UITableView*)tableView cellForRowAtIndexPath:(NSIndexPath*)indexPath
 {
-    NSLog(@"cellForRowAtIndexPath getting called");
+    NSLog(@"threadId is %@", threadId);
+    NSLog(@"cellForRowAtIndexPath getting called at index %d", indexPath.row);
 	static NSString* CellIdentifier = @"MessageCellIdentifier";
     
 	MessageTableViewCell* cell = (MessageTableViewCell*)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
@@ -102,7 +103,9 @@ KBKeyboardHandler *keyboard;
 		cell = [[MessageTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     
 	Message* message = [[self.dataModel getMessagesforId:threadId] objectAtIndex:indexPath.row];
+    NSLog(@"message is %@", message.text);
 	[cell setMessage:message];
+    NSLog(@"return cell");
 	return cell;
 }
 
