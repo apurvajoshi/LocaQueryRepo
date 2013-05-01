@@ -203,7 +203,13 @@ isNavigating = _isNavigating;
             NSLog(@"Question view controller is visible");
             QuestionThreadViewController *visibleController = self.navigationController.topViewController;
             NSLog(@"Visible controller thread id is %@", visibleController.threadId);
-            if (visibleController.threadId != threadId) {
+            if ([visibleController.threadId isEqualToString: threadId]) {
+                NSLog(@"push new chat view controller");
+                visibleController.dataModel = dataModel;
+                [visibleController didSaveMessage:message atIndex:index];
+                //[self.navigationController pushViewController:self.questionThreadViewController animated:YES];
+            }
+            else {          
                 NSLog(@"Popped the other threadid controller");
                 [self.navigationController popViewControllerAnimated:NO];
                 QuestionThreadViewController *newThreadViewController = [[QuestionThreadViewController alloc] initWithNibName:@"QuestionThreadViewController"
@@ -214,13 +220,7 @@ isNavigating = _isNavigating;
                 [newThreadViewController didSaveMessage:message atIndex:index];
                 [self.navigationController pushViewController:newThreadViewController animated:YES];
             }
-            else {
-                NSLog(@"push new chat view controller");
-                visibleController.dataModel = dataModel;
-                [visibleController didSaveMessage:message atIndex:index];
-                //[self.navigationController pushViewController:self.questionThreadViewController animated:YES];
 
-            }
         }
         else {
             NSLog(@"another controller is at the the top");

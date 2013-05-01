@@ -140,6 +140,7 @@ KBKeyboardHandler *keyboard;
 	message.text = text;
     message.threadId = threadId;
     
+    [self.tableView reloadData];
 	// Add the Message to the data model's list of messages
 	int index = [dataModel addMessage:message];
     NSLog(@"put message at index %d", index);
