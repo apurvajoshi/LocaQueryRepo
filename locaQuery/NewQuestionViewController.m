@@ -165,6 +165,9 @@ KBKeyboardHandler *keyboard;
                  if (ourserver) {
                  if (threadId != nil) {
                      NSLog(@"ThreadId message %@", threadId);
+                     self.questionText.text = @"";
+                     self.radius.text = @"";
+                     self.hops.text = @"";
                     [self userDidCompose:text :threadId];
                     [self.navigationController popViewControllerAnimated:YES];
                  }

@@ -180,15 +180,40 @@ isNavigating = _isNavigating;
             self.questionThreadViewController = [[QuestionThreadViewController alloc] initWithNibName:@"QuestionThreadViewController"
                                                                                            bundle:nil];
         self.questionThreadViewController.dataModel = dataModel;
-        self.questionThreadViewController.threadId = threadId;
+        [self.questionThreadViewController setThreadId:threadId];
         [self.questionThreadViewController didSaveMessage:message atIndex:index];
-        if (self.navigationController.visibleViewController == self.questionThreadViewController) {
+        /*NSArray* viewControllers = self.navigationController.viewControllers;
+        for (UIViewController* c in viewControllers) {
+            if ([c isMemberOfClass:[QuestionThreadViewController class]]) {
+                [self.navigationController popToViewController:c animated:NO];
+                NSLog(@"we popped view controllers to get to the thread controller");
+            }
+            
+        }*/
+        //[self.navigationController popToViewController:self.mainViewController animated:NO];
+        if ([self.navigationController.visibleViewController isMemberOfClass:[QuestionThreadViewController class]]) {
             NSLog(@"Question view controller is visible");
+            QuestionThreadViewController *visibleController = self.navigationController.visibleViewController;
+            if (visibleController.threadId != threadId) {
+                NSLog(@"Popped the other threadid controller");
+            [self.navigationController popViewControllerAnimated:NO];
+                QuestionThreadViewController *newThreadViewController = [[QuestionThreadViewController alloc] initWithNibName:@"QuestionThreadViewController"
+                                                                                                   bundle:nil];
+                newThreadViewController.dataModel = dataModel;
+                [newThreadViewController setThreadId:threadId];
+                [newThreadViewController didSaveMessage:message atIndex:index];
+                [self.navigationController pushViewController:newThreadViewController animated:YES];
+            }
+            else {
+                NSLog(@"push new chat view controller");
+                [self.navigationController pushViewController:self.questionThreadViewController animated:YES];
+
+            }
         }
-        else {
-            NSLog(@"Push view controller");
-        [self.navigationController pushViewController:self.questionThreadViewController animated:YES];
-        }
+        else
+            [self.navigationController pushViewController:self.questionThreadViewController animated:YES];
+
+                    
     }
 
 }

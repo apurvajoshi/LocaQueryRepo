@@ -43,32 +43,32 @@ NSMutableArray* replicas;
     [replicas addObject:rep2];
     [replicas addObject:rep3];
     [replicas addObject:rep4];
-    NSLog(@"Coming here- initialzie2");
-    NSLog (@"Number of elements in array = %lu", (unsigned long)[replicas count]);
+    //NSLog(@"Coming here- initialzie2");
+    //NSLog (@"Number of elements in array = %lu", (unsigned long)[replicas count]);
 
 }
 
 - (Replica*) getNearestReplica
 {
-    NSLog(@"Coming here- getNearestReplica1");
+    //NSLog(@"Coming here- getNearestReplica1");
 
     locaQueryAppDelegate *appDelegate = (locaQueryAppDelegate *)[UIApplication sharedApplication].delegate;
     CLLocation* location = [appDelegate.gpsLocation getUserLocation];
-    NSLog(@"latitude %+.6f, longitude %+.6f\n",location.coordinate.latitude,location.coordinate.longitude);
+    //NSLog(@"latitude %+.6f, longitude %+.6f\n",location.coordinate.latitude,location.coordinate.longitude);
     CLLocation *userLoc = [[CLLocation alloc] initWithLatitude:location.coordinate.latitude longitude:location.coordinate.longitude];
     
-    NSLog (@" getNearestReplica Number of elements in array = %lu", (unsigned long)[replicas count]);
+    //NSLog (@" getNearestReplica Number of elements in array = %lu", (unsigned long)[replicas count]);
     int count  = 0;
     Replica *nearestReplica;
     Replica *replica;
     CLLocationDistance minDistance, distance;
     for (replica in replicas)
     {
-        NSLog(@"Alive status is : %d", replica.isAlive);
+        //NSLog(@"Alive status is : %d", replica.isAlive);
         if (replica.isAlive)
         {
-            NSLog(@"Coming here- getNearestReplica2");
-            NSLog(@"latitude %+.6f, longitude %+.6f\n",replica.location.coordinate.latitude,replica.location.coordinate.longitude);
+            //NSLog(@"Coming here- getNearestReplica2");
+            //NSLog(@"latitude %+.6f, longitude %+.6f\n",replica.location.coordinate.latitude,replica.location.coordinate.longitude);
 
             if( count == 0)
             {
@@ -81,7 +81,7 @@ NSMutableArray* replicas;
                 distance = [userLoc distanceFromLocation:replica.location];
             }
             
-            NSLog(@"Distance = %f",distance );
+            //NSLog(@"Distance = %f",distance );
             if(distance < minDistance )
             {
                 minDistance = distance;
@@ -92,13 +92,13 @@ NSMutableArray* replicas;
         }
     }
     
-    NSLog(@" Min Distance : %f", minDistance);
+    //NSLog(@" Min Distance : %f", minDistance);
     return nearestReplica;
 }
 
 - (void) setReplicaDead :(Replica*) rep
 {
-    NSLog(@"replica is : %@", rep.replicaURL);
+    //NSLog(@"replica is : %@", rep.replicaURL);
     //[rep setStatus:false];
     rep.status = false;
 }

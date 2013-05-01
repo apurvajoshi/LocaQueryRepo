@@ -52,7 +52,10 @@ KBKeyboardHandler *keyboard;
 	}
 }
 
-
+- (void) setThreadId:(NSString *)tid {
+    threadId = tid;
+    [self.tableView reloadData];
+}
 
 - (void)viewWillAppear:(BOOL)animated
 {

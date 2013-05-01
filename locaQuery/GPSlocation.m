@@ -31,7 +31,7 @@ CLLocation* userLocation;
     
     locationManager.delegate = self;
     locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-    locationManager.distanceFilter =  10;
+    locationManager.distanceFilter =  1;
 
     [locationManager startUpdatingLocation];
 }
@@ -87,7 +87,7 @@ CLLocation* userLocation;
 	// Create the HTTP request object for our URL
     locaQueryAppDelegate *appDelegate = (locaQueryAppDelegate *)[UIApplication sharedApplication].delegate;
     Replica* replica = [appDelegate.replicaManager getNearestReplica];
-    NSLog(@"nearest replica is : %@", replica.replicaURL);
+    //NSLog(@"nearest replica is : %@", replica.replicaURL);
 	NSURL* url = [NSURL URLWithString:replica.replicaURL];
 	__block ASIFormDataRequest* request = [ASIFormDataRequest requestWithURL:url];
 	[request setDelegate:self];
@@ -98,7 +98,7 @@ CLLocation* userLocation;
 	[request setPostValue:[dataModel fbid] forKey:@"Fid"];
 	[request setPostValue:latitude forKey:@"GPS_lat"];
 	[request setPostValue:longitude forKey:@"GPS_long"];
-    
+    NSLog(@"sending heartbeat with latitude %@, longitude %@\n",latitude, longitude);
 	// This code will be executed when the HTTP request is successful
 	[request setCompletionBlock:^
      {
