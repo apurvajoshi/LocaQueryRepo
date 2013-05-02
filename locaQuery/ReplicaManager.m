@@ -28,11 +28,13 @@ NSMutableArray* replicas;
     replicas = [[NSMutableArray alloc] init];
     
     Replica *rep1 = [[Replica alloc] init];
-    [rep1 initialize:@"Replica1" :@"1" :@"http://128.237.113.173:44447/api.php" :locA :true];
+    //[rep1 initialize:@"Replica1" :@"1" :@"http://128.237.113.173:44447/api.php" :locA :true];
+    [rep1 initialize:@"Replica1" :@"1" :@"http://128.237.204.59:44447/api.php" :locA :true];
+
     
     Replica *rep2 = [[Replica alloc] init];
-    //[rep2 initialize:@"Replica2" :@"http://128.237.204.59:44447/api.php" :locB :true];
-    [rep2 initialize:@"Replica2" :@"2" :@"http://128.237.113.173:44447/api.php" :locB :true];
+    [rep2 initialize:@"Replica2" :@"2" :@"http://128.237.204.59:44447/api.php" :locB :true];
+    //[rep2 initialize:@"Replica2" :@"2" :@"http://128.237.113.173:44447/api.php" :locB :true];
     
     Replica *rep3 = [[Replica alloc] init];
     [rep3 initialize:@"Replica3" :@"3" :@"http://scalepriv-idp.ece.cmu.edu:44447/api.php" :locC :true];
