@@ -148,7 +148,7 @@ isNavigating = _isNavigating;
 - (void)application:(UIApplication*)application didReceiveRemoteNotification:(NSDictionary*)userInfo
 {
 	NSLog(@"Received notification: %@", userInfo);
-    if([userInfo objectForKey:@"alert"]) {
+    if([[userInfo valueForKey:@"aps"] valueForKey:@"alert"]) {
 	        [self addMessageFromRemoteNotification:userInfo updateUI:YES];
     }
     else {
