@@ -31,7 +31,7 @@ CLLocation* userLocation;
     
     locationManager.delegate = self;
     locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-    locationManager.distanceFilter =  10;
+    locationManager.distanceFilter =  1;
 
     [locationManager startUpdatingLocation];
 }
@@ -87,7 +87,7 @@ CLLocation* userLocation;
 	// Create the HTTP request object for our URL
     locaQueryAppDelegate *appDelegate = (locaQueryAppDelegate *)[UIApplication sharedApplication].delegate;
     Replica* replica = [appDelegate.replicaManager getNearestReplica];
-    //NSLog(@"nearest replica is : %@", replica.replicaURL);
+    NSLog(@"nearest replica is : %@", replica.replicaURL);
 	NSURL* url = [NSURL URLWithString:replica.replicaURL];
 	__block ASIFormDataRequest* request = [ASIFormDataRequest requestWithURL:url];
 	[request setDelegate:self];

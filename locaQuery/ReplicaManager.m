@@ -20,26 +20,26 @@ NSMutableArray* replicas;
 - (void)initialize
 {
     NSLog(@"Coming here- initialzie1");
-    CLLocation *locA = [[CLLocation alloc] initWithLatitude:+41.444731 longitude:-79.948062];
-    CLLocation *locB = [[CLLocation alloc] initWithLatitude:+42.444731 longitude:-79.948062];
-    CLLocation *locC = [[CLLocation alloc] initWithLatitude:+43.444731 longitude:-79.948062];
-    CLLocation *locD = [[CLLocation alloc] initWithLatitude:+44.444731 longitude:-79.948062];
+//    CLLocation *locA = [[CLLocation alloc] initWithLatitude:+40.443983 longitude:-79.946512]; //CIC
+    CLLocation *locB = [[CLLocation alloc] initWithLatitude:+40.443390 longitude:-79.942332]; //UC
+    CLLocation *locC = [[CLLocation alloc] initWithLatitude:+40.710992 longitude:-74.005615]; //New York
+    CLLocation *locD = [[CLLocation alloc] initWithLatitude:+37.774930 longitude:-122.419415]; //San Francisco
 
     replicas = [[NSMutableArray alloc] init];
     
-    Replica *rep1 = [[Replica alloc] init];
-    [rep1 initialize:@"Replica1" :ServerApiURL :locA :true];
+//    Replica *rep1 = [[Replica alloc] init];
+//    [rep1 initialize:@"Replica1" :@"http://128.237.113.173:44447/api.php" :locA :true];
     
     Replica *rep2 = [[Replica alloc] init];
-    [rep2 initialize:@"Replica2" :ServerApiURL :locB :true];
+    [rep2 initialize:@"Replica2" :@"http://128.237.113.173:44447/api.php" :locB :true];
     
     Replica *rep3 = [[Replica alloc] init];
-    [rep3 initialize:@"Replica3" :ServerApiURL :locC :true];
+    [rep3 initialize:@"Replica3" :@"http://scalepriv-idp.ece.cmu.edu:44447/api.php" :locC :true];
     
     Replica *rep4 = [[Replica alloc] init];
-    [rep4 initialize:@"Replica4" :ServerApiURL :locD :true];
+    [rep4 initialize:@"Replica4" :@"http://scalepriv-idp.ece.cmu.edu:44447/api.php" :locD :true];
     
-    [replicas addObject:rep1];
+//    [replicas addObject:rep1];
     [replicas addObject:rep2];
     [replicas addObject:rep3];
     [replicas addObject:rep4];

@@ -74,12 +74,8 @@ isNavigating = _isNavigating;
     
     [self.window makeKeyAndVisible];
     
-    // Show the login screen if the user hasn't joined a chat yet
-	if (![dataModel joinedChat])
-	{
-		self.loginViewController.dataModel = dataModel;
-        self.loginViewController.gpsLocation = gpsLocation;
-	}
+    self.loginViewController.dataModel = dataModel;
+    self.loginViewController.gpsLocation = gpsLocation;
     
     // Let the device know we want to receive push notifications
 	[[UIApplication sharedApplication] registerForRemoteNotificationTypes:
