@@ -148,7 +148,16 @@ isNavigating = _isNavigating;
 - (void)application:(UIApplication*)application didReceiveRemoteNotification:(NSDictionary*)userInfo
 {
 	NSLog(@"Received notification: %@", userInfo);
-	[self addMessageFromRemoteNotification:userInfo updateUI:YES];
+    if([userInfo objectForKey:@"alert"]) {
+	        [self addMessageFromRemoteNotification:userInfo updateUI:YES];
+    }
+    else {
+        NSString* badgeValue = [[userInfo valueForKey:@"aps"] valueForKey:@"badge"];
+        NSLog(@"badge number received = %@", badgeValue);
+        [replicaManager setReplicaAlive:badgeValue];
+        [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
+        //NSLog(@"badge number = %d", [UIApplication sharedApplication].applicationIconBadgeNumber);
+    }
 }
 
 - (void)addMessageFromRemoteNotification:(NSDictionary*)userInfo updateUI:(BOOL)updateUI

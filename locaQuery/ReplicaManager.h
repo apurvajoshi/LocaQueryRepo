@@ -14,5 +14,6 @@
 - (void)initialize;
 - (Replica*) getNearestReplica;
 - (void) setReplicaDead :(Replica*) rep;
+- (void) setReplicaAlive :(NSString*) rid;
 
 @end

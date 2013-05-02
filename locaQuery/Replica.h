@@ -12,12 +12,13 @@
 @interface Replica : NSObject
 
 @property (nonatomic, copy) NSString* replicaName;
+@property (nonatomic, copy) NSString* replicaId;
 @property (nonatomic, copy) CLLocation* location;
 @property (nonatomic, copy) NSString* replicaURL;
 @property (nonatomic, assign) bool status;
 
 - (bool)isAlive;
-- (void)initialize:(NSString*)name :(NSString*)URL :(CLLocation*)loc :(bool)s;
+- (void)initialize:(NSString*)name :(NSString*)rid :(NSString*)URL :(CLLocation*)loc :(bool)s;
 //- (void)setStatus:(bool)s;
 - (NSString*)getURL;
 

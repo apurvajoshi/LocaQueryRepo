@@ -13,9 +13,10 @@
 
 @synthesize replicaName, replicaURL, location, status;
 
-- (void)initialize:(NSString*)name :(NSString*)URL :(CLLocation*)loc :(bool)s
+- (void)initialize:(NSString*)name :(NSString*)rid :(NSString*)URL :(CLLocation*)loc :(bool)s
 {
     self.replicaName = name;
+    self.replicaId = rid;
     self.location = loc;
     self.replicaURL = URL;
     self.status = s;
