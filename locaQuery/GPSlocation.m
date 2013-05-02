@@ -31,7 +31,7 @@ CLLocation* userLocation;
     
     locationManager.delegate = self;
     locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-    locationManager.distanceFilter =  1;
+    locationManager.distanceFilter =  10;
 
     [locationManager startUpdatingLocation];
 }

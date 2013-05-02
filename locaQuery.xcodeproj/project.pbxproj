@@ -551,6 +551,7 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos iOS";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -565,11 +566,13 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "locaQuery/locaQuery-Prefix.pch";
 				INFOPLIST_FILE = "locaQuery/locaQuery-Info.plist";
+				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
 					"-lsqlite3.0",
 					"-ObjC",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos iOS";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
