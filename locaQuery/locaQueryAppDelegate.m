@@ -258,6 +258,15 @@ isNavigating = _isNavigating;
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
+
+    int badgeCount = [UIApplication sharedApplication].applicationIconBadgeNumber;
+    if (badgeCount != 0)
+    {
+        NSLog(@"badge count = %d", badgeCount);
+        [replicaManager setReplicaAlive:[NSString stringWithFormat:@"%d", badgeCount]];
+        [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
+        NSLog(@"badge number = %d", [UIApplication sharedApplication].applicationIconBadgeNumber);
+    }
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
